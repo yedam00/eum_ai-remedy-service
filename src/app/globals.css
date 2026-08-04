@@ -121,10 +121,237 @@
   }
 }
 
+/* ========================================
+ * Typography Tokens (Figma: Typography · 2025:3390)
+ * ko / en — en은 추후 별도 값으로 교체 가능
+ * ======================================== */
+
+:root {
+  --typography-ko-font-family: "Pretendard", sans-serif;
+  --typography-en-font-family: "Pretendard", sans-serif;
+
+  /* H1 — 28 / 46 */
+  --typography-ko-h1-lg-font-size: 28px;
+  --typography-ko-h1-lg-font-weight: 600;
+  --typography-ko-h1-lg-line-height: 46px;
+  --typography-ko-h1-lg-letter-spacing: 0;
+  --typography-ko-h1-md-font-size: 28px;
+  --typography-ko-h1-md-font-weight: 500;
+  --typography-ko-h1-md-line-height: 46px;
+  --typography-ko-h1-md-letter-spacing: 0;
+  --typography-ko-h1-sm-font-size: 28px;
+  --typography-ko-h1-sm-font-weight: 400;
+  --typography-ko-h1-sm-line-height: 46px;
+  --typography-ko-h1-sm-letter-spacing: 0;
+
+  /* H2 — 24 / 46 */
+  --typography-ko-h2-lg-font-size: 24px;
+  --typography-ko-h2-lg-font-weight: 600;
+  --typography-ko-h2-lg-line-height: 46px;
+  --typography-ko-h2-lg-letter-spacing: 0;
+  --typography-ko-h2-md-font-size: 24px;
+  --typography-ko-h2-md-font-weight: 500;
+  --typography-ko-h2-md-line-height: 46px;
+  --typography-ko-h2-md-letter-spacing: 0;
+  --typography-ko-h2-sm-font-size: 24px;
+  --typography-ko-h2-sm-font-weight: 400;
+  --typography-ko-h2-sm-line-height: 46px;
+  --typography-ko-h2-sm-letter-spacing: 0;
+
+  /* Sub01 — 22 / 38 */
+  --typography-ko-sub01-lg-font-size: 22px;
+  --typography-ko-sub01-lg-font-weight: 600;
+  --typography-ko-sub01-lg-line-height: 38px;
+  --typography-ko-sub01-lg-letter-spacing: 0;
+  --typography-ko-sub01-md-font-size: 22px;
+  --typography-ko-sub01-md-font-weight: 500;
+  --typography-ko-sub01-md-line-height: 38px;
+  --typography-ko-sub01-md-letter-spacing: 0;
+  --typography-ko-sub01-sm-font-size: 22px;
+  --typography-ko-sub01-sm-font-weight: 400;
+  --typography-ko-sub01-sm-line-height: 38px;
+  --typography-ko-sub01-sm-letter-spacing: 0;
+
+  /* Sub02 — 20 / 38 */
+  --typography-ko-sub02-lg-font-size: 20px;
+  --typography-ko-sub02-lg-font-weight: 600;
+  --typography-ko-sub02-lg-line-height: 38px;
+  --typography-ko-sub02-lg-letter-spacing: 0;
+  --typography-ko-sub02-md-font-size: 20px;
+  --typography-ko-sub02-md-font-weight: 500;
+  --typography-ko-sub02-md-line-height: 38px;
+  --typography-ko-sub02-md-letter-spacing: 0;
+  --typography-ko-sub02-sm-font-size: 20px;
+  --typography-ko-sub02-sm-font-weight: 400;
+  --typography-ko-sub02-sm-line-height: 38px;
+  --typography-ko-sub02-sm-letter-spacing: 0;
+
+  /* Body01 — 18 / 26 */
+  --typography-ko-body01-lg-font-size: 18px;
+  --typography-ko-body01-lg-font-weight: 600;
+  --typography-ko-body01-lg-line-height: 26px;
+  --typography-ko-body01-lg-letter-spacing: 0;
+  --typography-ko-body01-md-font-size: 18px;
+  --typography-ko-body01-md-font-weight: 500;
+  --typography-ko-body01-md-line-height: 26px;
+  --typography-ko-body01-md-letter-spacing: 0;
+  --typography-ko-body01-sm-font-size: 18px;
+  --typography-ko-body01-sm-font-weight: 400;
+  --typography-ko-body01-sm-line-height: 26px;
+  --typography-ko-body01-sm-letter-spacing: 0;
+
+  /* Body02 — 16 / 26 */
+  --typography-ko-body02-lg-font-size: 16px;
+  --typography-ko-body02-lg-font-weight: 600;
+  --typography-ko-body02-lg-line-height: 26px;
+  --typography-ko-body02-lg-letter-spacing: 0;
+  --typography-ko-body02-md-font-size: 16px;
+  --typography-ko-body02-md-font-weight: 500;
+  --typography-ko-body02-md-line-height: 26px;
+  --typography-ko-body02-md-letter-spacing: 0;
+  --typography-ko-body02-sm-font-size: 16px;
+  --typography-ko-body02-sm-font-weight: 400;
+  --typography-ko-body02-sm-line-height: 26px;
+  --typography-ko-body02-sm-letter-spacing: 0;
+
+  /* Caption01 — 14 / 22 */
+  --typography-ko-caption01-lg-font-size: 14px;
+  --typography-ko-caption01-lg-font-weight: 600;
+  --typography-ko-caption01-lg-line-height: 22px;
+  --typography-ko-caption01-lg-letter-spacing: 0;
+  --typography-ko-caption01-md-font-size: 14px;
+  --typography-ko-caption01-md-font-weight: 500;
+  --typography-ko-caption01-md-line-height: 22px;
+  --typography-ko-caption01-md-letter-spacing: 0;
+  --typography-ko-caption01-sm-font-size: 14px;
+  --typography-ko-caption01-sm-font-weight: 400;
+  --typography-ko-caption01-sm-line-height: 22px;
+  --typography-ko-caption01-sm-letter-spacing: 0;
+
+  /* Caption02 — 12 / 22 */
+  --typography-ko-caption02-lg-font-size: 12px;
+  --typography-ko-caption02-lg-font-weight: 600;
+  --typography-ko-caption02-lg-line-height: 22px;
+  --typography-ko-caption02-lg-letter-spacing: 0;
+  --typography-ko-caption02-md-font-size: 12px;
+  --typography-ko-caption02-md-font-weight: 500;
+  --typography-ko-caption02-md-line-height: 22px;
+  --typography-ko-caption02-md-letter-spacing: 0;
+  --typography-ko-caption02-sm-font-size: 12px;
+  --typography-ko-caption02-sm-font-weight: 400;
+  --typography-ko-caption02-sm-line-height: 22px;
+  --typography-ko-caption02-sm-letter-spacing: 0;
+
+  /* EN — 현재 KO와 동일, 추후 영문 전용 값으로 교체 가능 */
+  --typography-en-h1-lg-font-size: 28px;
+  --typography-en-h1-lg-font-weight: 600;
+  --typography-en-h1-lg-line-height: 46px;
+  --typography-en-h1-lg-letter-spacing: 0;
+  --typography-en-h1-md-font-size: 28px;
+  --typography-en-h1-md-font-weight: 500;
+  --typography-en-h1-md-line-height: 46px;
+  --typography-en-h1-md-letter-spacing: 0;
+  --typography-en-h1-sm-font-size: 28px;
+  --typography-en-h1-sm-font-weight: 400;
+  --typography-en-h1-sm-line-height: 46px;
+  --typography-en-h1-sm-letter-spacing: 0;
+
+  --typography-en-h2-lg-font-size: 24px;
+  --typography-en-h2-lg-font-weight: 600;
+  --typography-en-h2-lg-line-height: 46px;
+  --typography-en-h2-lg-letter-spacing: 0;
+  --typography-en-h2-md-font-size: 24px;
+  --typography-en-h2-md-font-weight: 500;
+  --typography-en-h2-md-line-height: 46px;
+  --typography-en-h2-md-letter-spacing: 0;
+  --typography-en-h2-sm-font-size: 24px;
+  --typography-en-h2-sm-font-weight: 400;
+  --typography-en-h2-sm-line-height: 46px;
+  --typography-en-h2-sm-letter-spacing: 0;
+
+  --typography-en-sub01-lg-font-size: 22px;
+  --typography-en-sub01-lg-font-weight: 600;
+  --typography-en-sub01-lg-line-height: 38px;
+  --typography-en-sub01-lg-letter-spacing: 0;
+  --typography-en-sub01-md-font-size: 22px;
+  --typography-en-sub01-md-font-weight: 500;
+  --typography-en-sub01-md-line-height: 38px;
+  --typography-en-sub01-md-letter-spacing: 0;
+  --typography-en-sub01-sm-font-size: 22px;
+  --typography-en-sub01-sm-font-weight: 400;
+  --typography-en-sub01-sm-line-height: 38px;
+  --typography-en-sub01-sm-letter-spacing: 0;
+
+  --typography-en-sub02-lg-font-size: 20px;
+  --typography-en-sub02-lg-font-weight: 600;
+  --typography-en-sub02-lg-line-height: 38px;
+  --typography-en-sub02-lg-letter-spacing: 0;
+  --typography-en-sub02-md-font-size: 20px;
+  --typography-en-sub02-md-font-weight: 500;
+  --typography-en-sub02-md-line-height: 38px;
+  --typography-en-sub02-md-letter-spacing: 0;
+  --typography-en-sub02-sm-font-size: 20px;
+  --typography-en-sub02-sm-font-weight: 400;
+  --typography-en-sub02-sm-line-height: 38px;
+  --typography-en-sub02-sm-letter-spacing: 0;
+
+  --typography-en-body01-lg-font-size: 18px;
+  --typography-en-body01-lg-font-weight: 600;
+  --typography-en-body01-lg-line-height: 26px;
+  --typography-en-body01-lg-letter-spacing: 0;
+  --typography-en-body01-md-font-size: 18px;
+  --typography-en-body01-md-font-weight: 500;
+  --typography-en-body01-md-line-height: 26px;
+  --typography-en-body01-md-letter-spacing: 0;
+  --typography-en-body01-sm-font-size: 18px;
+  --typography-en-body01-sm-font-weight: 400;
+  --typography-en-body01-sm-line-height: 26px;
+  --typography-en-body01-sm-letter-spacing: 0;
+
+  --typography-en-body02-lg-font-size: 16px;
+  --typography-en-body02-lg-font-weight: 600;
+  --typography-en-body02-lg-line-height: 26px;
+  --typography-en-body02-lg-letter-spacing: 0;
+  --typography-en-body02-md-font-size: 16px;
+  --typography-en-body02-md-font-weight: 500;
+  --typography-en-body02-md-line-height: 26px;
+  --typography-en-body02-md-letter-spacing: 0;
+  --typography-en-body02-sm-font-size: 16px;
+  --typography-en-body02-sm-font-weight: 400;
+  --typography-en-body02-sm-line-height: 26px;
+  --typography-en-body02-sm-letter-spacing: 0;
+
+  --typography-en-caption01-lg-font-size: 14px;
+  --typography-en-caption01-lg-font-weight: 600;
+  --typography-en-caption01-lg-line-height: 22px;
+  --typography-en-caption01-lg-letter-spacing: 0;
+  --typography-en-caption01-md-font-size: 14px;
+  --typography-en-caption01-md-font-weight: 500;
+  --typography-en-caption01-md-line-height: 22px;
+  --typography-en-caption01-md-letter-spacing: 0;
+  --typography-en-caption01-sm-font-size: 14px;
+  --typography-en-caption01-sm-font-weight: 400;
+  --typography-en-caption01-sm-line-height: 22px;
+  --typography-en-caption01-sm-letter-spacing: 0;
+
+  --typography-en-caption02-lg-font-size: 12px;
+  --typography-en-caption02-lg-font-weight: 600;
+  --typography-en-caption02-lg-line-height: 22px;
+  --typography-en-caption02-lg-letter-spacing: 0;
+  --typography-en-caption02-md-font-size: 12px;
+  --typography-en-caption02-md-font-weight: 500;
+  --typography-en-caption02-md-line-height: 22px;
+  --typography-en-caption02-md-letter-spacing: 0;
+  --typography-en-caption02-sm-font-size: 12px;
+  --typography-en-caption02-sm-font-weight: 400;
+  --typography-en-caption02-sm-line-height: 22px;
+  --typography-en-caption02-sm-letter-spacing: 0;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--typography-ko-font-family);
 }
 
 @layer utilities {
