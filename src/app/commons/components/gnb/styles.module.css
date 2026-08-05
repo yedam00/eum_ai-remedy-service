@@ -1,0 +1,95 @@
+/* ========================================
+ * GNB — Figma: GNB · 3:3222
+ * ======================================== */
+
+/* ---------- Bar (equal flex layout) ---------- */
+
+.bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 21px;
+}
+
+/* ---------- Item ---------- */
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 1 1 0;
+  width: 106px;
+  min-width: 0;
+  max-width: 106px;
+  height: 62px;
+  margin: 0;
+  padding: 6px 0;
+  border: none;
+  border-radius: 9999px;
+  background-color: transparent;
+  color: var(--color-text-placeholder);
+  font-family: var(--typography-ko-font-family);
+  font-size: var(--typography-ko-body02-sm-font-size);
+  font-weight: var(--typography-ko-body02-sm-font-weight);
+  line-height: var(--typography-ko-body02-sm-line-height);
+  letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.item:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ---------- State ---------- */
+
+.stateDefault {
+  background-color: transparent;
+  color: var(--color-text-placeholder);
+}
+
+.stateSelected {
+  background-color: var(--color-bg-brand-secondary);
+  color: var(--color-text-brand);
+}
+
+.stateDefault .iconSlot {
+  color: var(--color-icon-disabled);
+}
+
+.stateSelected .iconSlot {
+  color: var(--color-icon-brand);
+}
+
+/* ---------- Slots ---------- */
+
+.iconSlot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.iconSlot svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-align: center;
+}
