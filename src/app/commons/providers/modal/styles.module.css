@@ -1,0 +1,23 @@
+/* Modal overlay — full viewport dimming layer */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal content — mobile layout: 100% width, no horizontal margins */
+.modal {
+  position: relative;
+  z-index: 1001;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+  background-color: var(--color-bg-primary, #ffffff);
+  color: var(--color-text-primary, #2a2c34);
+}
