@@ -1,50 +1,49 @@
 /* ========================================
  * GNB — Figma: GNB · 3:3222
+ * Variants: State=Default|Selected × menu=home|history|profile
  * ======================================== */
-
-/* ---------- Bar (equal flex layout) ---------- */
 
 .bar {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
+  align-items: stretch;
+  justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
-  gap: 21px;
+  gap: 0;
 }
 
-/* ---------- Item ---------- */
-
 .item {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  flex: 1 1 0;
-  width: 106px;
-  min-width: 0;
-  max-width: 106px;
-  height: 62px;
   margin: 0;
   padding: 6px 0;
+  width: 106px;
+  height: 62px;
   border: none;
   border-radius: 9999px;
   background-color: transparent;
-  color: var(--color-text-placeholder);
   font-family: var(--typography-ko-font-family);
   font-size: var(--typography-ko-body02-sm-font-size);
   font-weight: var(--typography-ko-body02-sm-font-weight);
   line-height: var(--typography-ko-body02-sm-line-height);
   letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
-  white-space: nowrap;
   cursor: pointer;
+  gap: 0;
+}
+
+.bar > .item {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
 }
 
 .item:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.48;
 }
 
 /* ---------- State ---------- */
@@ -54,13 +53,13 @@
   color: var(--color-text-placeholder);
 }
 
+.stateDefault .iconSlot {
+  color: var(--color-icon-disabled);
+}
+
 .stateSelected {
   background-color: var(--color-bg-brand-secondary);
   color: var(--color-text-brand);
-}
-
-.stateDefault .iconSlot {
-  color: var(--color-icon-disabled);
 }
 
 .stateSelected .iconSlot {
@@ -70,7 +69,7 @@
 /* ---------- Slots ---------- */
 
 .iconSlot {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -79,17 +78,18 @@
   height: 24px;
 }
 
-.iconSlot svg {
+.iconSlot > svg {
   display: block;
   width: 24px;
   height: 24px;
 }
 
 .label {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: inherit;
   text-align: center;
+  white-space: nowrap;
+  color: inherit;
 }

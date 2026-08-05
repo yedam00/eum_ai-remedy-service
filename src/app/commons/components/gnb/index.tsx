@@ -1,6 +1,5 @@
 import {
   type ButtonHTMLAttributes,
-  type ReactElement,
   type ReactNode,
   type SVGProps,
 } from "react";
@@ -45,11 +44,12 @@ const MENU_ORDER: GnbMenu[] = ["home", "history", "profile"];
 
 /* ========================================
  * Icons — Figma GNB filled icons (24×24)
- * Home / History / Profile 은 icons 세트에 없어 GNB 전용으로 구성
+ * home / history / profile (nodes 2009:8535 · 8529 · 8532)
  * ======================================== */
 
 type MenuIconProps = SVGProps<SVGSVGElement>;
 
+/** Speech-bubble (chat) — Home · Figma 2009:8535 */
 function HomeIcon(props: MenuIconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden {...props}>
@@ -57,12 +57,13 @@ function HomeIcon(props: MenuIconProps) {
         fill="currentColor"
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M4.5 5.25C4.5 4.007 5.507 3 6.75 3h10.5C18.493 3 19.5 4.007 19.5 5.25v8.5c0 1.243-1.007 2.25-2.25 2.25H13.5l-2.4 2.4a.75.75 0 0 1-1.28-.53V16H6.75A2.25 2.25 0 0 1 4.5 13.75v-8.5ZM8 7.25a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5H8Zm0 3a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5H8Zm0 3a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5H8Z"
+        d="M4 6.2C4 4.98497 4.98497 4 6.2 4H17.8C19.015 4 20 4.98497 20 6.2V13.8C20 15.015 19.015 16 17.8 16H9.2L4 21V6.2ZM7 7.75C6.58579 7.75 6.25 8.08579 6.25 8.5C6.25 8.91421 6.58579 9.25 7 9.25H16.5C16.9142 9.25 17.25 8.91421 17.25 8.5C17.25 8.08579 16.9142 7.75 16.5 7.75H7ZM7 10.75C6.58579 10.75 6.25 11.0858 6.25 11.5C6.25 11.9142 6.58579 12.25 7 12.25H16.5C16.9142 12.25 17.25 11.9142 17.25 11.5C17.25 11.0858 16.9142 10.75 16.5 10.75H7ZM7 13.75C6.58579 13.75 6.25 14.0858 6.25 14.5C6.25 14.9142 6.58579 15.25 7 15.25H13.5C13.9142 15.25 14.25 14.9142 14.25 14.5C14.25 14.0858 13.9142 13.75 13.5 13.75H7Z"
       />
     </svg>
   );
 }
 
+/** Clock — History · Figma 2009:8529 */
 function HistoryIcon(props: MenuIconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden {...props}>
@@ -70,24 +71,25 @@ function HistoryIcon(props: MenuIconProps) {
         fill="currentColor"
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17ZM12.75 7a.75.75 0 0 0-1.5 0v5c0 .199.079.39.22.53l3 3a.75.75 0 1 0 1.06-1.06l-2.78-2.78V7Z"
+        d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM13 7.5C13 6.94772 12.5523 6.5 12 6.5C11.4477 6.5 11 6.94772 11 7.5V12C11 12.5523 11.4477 13 12 13H15.5C16.0523 13 16.5 12.5523 16.5 12C16.5 11.4477 16.0523 11 15.5 11H13V7.5Z"
       />
     </svg>
   );
 }
 
+/** User silhouette — Profile · Figma 2009:8532 */
 function ProfileIcon(props: MenuIconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden {...props}>
       <path
         fill="currentColor"
-        d="M12 4a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 4ZM6.5 15.25c0-1.795 2.239-3 5.5-3s5.5 1.205 5.5 3V18a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 6.5 18v-2.75Z"
+        d="M12 3C9.51472 3 7.5 5.01472 7.5 7.5C7.5 9.98528 9.51472 12 12 12C14.4853 12 16.5 9.98528 16.5 7.5C16.5 5.01472 14.4853 3 12 3ZM5.25 18.75C5.25 16.1266 8.07452 14.5 12 14.5C15.9255 14.5 18.75 16.1266 18.75 18.75V20C18.75 20.6904 18.1904 21.25 17.5 21.25H6.5C5.80964 21.25 5.25 20.6904 5.25 20V18.75Z"
       />
     </svg>
   );
 }
 
-const MENU_ICON: Record<GnbMenu, (props: MenuIconProps) => ReactElement> = {
+const MENU_ICON: Record<GnbMenu, (props: MenuIconProps) => JSX.Element> = {
   home: HomeIcon,
   history: HistoryIcon,
   profile: ProfileIcon,
@@ -127,11 +129,7 @@ export function Gnb({
       type={type}
       disabled={isDisabled}
       aria-current={state === "selected" ? "page" : undefined}
-      className={cx(
-        styles.item,
-        STATE_CLASS[state],
-        className
-      )}
+      className={cx(styles.item, STATE_CLASS[state], className)}
       {...rest}
     >
       <span className={styles.iconSlot}>
