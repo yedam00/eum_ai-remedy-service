@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import ChatStateProvider from "./commons/providers/chat-state/chat-state.provider";
 import ModalProvider from "./commons/providers/modal/modal.provider";
 import ReactQueryProvider from "./commons/providers/react-query/react-query.provider";
 
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReactQueryProvider>
-          <ModalProvider>{children}</ModalProvider>
+          <ChatStateProvider>
+            <ModalProvider>{children}</ModalProvider>
+          </ChatStateProvider>
         </ReactQueryProvider>
       </body>
     </html>
