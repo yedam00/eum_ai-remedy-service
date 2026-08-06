@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useState } from "react";
+import { fn } from "storybook/test";
 import {
   ChatInput,
+  type ChatInputProps,
   type ChatInputUiType,
 } from "./index";
 import type { DropdownItemData } from "../dropdown";
@@ -30,12 +32,12 @@ const SAMPLE_DROPDOWN_ITEMS: DropdownItemData[] = [
 
 const SAMPLE_CHECKLIST_ITEMS: ChecklistItem[] = [
   { id: "1", label: "어지럽거나 속이 메스껍고, 토할 것 같다" },
-  { id: "2", label: "어지럽거나 속이 메스껍고, 토할 것 같다" },
-  { id: "3", label: "어지럽거나 속이 메스껍고, 토할 것 같다" },
-  { id: "4", label: "어지럽거나 속이 메스껍고, 토할 것 같다" },
+  { id: "2", label: "가슴이 답답하거나 통증이 있다" },
+  { id: "3", label: "숨이 차거나 호흡이 어렵다" },
+  { id: "4", label: "극심한 피로감이 있다" },
 ];
 
-const UI_TYPES: ChatInputUiType[] = [
+const UITYPES: ChatInputUiType[] = [
   "multi-upload",
   "vertical-select",
   "option-trio",
@@ -52,10 +54,17 @@ const meta = {
   parameters: {
     layout: "centered",
   },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 393, padding: 16, boxSizing: "border-box" }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     uitype: {
       control: "select",
-      options: UI_TYPES,
+      options: UITYPES,
       description:
         "Figma uitype — multi-upload | vertical-select | option-trio | medicine-search | file-upload | pain-scale | checkbox-list",
     },
@@ -67,7 +76,7 @@ const meta = {
     dropdownExpanded: {
       control: "select",
       options: ["False", "True"],
-      description: "medicine-search: Dropdown Expanded",
+      description: "medicine-search: Dropdown expanded",
     },
     dropdownItems: { control: false },
     onDropdownToggle: { control: false },
@@ -77,7 +86,7 @@ const meta = {
     selectedPainLevel: {
       control: "select",
       options: [null, 1, 2, 3, 4, 5],
-      description: "pain-scale: 선택된 레벨",
+      description: "pain-scale: 선택된 레벨 (controlled)",
     },
     onPainLevelSelect: { control: false },
     checklistItems: { control: false },
@@ -93,13 +102,26 @@ const meta = {
     onActionClick: { control: false },
     actionInactive: {
       control: "boolean",
-      description: "checkbox-list: 액션 버튼 inactive",
+      description: "checkbox-list: 액션 버튼 비활성",
     },
     className: { control: false },
   },
   args: {
     uitype: "multi-upload",
     messagePlaceholder: "두통, 어지러움",
+    onMediaEmptyClick: fn(),
+    onMediaRemove: fn(),
+    onOptionClick: fn(),
+    onDropdownToggle: fn(),
+    onDropdownItemToggle: fn(),
+    onDropdownAddClick: fn(),
+    onFileUploadClick: fn(),
+    onPainLevelSelect: fn(),
+    onChecklistChange: fn(),
+    onMessageChange: fn(),
+    onMessageSubmit: fn(),
+    onVoiceClick: fn(),
+    onActionClick: fn(),
   },
 } satisfies Meta<typeof ChatInput>;
 
@@ -117,14 +139,14 @@ export const Default: Story = {};
  * ======================================== */
 
 export const UiTypeMultiUpload: Story = {
-  name: "UiType / Multi Upload",
+  name: "UiType / multi-upload",
   args: {
     uitype: "multi-upload",
   },
 };
 
 export const UiTypeMultiUploadFilled: Story = {
-  name: "UiType / Multi Upload Filled",
+  name: "UiType / multi-upload (filled)",
   args: {
     uitype: "multi-upload",
     mediaUrls: SAMPLE_MEDIA_URLS,
@@ -132,21 +154,21 @@ export const UiTypeMultiUploadFilled: Story = {
 };
 
 export const UiTypeVerticalSelect: Story = {
-  name: "UiType / Vertical Select",
+  name: "UiType / vertical-select",
   args: {
     uitype: "vertical-select",
   },
 };
 
 export const UiTypeOptionTrio: Story = {
-  name: "UiType / Option Trio",
+  name: "UiType / option-trio",
   args: {
     uitype: "option-trio",
   },
 };
 
 export const UiTypeMedicineSearch: Story = {
-  name: "UiType / Medicine Search",
+  name: "UiType / medicine-search",
   args: {
     uitype: "medicine-search",
     dropdownExpanded: "False",
@@ -155,7 +177,7 @@ export const UiTypeMedicineSearch: Story = {
 };
 
 export const UiTypeMedicineSearchExpanded: Story = {
-  name: "UiType / Medicine Search Expanded",
+  name: "UiType / medicine-search (expanded)",
   args: {
     uitype: "medicine-search",
     dropdownExpanded: "True",
@@ -164,21 +186,21 @@ export const UiTypeMedicineSearchExpanded: Story = {
 };
 
 export const UiTypeFileUpload: Story = {
-  name: "UiType / File Upload",
+  name: "UiType / file-upload",
   args: {
     uitype: "file-upload",
   },
 };
 
 export const UiTypePainScale: Story = {
-  name: "UiType / Pain Scale",
+  name: "UiType / pain-scale",
   args: {
     uitype: "pain-scale",
   },
 };
 
 export const UiTypePainScaleSelected: Story = {
-  name: "UiType / Pain Scale Selected",
+  name: "UiType / pain-scale (selected)",
   args: {
     uitype: "pain-scale",
     selectedPainLevel: 3,
@@ -186,7 +208,7 @@ export const UiTypePainScaleSelected: Story = {
 };
 
 export const UiTypeCheckboxList: Story = {
-  name: "UiType / Checkbox List",
+  name: "UiType / checkbox-list",
   args: {
     uitype: "checkbox-list",
     checklistItems: SAMPLE_CHECKLIST_ITEMS,
@@ -195,7 +217,7 @@ export const UiTypeCheckboxList: Story = {
 };
 
 export const UiTypeCheckboxListActive: Story = {
-  name: "UiType / Checkbox List Active",
+  name: "UiType / checkbox-list (action active)",
   args: {
     uitype: "checkbox-list",
     checklistItems: SAMPLE_CHECKLIST_ITEMS,
@@ -204,102 +226,110 @@ export const UiTypeCheckboxListActive: Story = {
 };
 
 /* ========================================
+ * Content
+ * ======================================== */
+
+export const CustomOptions: Story = {
+  name: "Content / Custom Options",
+  args: {
+    uitype: "vertical-select",
+    options: ["방금 전", "1시간 이내", "오늘", "어제 이전"],
+  },
+};
+
+export const CustomMessagePlaceholder: Story = {
+  name: "Content / Custom Message Placeholder",
+  args: {
+    uitype: "option-trio",
+    messagePlaceholder: "증상을 자유롭게 입력해 주세요",
+  },
+};
+
+/* ========================================
  * Interactive
  * ======================================== */
 
-function InteractiveChatInput({ uitype }: { uitype: ChatInputUiType }) {
-  const [messageValue, setMessageValue] = useState("");
-  const [dropdownExpanded, setDropdownExpanded] = useState<"False" | "True">(
-    "False"
-  );
-  const [dropdownItems, setDropdownItems] =
-    useState<DropdownItemData[]>(SAMPLE_DROPDOWN_ITEMS);
-  const [selectedPainLevel, setSelectedPainLevel] =
-    useState<ImageCardLevel | null>(null);
-  const [actionInactive, setActionInactive] = useState(true);
-  const [mediaUrls, setMediaUrls] = useState<Array<string | undefined>>([
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-  ]);
+function InteractiveMedicineSearch() {
+  const [expanded, setExpanded] = useState<"False" | "True">("False");
+  const [items, setItems] = useState<DropdownItemData[]>(SAMPLE_DROPDOWN_ITEMS);
 
   return (
     <ChatInput
-      uitype={uitype}
-      mediaUrls={mediaUrls}
-      onMediaEmptyClick={(index) =>
-        setMediaUrls((prev) => {
-          const next = [...prev];
-          next[index] = `/images/level${(index % 5) + 1}.png`;
-          return next;
-        })
-      }
-      onMediaRemove={(index) =>
-        setMediaUrls((prev) => {
-          const next = [...prev];
-          next[index] = undefined;
-          return next;
-        })
-      }
-      dropdownExpanded={dropdownExpanded}
-      dropdownItems={dropdownItems}
+      uitype="medicine-search"
+      dropdownExpanded={expanded}
+      dropdownItems={items}
       onDropdownToggle={() =>
-        setDropdownExpanded((prev) => (prev === "True" ? "False" : "True"))
+        setExpanded((prev) => (prev === "True" ? "False" : "True"))
       }
       onDropdownItemToggle={(id) =>
-        setDropdownItems((prev) =>
+        setItems((prev) =>
           prev.map((item) =>
             item.id === id ? { ...item, selected: !item.selected } : item
           )
         )
       }
-      selectedPainLevel={selectedPainLevel}
-      onPainLevelSelect={setSelectedPainLevel}
-      checklistItems={SAMPLE_CHECKLIST_ITEMS}
-      onChecklistChange={(selectedIds) =>
-        setActionInactive(selectedIds.length === 0)
-      }
-      actionInactive={actionInactive}
-      messageValue={messageValue}
-      onMessageChange={setMessageValue}
-      onMessageSubmit={() => setMessageValue("")}
+      onDropdownAddClick={fn()}
+      onActionClick={fn()}
     />
   );
 }
 
-export const InteractiveMultiUpload: Story = {
-  name: "Interactive / Multi Upload",
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => <InteractiveChatInput uitype="multi-upload" />,
-};
+function InteractivePainScale() {
+  const [level, setLevel] = useState<ImageCardLevel | null>(null);
+  const [message, setMessage] = useState("");
 
-export const InteractiveMedicineSearch: Story = {
+  return (
+    <ChatInput
+      uitype="pain-scale"
+      selectedPainLevel={level}
+      onPainLevelSelect={setLevel}
+      messageValue={message}
+      onMessageChange={setMessage}
+      onMessageSubmit={fn()}
+      onVoiceClick={fn()}
+    />
+  );
+}
+
+function InteractiveCheckboxList() {
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  return (
+    <ChatInput
+      uitype="checkbox-list"
+      checklistItems={SAMPLE_CHECKLIST_ITEMS}
+      onChecklistChange={setSelectedIds}
+      actionInactive={selectedIds.length === 0}
+      onActionClick={fn()}
+      onMessageChange={fn()}
+      onMessageSubmit={fn()}
+      onVoiceClick={fn()}
+    />
+  );
+}
+
+export const InteractiveMedicine: Story = {
   name: "Interactive / Medicine Search",
   parameters: {
     controls: { disable: true },
   },
-  render: () => <InteractiveChatInput uitype="medicine-search" />,
+  render: () => <InteractiveMedicineSearch />,
 };
 
-export const InteractivePainScale: Story = {
+export const InteractivePain: Story = {
   name: "Interactive / Pain Scale",
   parameters: {
     controls: { disable: true },
   },
-  render: () => <InteractiveChatInput uitype="pain-scale" />,
+  render: () => <InteractivePainScale />,
 };
 
-export const InteractiveCheckboxList: Story = {
+export const InteractiveChecklist: Story = {
   name: "Interactive / Checkbox List",
   parameters: {
     controls: { disable: true },
   },
-  render: () => <InteractiveChatInput uitype="checkbox-list" />,
+  render: () => <InteractiveCheckboxList />,
 };
 
 /* ========================================
@@ -307,55 +337,118 @@ export const InteractiveCheckboxList: Story = {
  * ======================================== */
 
 export const AllVariants: Story = {
-  name: "Matrix / All UiTypes",
+  name: "Matrix / All Variants",
   parameters: {
     controls: { disable: true },
+    layout: "padded",
   },
-  render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 48,
-        alignItems: "flex-start",
-      }}
-    >
-      {UI_TYPES.map((uitype) => (
-        <div
-          key={uitype}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-          }}
-        >
+  decorators: [
+    (Story) => (
+      <div style={{ width: "100%", maxWidth: 420, margin: "0 auto" }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => {
+    const variants: Array<{ label: string; props: ChatInputProps }> = [
+      { label: "uitype=multi-upload", props: { uitype: "multi-upload" } },
+      {
+        label: "uitype=multi-upload (filled)",
+        props: { uitype: "multi-upload", mediaUrls: SAMPLE_MEDIA_URLS },
+      },
+      {
+        label: "uitype=vertical-select",
+        props: { uitype: "vertical-select" },
+      },
+      { label: "uitype=option-trio", props: { uitype: "option-trio" } },
+      {
+        label: "uitype=medicine-search (collapsed)",
+        props: {
+          uitype: "medicine-search",
+          dropdownExpanded: "False",
+          dropdownItems: SAMPLE_DROPDOWN_ITEMS,
+        },
+      },
+      {
+        label: "uitype=medicine-search (expanded)",
+        props: {
+          uitype: "medicine-search",
+          dropdownExpanded: "True",
+          dropdownItems: SAMPLE_DROPDOWN_ITEMS,
+        },
+      },
+      { label: "uitype=file-upload", props: { uitype: "file-upload" } },
+      { label: "uitype=pain-scale", props: { uitype: "pain-scale" } },
+      {
+        label: "uitype=pain-scale (selected=3)",
+        props: { uitype: "pain-scale", selectedPainLevel: 3 },
+      },
+      {
+        label: "uitype=checkbox-list (inactive)",
+        props: {
+          uitype: "checkbox-list",
+          checklistItems: SAMPLE_CHECKLIST_ITEMS,
+          actionInactive: true,
+        },
+      },
+      {
+        label: "uitype=checkbox-list (active)",
+        props: {
+          uitype: "checkbox-list",
+          checklistItems: SAMPLE_CHECKLIST_ITEMS,
+          actionInactive: false,
+        },
+      },
+    ];
+
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 40,
+          alignItems: "flex-start",
+          width: "100%",
+        }}
+      >
+        {variants.map(({ label, props }) => (
           <div
+            key={label}
             style={{
-              fontFamily: "var(--typography-ko-font-family)",
-              fontSize: 14,
-              color: "var(--color-text-secondary)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+              width: "100%",
             }}
           >
-            uitype={uitype}
+            <div
+              style={{
+                fontFamily: "var(--typography-ko-font-family)",
+                fontSize: 14,
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              {label}
+            </div>
+            <ChatInput
+              {...props}
+              onMediaEmptyClick={fn()}
+              onMediaRemove={fn()}
+              onOptionClick={fn()}
+              onDropdownToggle={fn()}
+              onDropdownItemToggle={fn()}
+              onDropdownAddClick={fn()}
+              onFileUploadClick={fn()}
+              onPainLevelSelect={fn()}
+              onChecklistChange={fn()}
+              onMessageChange={fn()}
+              onMessageSubmit={fn()}
+              onVoiceClick={fn()}
+              onActionClick={fn()}
+            />
           </div>
-          <ChatInput
-            uitype={uitype}
-            mediaUrls={
-              uitype === "multi-upload" ? SAMPLE_MEDIA_URLS : undefined
-            }
-            dropdownExpanded={
-              uitype === "medicine-search" ? "True" : undefined
-            }
-            dropdownItems={
-              uitype === "medicine-search" ? SAMPLE_DROPDOWN_ITEMS : undefined
-            }
-            checklistItems={
-              uitype === "checkbox-list" ? SAMPLE_CHECKLIST_ITEMS : undefined
-            }
-            actionInactive={uitype === "checkbox-list" ? true : undefined}
-          />
-        </div>
-      ))}
-    </div>
-  ),
+        ))}
+      </div>
+    );
+  },
 };
