@@ -1,0 +1,56 @@
+/* ========================================
+ * Checkbox — Figma: checkbox · 3:3258
+ * Visual: Rectangle 38 (24×24, radius 4)
+ * ======================================== */
+
+.checkbox {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border-style: solid;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox:disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- State: default (3:3263) ---------- */
+/* stroke #626572 → --color-border-secondary */
+
+.stateDefault {
+  background-color: transparent;
+  border-width: 1.5px;
+  border-color: var(--color-border-secondary);
+}
+
+/* ---------- State: selected (3:3259) ---------- */
+/* fill #158187 → --color-bg-brand-primary
+ * Subtract checkmark shows page bg → --color-bg-primary */
+
+.stateSelected {
+  background-color: var(--color-bg-brand-primary);
+  border-width: 1.5px;
+  border-color: var(--color-bg-brand-primary);
+}
+
+/* ---------- Checkmark (Subtract cutout) ---------- */
+
+.checkSvg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.checkPath {
+  stroke: var(--color-bg-primary);
+}
