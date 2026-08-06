@@ -176,11 +176,8 @@ function InteractiveMessageInput() {
       size="sm"
       value={value}
       onValueChange={setValue}
-      onSubmit={(submitted) => {
-        fn()(submitted);
-        setValue("");
-      }}
-      onVoiceClick={fn()}
+      onSubmit={() => setValue("")}
+      onVoiceClick={() => undefined}
     />
   );
 }
