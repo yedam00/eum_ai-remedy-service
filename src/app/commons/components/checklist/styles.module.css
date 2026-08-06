@@ -1,0 +1,68 @@
+/* ========================================
+ * CheckList — Figma: CheckList · 3:3511
+ * Layout: column · 361×192 (4 items) · gap 0
+ * Item: CheckListItem · 361×48 · row · space-between
+ * ======================================== */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin: 0;
+  width: 361px;
+  gap: 0;
+  font-family: var(--typography-ko-font-family);
+}
+
+/* ---------- CheckListItem (Figma 48h) ---------- */
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  flex-shrink: 0;
+  cursor: pointer;
+  gap: 0;
+}
+
+/* ---------- Label (Figma Frame 189 · padding 8 · body02-sm) ---------- */
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0 8px;
+  margin: 0;
+  font-size: var(--typography-ko-body02-sm-font-size);
+  font-weight: var(--typography-ko-body02-sm-font-weight);
+  line-height: var(--typography-ko-body02-sm-line-height);
+  letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Checkbox slot (Figma checkbox instance · 48×48) ---------- */
+
+.checkboxSlot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
