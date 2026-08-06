@@ -1,0 +1,40 @@
+/* ========================================
+ * ProcessIndicator — Figma: process-indicator · 2003:2779
+ * Variants: value=1 | 2 | 3
+ * Visual: 3 dots (16×16), gap 16 → total 80×16
+ * ======================================== */
+
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 80px;
+  height: 16px;
+  gap: 16px;
+  /* Mid brand tone (Figma #449a9f) — between brand-disabled and brand-primary */
+  --indicator-active: #449a9f;
+}
+
+/* ---------- Dot (Indicator) ---------- */
+
+.dot {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+}
+
+/* Active — Figma fill #449a9f */
+.dotActive {
+  background-color: var(--indicator-active);
+}
+
+/* Inactive — Figma fill #c2c4cd → --color-border-primary */
+.dotInactive {
+  background-color: var(--color-border-primary);
+}
