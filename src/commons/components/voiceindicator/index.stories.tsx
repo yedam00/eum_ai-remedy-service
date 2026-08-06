@@ -36,7 +36,8 @@ const meta = {
     },
     audioLevel: {
       control: { type: "range", min: 0, max: 100, step: 1 },
-      description: "소리 크기 (0 ~ 100). listening일 때 막대 높이·애니메이션에 반영",
+      description:
+        "소리 크기 (0 ~ 100). listening일 때 막대 높이·애니메이션 속도·증폭에 사용",
     },
     className: { control: false },
   },
@@ -184,6 +185,7 @@ function InteractiveVoiceIndicator() {
           flexDirection: "column",
           gap: 8,
           width: "100%",
+          maxWidth: 240,
           ...labelStyle,
         }}
       >
@@ -194,9 +196,8 @@ function InteractiveVoiceIndicator() {
           max={100}
           step={1}
           value={audioLevel}
-          onChange={(e) => setAudioLevel(Number(e.target.value))}
+          onChange={(event) => setAudioLevel(Number(event.target.value))}
           disabled={state !== "listening"}
-          style={{ width: "100%" }}
         />
       </label>
     </div>
@@ -232,33 +233,48 @@ export const AllVariants: Story = {
       <div
         style={{
           display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          gap: 24,
-          alignItems: "flex-start",
+          flexDirection: "column",
+          gap: 16,
         }}
       >
-        {STATES.map((state) => (
-          <div
-            key={state}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 12,
-              alignItems: "center",
-            }}
-          >
-            <div style={sectionLabelStyle}>state={state}</div>
-            <VoiceIndicator
-              state={state}
-              audioLevel={state === "listening" ? 60 : 0}
-            />
-          </div>
-        ))}
+        <div style={sectionLabelStyle}>State</div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: 24,
+            alignItems: "flex-start",
+          }}
+        >
+          {STATES.map((state) => (
+            <div
+              key={state}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+                alignItems: "center",
+              }}
+            >
+              <div style={labelStyle}>state={state}</div>
+              <VoiceIndicator
+                state={state}
+                audioLevel={state === "listening" ? 60 : 0}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <div style={sectionLabelStyle}>listening × audioLevel</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+        }}
+      >
+        <div style={sectionLabelStyle}>Audio Level (listening)</div>
         <div
           style={{
             display: "flex",
