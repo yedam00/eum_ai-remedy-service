@@ -1,0 +1,95 @@
+/* ========================================
+ * SearchBar — Figma: SearchBar · 3:3561
+ * Variants: State=Default | Active
+ * ======================================== */
+
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  gap: 8px;
+  border-radius: 9999px;
+  background-color: var(--color-bg-disabled);
+}
+
+.disabled {
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+/* ---------- Icon ---------- */
+
+.iconSlot {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+.iconSlot > * {
+  color: inherit;
+}
+
+/* ---------- Input ---------- */
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-family: var(--typography-ko-font-family);
+  font-size: var(--typography-ko-body01-sm-font-size);
+  font-weight: var(--typography-ko-body01-sm-font-weight);
+  line-height: var(--typography-ko-body01-sm-line-height);
+  letter-spacing: var(--typography-ko-body01-sm-letter-spacing);
+  color: inherit;
+}
+
+.input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.input::-webkit-search-decoration,
+.input::-webkit-search-cancel-button,
+.input::-webkit-search-results-button,
+.input::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* ---------- State: Default (3:3562) ---------- */
+/* icon/text #878b9b → --color-icon-tertiary / placeholder */
+
+.stateDefault {
+  color: var(--color-icon-tertiary);
+}
+
+.stateDefault .input {
+  color: var(--color-text-placeholder);
+}
+
+/* ---------- State: Active (3:3566) ---------- */
+/* icon/text #2a2c34 → --color-icon-primary / text-primary */
+
+.stateActive {
+  color: var(--color-icon-primary);
+}
+
+.stateActive .input {
+  color: var(--color-text-primary);
+}
