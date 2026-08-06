@@ -1,0 +1,168 @@
+/* ========================================
+ * SpeechBubble — Figma: speech-bubble · 3:3287
+ * Variants: varient=AI|User × Has Image=true|false
+ * ======================================== */
+
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin: 0;
+  font-family: var(--typography-ko-font-family);
+}
+
+/* ---------- AI bubble (Figma 3:3288 / 3:3295) ---------- */
+
+.aiBubble {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  padding: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-border-primary);
+  border-radius: 16px;
+  background-color: var(--color-bg-secondary);
+  gap: 0;
+}
+
+.aiBubbleWithImage {
+  gap: 8px;
+}
+
+.aiImageWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 305px;
+  height: 250px;
+  overflow: hidden;
+  background-color: var(--color-bg-disabled);
+}
+
+.aiImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aiLabel {
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  font-size: var(--typography-ko-body01-sm-font-size);
+  font-weight: var(--typography-ko-body01-sm-font-weight);
+  line-height: var(--typography-ko-body01-sm-line-height);
+  letter-spacing: var(--typography-ko-body01-sm-letter-spacing);
+  color: var(--color-text-primary);
+  white-space: pre-line;
+}
+
+/* ---------- User row (Figma 3:3290 / Frame 364) ---------- */
+
+.variantUser {
+  align-items: stretch;
+}
+
+.variantUser.hasImage {
+  width: 304px;
+  gap: 8px;
+}
+
+.userBubbleWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.userRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  gap: 0;
+}
+
+.userIconSlot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  color: var(--color-icon-secondary);
+}
+
+.userBubble {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 58px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: var(--color-bg-brand-secondary);
+}
+
+.userLabel {
+  display: block;
+  margin: 0;
+  font-size: var(--typography-ko-body01-sm-font-size);
+  font-weight: var(--typography-ko-body01-sm-font-weight);
+  line-height: var(--typography-ko-body01-sm-line-height);
+  letter-spacing: var(--typography-ko-body01-sm-letter-spacing);
+  color: var(--color-text-secondary);
+  white-space: pre-line;
+}
+
+/* ---------- User image grid (Figma Frame 247 · 3×2 / 96×96 / gap 8) ---------- */
+
+.userImageGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 304px;
+  gap: 8px;
+}
+
+.userImageSlot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--color-bg-disabled);
+}
+
+.userImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
