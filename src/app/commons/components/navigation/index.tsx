@@ -6,26 +6,26 @@ import {
 import styles from "./styles.module.css";
 
 /* ========================================
- * Types — Figma GNB variant API (3:3222)
+ * Types — Figma Navigation variant API (3:3222)
  * ======================================== */
 
 /** Figma State=`Default` | `Selected` */
-export type GnbState = "default" | "selected";
+export type NavigationState = "default" | "selected";
 
 /** Figma menu=`home` | `history` | `profile` */
-export type GnbMenu = "home" | "history" | "profile";
+export type NavigationMenu = "home" | "history" | "profile";
 
-export type GnbProps = {
-  menu?: GnbMenu;
-  state?: GnbState;
+export type NavigationProps = {
+  menu?: NavigationMenu;
+  state?: NavigationState;
   className?: string;
   children?: ReactNode;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children">;
 
-export type GnbBarProps = {
+export type NavigationBarProps = {
   /** 현재 선택된 메뉴. 해당 아이템이 `selected` 상태로 표시됨 */
-  selectedMenu?: GnbMenu;
-  onMenuClick?: (menu: GnbMenu) => void;
+  selectedMenu?: NavigationMenu;
+  onMenuClick?: (menu: NavigationMenu) => void;
   className?: string;
   disabled?: boolean;
 };
@@ -34,16 +34,16 @@ export type GnbBarProps = {
  * Menu meta
  * ======================================== */
 
-const MENU_LABEL: Record<GnbMenu, string> = {
+const MENU_LABEL: Record<NavigationMenu, string> = {
   home: "홈",
   history: "기록",
   profile: "프로필",
 };
 
-const MENU_ORDER: GnbMenu[] = ["home", "history", "profile"];
+const MENU_ORDER: NavigationMenu[] = ["home", "history", "profile"];
 
 /* ========================================
- * Icons — Figma GNB filled icons (24×24)
+ * Icons — Figma Navigation filled icons (24×24)
  * home / history / profile (nodes 2009:8535 · 8529 · 8532)
  * ======================================== */
 
@@ -89,7 +89,7 @@ function ProfileIcon(props: MenuIconProps) {
   );
 }
 
-const MENU_ICON: Record<GnbMenu, (props: MenuIconProps) => JSX.Element> = {
+const MENU_ICON: Record<NavigationMenu, (props: MenuIconProps) => JSX.Element> = {
   home: HomeIcon,
   history: HistoryIcon,
   profile: ProfileIcon,
@@ -102,16 +102,16 @@ const MENU_ICON: Record<GnbMenu, (props: MenuIconProps) => JSX.Element> = {
 const cx = (...parts: Array<string | undefined | false>) =>
   parts.filter(Boolean).join(" ");
 
-const STATE_CLASS: Record<GnbState, string> = {
+const STATE_CLASS: Record<NavigationState, string> = {
   default: styles.stateDefault,
   selected: styles.stateSelected,
 };
 
 /* ========================================
- * Gnb — single menu item (Figma variant)
+ * Navigation — single menu item (Figma variant)
  * ======================================== */
 
-export function Gnb({
+export function Navigation({
   menu = "home",
   state = "default",
   className,
@@ -119,7 +119,7 @@ export function Gnb({
   disabled,
   type = "button",
   ...rest
-}: GnbProps) {
+}: NavigationProps) {
   const isDisabled = Boolean(disabled);
   const Icon = MENU_ICON[menu];
   const label = children ?? MENU_LABEL[menu];
@@ -141,19 +141,19 @@ export function Gnb({
 }
 
 /* ========================================
- * GnbBar — equal flex layout of all menus
+ * NavigationBar — equal flex layout of all menus
  * ======================================== */
 
-export function GnbBar({
+export function NavigationBar({
   selectedMenu = "home",
   onMenuClick,
   className,
   disabled,
-}: GnbBarProps) {
+}: NavigationBarProps) {
   return (
     <nav className={cx(styles.bar, className)} aria-label="주요 메뉴">
       {MENU_ORDER.map((menu) => (
-        <Gnb
+        <Navigation
           key={menu}
           menu={menu}
           state={selectedMenu === menu ? "selected" : "default"}
@@ -165,4 +165,4 @@ export function GnbBar({
   );
 }
 
-export default Gnb;
+export default Navigation;
