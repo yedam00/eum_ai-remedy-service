@@ -1,0 +1,147 @@
+/* ========================================
+ * MessageInput — Figma: message-input · 3:3516
+ * Variants: State=Default|Focused|Active × size=sm|lg
+ * ======================================== */
+
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 8px;
+}
+
+.disabled {
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+/* ---------- Text field ---------- */
+
+.textField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 9999px;
+  background-color: var(--color-bg-secondary);
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-family: var(--typography-ko-font-family);
+  font-size: var(--typography-ko-body02-sm-font-size);
+  font-weight: var(--typography-ko-body02-sm-font-weight);
+  line-height: var(--typography-ko-body02-sm-line-height);
+  letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
+  color: inherit;
+}
+
+.input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+/* ---------- Action button ---------- */
+
+.actionButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: var(--color-icon-on-primary);
+}
+
+.actionButton:disabled {
+  cursor: not-allowed;
+}
+
+.iconSlot {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+.iconSlot > * {
+  color: inherit;
+}
+
+/* ---------- Size ---------- */
+
+.sizeSm .textField {
+  height: 50px;
+}
+
+.sizeSm .actionButton {
+  width: 48px;
+  height: 48px;
+}
+
+.sizeLg .textField {
+  height: 64px;
+}
+
+.sizeLg .actionButton {
+  width: 56px;
+  height: 56px;
+}
+
+/* ---------- State ---------- */
+
+.stateDefault .textField {
+  border-color: var(--color-border-primary);
+  color: var(--color-text-placeholder);
+}
+
+.stateDefault .actionButton {
+  background-color: var(--color-bg-brand-disabled);
+}
+
+.stateFocused .textField {
+  border-color: var(--color-border-brand-primary);
+  color: var(--color-text-placeholder);
+}
+
+.stateFocused .actionButton {
+  background-color: var(--color-bg-brand-disabled);
+}
+
+.stateActive .textField {
+  border-color: var(--color-border-brand-primary);
+  color: var(--color-text-primary);
+}
+
+.stateActive .actionButton {
+  background-color: var(--color-bg-brand-primary);
+}
+
+.stateActive .actionButton:disabled {
+  background-color: var(--color-bg-brand-disabled);
+}
