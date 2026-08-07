@@ -39,10 +39,6 @@ const meta = {
       control: "text",
       description: "카드 하단 라벨 (children이 있으면 children 우선)",
     },
-    disabled: {
-      control: "boolean",
-      description: "HTML disabled",
-    },
     children: { control: false },
     className: { control: false },
   },
@@ -51,7 +47,6 @@ const meta = {
     level: 1,
     label: "조금 아프다",
     alt: "통증 레벨 1",
-    disabled: false,
   },
 } satisfies Meta<typeof ImageCard>;
 
@@ -132,26 +127,6 @@ export const Level5: Story = {
 };
 
 /* ========================================
- * Disabled
- * ======================================== */
-
-export const DisabledDefault: Story = {
-  name: "Disabled / Default",
-  args: {
-    state: "default",
-    disabled: true,
-  },
-};
-
-export const DisabledActive: Story = {
-  name: "Disabled / Active",
-  args: {
-    state: "active",
-    disabled: true,
-  },
-};
-
-/* ========================================
  * Content
  * ======================================== */
 
@@ -174,7 +149,7 @@ export const CustomImageSrc: Story = {
 };
 
 /* ========================================
- * Matrix — State × Level × Disabled
+ * Matrix — State × Level
  * ======================================== */
 
 export const AllVariants: Story = {
@@ -185,7 +160,6 @@ export const AllVariants: Story = {
   render: () => {
     const states = ["default", "active"] as const;
     const levels = [1, 2, 3, 4, 5] as const;
-    const disabledFlags = [false, true] as const;
 
     return (
       <div
@@ -196,66 +170,63 @@ export const AllVariants: Story = {
           alignItems: "flex-start",
         }}
       >
-        {disabledFlags.map((disabled) =>
-          states.map((state) => (
+        {states.map((state) => (
+          <div
+            key={state}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+            }}
+          >
             <div
-              key={`${state}-${disabled}`}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
+                fontFamily: "var(--typography-ko-font-family)",
+                fontSize: 14,
+                color: "var(--color-text-secondary)",
               }}
             >
-              <div
-                style={{
-                  fontFamily: "var(--typography-ko-font-family)",
-                  fontSize: 14,
-                  color: "var(--color-text-secondary)",
-                }}
-              >
-                state={state} · disabled={String(disabled)}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  gap: 12,
-                  alignItems: "flex-start",
-                }}
-              >
-                {levels.map((level) => (
-                  <div
-                    key={`${state}-${level}-${disabled}`}
+              state={state}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: 12,
+                alignItems: "flex-start",
+              }}
+            >
+              {levels.map((level) => (
+                <div
+                  key={`${state}-${level}`}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                    alignItems: "center",
+                  }}
+                >
+                  <ImageCard
+                    state={state}
+                    level={level}
+                    label={LEVEL_LABELS[level]}
+                    alt={`통증 레벨 ${level}`}
+                  />
+                  <span
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 8,
-                      alignItems: "center",
+                      fontFamily: "var(--typography-ko-font-family)",
+                      fontSize: 12,
+                      color: "var(--color-text-secondary)",
                     }}
                   >
-                    <ImageCard
-                      state={state}
-                      level={level}
-                      label={LEVEL_LABELS[level]}
-                      alt={`통증 레벨 ${level}`}
-                      disabled={disabled}
-                    />
-                    <span
-                      style={{
-                        fontFamily: "var(--typography-ko-font-family)",
-                        fontSize: 12,
-                        color: "var(--color-text-secondary)",
-                      }}
-                    >
-                      level={level}
-                    </span>
-                  </div>
-                ))}
-              </div>
+                    level={level}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))
-        )}
+          </div>
+        ))}
       </div>
     );
   },

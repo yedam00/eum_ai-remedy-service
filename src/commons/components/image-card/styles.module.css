@@ -1,0 +1,88 @@
+/* ========================================
+ * ImageCard — Figma: image-card · 3:3245
+ * Variants: state=Default | active
+ * ======================================== */
+
+.card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin: 0;
+  width: 98px;
+  min-height: 154px;
+  padding: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  font-family: var(--typography-ko-font-family);
+  cursor: pointer;
+}
+
+/* ---------- Inner frame (Figma Frame 25 · 82×138) ---------- */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  width: 100%;
+  gap: 8px;
+}
+
+/* ---------- Image (Figma image 151 · 82×82, radius circle) ---------- */
+
+.imageWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--color-white);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Label (Pretendard Regular 16 / 26 · body02.sm) ---------- */
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 48px;
+  text-align: center;
+  font-size: var(--typography-ko-body02-sm-font-size);
+  font-weight: var(--typography-ko-body02-sm-font-weight);
+  line-height: var(--typography-ko-body02-sm-line-height);
+  letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
+  color: inherit;
+  white-space: pre-line;
+}
+
+/* ---------- State — Figma 3:3246 Default / 3:3250 active ---------- */
+
+.stateDefault {
+  background-color: transparent;
+  border-color: var(--color-border-secondary);
+  color: var(--color-text-secondary);
+}
+
+.stateActive {
+  background-color: var(--color-bg-brand-secondary);
+  border-color: var(--color-border-brand-primary);
+  color: var(--color-text-brand);
+}
