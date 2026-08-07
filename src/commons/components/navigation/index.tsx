@@ -87,13 +87,23 @@ function HistoryIcon(props: MenuIconProps) {
   );
 }
 
-/** User silhouette — Profile · Figma 2009:8532 */
-function ProfileIcon(props: MenuIconProps) {
+/**
+ * User silhouette — Profile
+ * Figma Union top-level frame: 19×18.0527 (node 3:1600 · parent slot 24×24)
+ */
+function ProfileIcon({ className, ...props }: MenuIconProps) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden {...props}>
+    <svg
+      viewBox="0 0 19 18.0527"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+      className={cx(styles.iconProfile, className)}
+      {...props}
+    >
       <path
         fill="currentColor"
-        d="M12 3C9.51472 3 7.5 5.01472 7.5 7.5C7.5 9.98528 9.51472 12 12 12C14.4853 12 16.5 9.98528 16.5 7.5C16.5 5.01472 14.4853 3 12 3ZM5.25 18.75C5.25 16.1266 8.07452 14.5 12 14.5C15.9255 14.5 18.75 16.1266 18.75 18.75V20C18.75 20.6904 18.1904 21.25 17.5 21.25H6.5C5.80964 21.25 5.25 20.6904 5.25 20V18.75Z"
+        d="M9.5791 11.3154C12.5725 11.3155 14.8818 12.0219 16.4746 13.0811C18.0443 14.125 18.9998 15.584 19 17.0527C18.9999 17.3183 18.8941 17.5732 18.7061 17.7607C18.5179 17.9483 18.2627 18.0535 17.9971 18.0527L0.99707 18C0.446167 17.9982 0.00019745 17.5509 0 17C0.000164207 15.506 1.02384 14.0628 2.62012 13.0449C4.24729 12.0074 6.58904 11.3154 9.5791 11.3154ZM9.5791 0C12.1952 0 14.3154 2.12124 14.3154 4.7373C14.3152 7.35316 12.195 9.4736 9.5791 9.47363C6.96317 9.47363 4.84205 7.35318 4.8418 4.7373C4.8418 2.12122 6.96302 0 9.5791 0Z"
       />
     </svg>
   );
