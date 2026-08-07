@@ -22,6 +22,7 @@ export type VoiceInputSheetProps = {
   /**
    * 모달 상단 타이틀 (피그마 'Titel' 매핑).
    * 기본값: "어디가 불편하신가요?"
+   * success 시 인식된 문장으로 교체해 사용할 수 있다.
    */
   title?: string;
   /**
@@ -29,7 +30,10 @@ export type VoiceInputSheetProps = {
    * 미전달 시 피그마 기본 문구를 사용한다.
    */
   descriptionItems?: string[];
-  /** VoiceIndicator state — `default` | `listening` | `success` */
+  /**
+   * VoiceIndicator state — `default` | `listening` | `success`
+   * `success`일 때 내부 <VoiceIndicator state="success" /> 로 그대로 전달된다.
+   */
   state?: VoiceIndicatorState;
   /**
    * VoiceIndicator audioLevel (0 ~ 100).
@@ -98,6 +102,25 @@ function DescriptionList({ items }: { items: string[] }) {
   );
 }
 
+/**
+ * 피그마 VoiceIndicator 인스턴스(72×72) 영역.
+ * 최신 공통 컴포넌트 `src/commons/components/voiceindicator` 를 재사용한다.
+ * VoiceInputSheet.state === "success" → <VoiceIndicator state="success" />
+ */
+function IndicatorArea({
+  state,
+  audioLevel,
+}: {
+  state: VoiceIndicatorState;
+  audioLevel?: number;
+}) {
+  return (
+    <div className={styles.indicator}>
+      <VoiceIndicator state={state} audioLevel={audioLevel} />
+    </div>
+  );
+}
+
 /* ========================================
  * Component — Figma VoiceInputSheet · 3:3424
  * ======================================== */
@@ -136,9 +159,7 @@ export function VoiceInputSheet({
         </div>
       </div>
 
-      <div className={styles.footer}>
-        <VoiceIndicator state={state} audioLevel={audioLevel} />
-      </div>
+      <IndicatorArea state={state} audioLevel={audioLevel} />
     </div>
   );
 }

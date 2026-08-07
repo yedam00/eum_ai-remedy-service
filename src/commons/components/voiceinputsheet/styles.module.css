@@ -1,0 +1,144 @@
+/* ========================================
+ * VoiceInputSheet — Figma: VoiceInputSheet · 3:3424
+ * Instance: 393×476 · padding: 24 · bg-secondary
+ * (backdrop 없음 — modal.provider와 함께 사용)
+ * ======================================== */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  min-height: 476px;
+  padding: 24px;
+  background-color: var(--color-bg-secondary);
+  font-family: var(--typography-ko-font-family);
+}
+
+/* ---------- Top (Frame 304 · column · gap 10) ---------- */
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 10px;
+}
+
+/* Close row — Frame 201 aligned end · 48×48 */
+
+.closeRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.closeButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--color-icon-primary);
+}
+
+.closeButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.closeIcon {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+.closeIcon > * {
+  color: inherit;
+}
+
+/* ---------- Body (Frame 149 · column · gap 24) ---------- */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 24px;
+}
+
+/* Title — h1-lg · text-primary */
+
+.title {
+  display: block;
+  margin: 0;
+  font-size: var(--typography-ko-h1-lg-font-size);
+  font-weight: var(--typography-ko-h1-lg-font-weight);
+  line-height: var(--typography-ko-h1-lg-line-height);
+  letter-spacing: var(--typography-ko-h1-lg-letter-spacing);
+  color: var(--color-text-primary);
+  white-space: pre-line;
+}
+
+/* Descriptions (Frame 148 · column · gap 8) */
+
+.descriptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  gap: 8px;
+}
+
+/* Description item — body01-md · text-secondary */
+
+.description {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-size: var(--typography-ko-body01-md-font-size);
+  font-weight: var(--typography-ko-body01-md-font-weight);
+  line-height: var(--typography-ko-body01-md-line-height);
+  letter-spacing: var(--typography-ko-body01-md-letter-spacing);
+  color: var(--color-text-secondary);
+  white-space: pre-line;
+}
+
+/* ---------- Indicator — VoiceIndicator centered · 72×72 ---------- */
+
+.indicator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
