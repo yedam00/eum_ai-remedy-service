@@ -30,7 +30,11 @@ export type DropdownProps = {
   expanded?: DropdownExpanded;
   /** 드롭다운 헤더 제목 (Figma Title · 기본값: 복약 중인 약) */
   title?: string;
-  /** 우측 선택 상태 텍스트 (기본값: +3개 선택됨) */
+  /**
+   * 우측 선택 상태 텍스트.
+   * 미지정 시 선택 개수로 `+N개 선택됨`을 자동 계산한다.
+   * 선택 0개일 때는 숨김 처리된다.
+   */
   pointText?: string;
   /** 확장 목록 항목 (기본값: 피그마 4개 약 목록) */
   items?: DropdownItemData[];
@@ -48,7 +52,6 @@ export type DropdownProps = {
  * ======================================== */
 
 const DEFAULT_TITLE = "복약 중인 약";
-const DEFAULT_POINT_TEXT = "+3개 선택됨";
 const DEFAULT_META = "아침/저녁";
 
 const DEFAULT_ITEMS: DropdownItemData[] = [
@@ -101,6 +104,10 @@ function PlusIcon() {
   );
 }
 
+function formatSelectedPointText(count: number): string {
+  return `+${count}개 선택됨`;
+}
+
 function DropdownHeader({
   title,
   pointText,
@@ -108,7 +115,8 @@ function DropdownHeader({
   onToggle,
 }: {
   title: string;
-  pointText: string;
+  /** 선택된 항목이 있을 때만 표시. 0개면 null */
+  pointText: string | null;
   expanded: boolean;
   onToggle?: () => void;
 }) {
@@ -117,7 +125,9 @@ function DropdownHeader({
       <span className={styles.headerLeft}>
         <PillIcon />
         <span className={styles.title}>{title}</span>
-        <span className={styles.pointText}>{pointText}</span>
+        {pointText ? (
+          <span className={styles.pointText}>{pointText}</span>
+        ) : null}
       </span>
       {/* chevronSlot — expanded 양방향 토글 */}
       <button
@@ -210,7 +220,7 @@ function AddMedicineButton({ onClick }: { onClick?: () => void }) {
 export function Dropdown({
   expanded = "False",
   title = DEFAULT_TITLE,
-  pointText = DEFAULT_POINT_TEXT,
+  pointText,
   items = DEFAULT_ITEMS,
   onToggleExpanded,
   onItemToggle,
@@ -218,6 +228,9 @@ export function Dropdown({
   className,
   ...rest
 }: DropdownProps) {
+  // API/Storybook 호환용 prop — 실제 표시는 selectedCount로 계산
+  void pointText;
+
   const isExpandedControlled = onToggleExpanded !== undefined;
   const isItemsControlled = onItemToggle !== undefined;
 
@@ -237,6 +250,11 @@ export function Dropdown({
   const resolvedExpanded = isExpandedControlled ? expanded : internalExpanded;
   const resolvedItems = isItemsControlled ? items : internalItems;
   const isExpanded = resolvedExpanded === "True";
+
+  /** 선택 체크박스 수량 → pointText `+N개 선택됨` (0개면 숨김) */
+  const selectedCount = resolvedItems.filter((item) => item.selected).length;
+  const resolvedPointText =
+    selectedCount > 0 ? formatSelectedPointText(selectedCount) : null;
 
   /** chevronSlot 클릭 — expanded False ↔ True 양방향 토글 */
   const handleToggleExpanded = () => {
@@ -272,7 +290,7 @@ export function Dropdown({
       <div className={styles.card}>
         <DropdownHeader
           title={title}
-          pointText={pointText}
+          pointText={resolvedPointText}
           expanded={isExpanded}
           onToggle={handleToggleExpanded}
         />
