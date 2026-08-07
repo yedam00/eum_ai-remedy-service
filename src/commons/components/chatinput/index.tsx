@@ -369,7 +369,8 @@ function MedicineSearchView({
     : uncontrolledExpanded;
 
   /*
-   * Dropdown → Checkbox는 state: 'default' | 'selected'만 사용(원본 수정 없음).
+   * Dropdown checkboxSlot → <Checkbox state="default" | "selected" />.
+   * Checkbox 원본은 수정하지 않고 Dropdown 연결만 사용.
    * onDropdownItemToggle이 있으면 controlled, 없으면 내부 상태로 선택 토글.
    */
   const isItemsControlled = onDropdownItemToggle !== undefined;
