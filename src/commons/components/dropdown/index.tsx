@@ -138,9 +138,9 @@ function DropdownHeader({
         aria-label={expanded ? "목록 접기" : "목록 펼치기"}
       >
         {expanded ? (
-          <ChevronUp size={24} color="currentColor" />
+          <ChevronUp />
         ) : (
-          <ChevronDown size={24} color="currentColor" />
+          <ChevronDown />
         )}
       </button>
     </div>

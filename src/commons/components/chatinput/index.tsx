@@ -313,9 +313,9 @@ function OptionTrioView({
   const labels = options ?? [...DEFAULT_OPTION_TRIO];
 
   const icons = [
-    <Circle key="circle" size={24} color="currentColor" />,
-    <CloseLG key="close" size={24} color="currentColor" />,
-    <Triangle key="triangle" size={24} color="currentColor" />,
+    <Circle key="circle" />,
+    <CloseLG key="close" />,
+    <Triangle key="triangle" />,
   ];
 
   return (

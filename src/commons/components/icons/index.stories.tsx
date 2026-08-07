@@ -96,14 +96,6 @@ const meta = {
       options: ["True", "False"],
       description: "Figma Thick — True | False",
     },
-    size: {
-      control: { type: "number", min: 12, max: 64, step: 2 },
-      description: "아이콘 픽셀 크기 (width/height)",
-    },
-    color: {
-      control: "color",
-      description: "currentColor 오버라이드",
-    },
     title: {
       control: "text",
       description: "접근성 title",
@@ -112,7 +104,6 @@ const meta = {
   },
   args: {
     thick: "True",
-    size: 24,
   },
 } satisfies Meta<typeof Search>;
 
@@ -140,49 +131,6 @@ export const ThickFalse: Story = {
   name: "Thick / False",
   args: {
     thick: "False",
-  },
-};
-
-/* ========================================
- * Size
- * ======================================== */
-
-export const Size24: Story = {
-  name: "Size / 24",
-  args: {
-    size: 24,
-  },
-};
-
-export const Size32: Story = {
-  name: "Size / 32",
-  args: {
-    size: 32,
-  },
-};
-
-export const Size48: Story = {
-  name: "Size / 48",
-  args: {
-    size: 48,
-  },
-};
-
-/* ========================================
- * Color
- * ======================================== */
-
-export const ColorPrimary: Story = {
-  name: "Color / Primary",
-  args: {
-    color: "var(--color-icon-primary)",
-  },
-};
-
-export const ColorBrand: Story = {
-  name: "Color / Brand",
-  args: {
-    color: "var(--color-icon-brand)",
   },
 };
 
@@ -215,7 +163,7 @@ export const VoiceSm: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => <Voice sizeVariant="sm" />,
+  render: () => <Voice size="sm" />,
 };
 
 export const VoiceLg: Story = {
@@ -223,7 +171,7 @@ export const VoiceLg: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => <Voice sizeVariant="lg" />,
+  render: () => <Voice size="lg" />,
 };
 
 /* ========================================
@@ -327,12 +275,12 @@ export const SpecialVariants: Story = {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={sectionLabelStyle}>Voice · sizeVariant</div>
+        <div style={sectionLabelStyle}>Voice · size</div>
         <div style={{ display: "flex", flexDirection: "row", gap: 24 }}>
-          {(["sm", "lg"] as const).map((sizeVariant) => (
-            <div key={sizeVariant} style={cellStyle}>
-              <Voice sizeVariant={sizeVariant} />
-              <span style={labelStyle}>size={sizeVariant}</span>
+          {(["sm", "lg"] as const).map((size) => (
+            <div key={size} style={cellStyle}>
+              <Voice size={size} />
+              <span style={labelStyle}>size={size}</span>
             </div>
           ))}
         </div>
