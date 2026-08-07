@@ -1,0 +1,176 @@
+/* ========================================
+ * VoiceIndicator — Figma: VoiceIndicator · 3:3398
+ * Variants: state=default | listening | success
+ * ======================================== */
+
+.root {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 72px;
+  height: 72px;
+  border-radius: 9999px;
+  background-color: var(--color-bg-disabled);
+  /* Mid brand tone (Figma #449a9f) — between brand-disabled and brand-primary */
+  --voice-mid: #449a9f;
+  --bar-height-1: 8px;
+  --bar-height-2: 8px;
+  --bar-height-3: 8px;
+  --anim-duration: 1.2s;
+  --anim-scale: 1;
+}
+
+/* ---------- Bars (default / listening) — Thick 8px ---------- */
+
+.bars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 24px;
+  gap: 8px;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 8px;
+  border-radius: 8px;
+  transform-origin: center center;
+}
+
+.bar1 {
+  height: var(--bar-height-1);
+  background-color: var(--color-bg-brand-disabled);
+}
+
+.bar2 {
+  height: var(--bar-height-2);
+  background-color: var(--voice-mid);
+}
+
+.bar3 {
+  height: var(--bar-height-3);
+  background-color: var(--color-bg-brand-primary);
+}
+
+/* ---------- Idle (audioLevel === 0) ---------- */
+
+.idle .bar {
+  animation: none;
+}
+
+/* ---------- Listening + audioLevel > 0 — loop bounce ---------- */
+
+.animating .bar1 {
+  animation-name: voiceBarBounce;
+  animation-duration: var(--anim-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: 0s;
+}
+
+.animating .bar2 {
+  animation-name: voiceBarBounce;
+  animation-duration: var(--anim-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: calc(var(--anim-duration) * -0.33);
+}
+
+.animating .bar3 {
+  animation-name: voiceBarBounce;
+  animation-duration: var(--anim-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: calc(var(--anim-duration) * -0.66);
+}
+
+@keyframes voiceBarBounce {
+  0% {
+    transform: scaleY(calc(0.55 * var(--anim-scale)));
+  }
+  100% {
+    transform: scaleY(calc(1.15 * var(--anim-scale)));
+  }
+}
+
+/* ---------- Success check (Thick 8px + draw animation) ---------- */
+
+.success .check {
+  animation-name: checkPop;
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.checkSvg {
+  display: block;
+  width: 40px;
+  height: 40px;
+  overflow: visible;
+}
+
+.checkShort {
+  stroke: var(--voice-mid);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation-name: drawCheck;
+  animation-duration: 0.28s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: 0.05s;
+}
+
+.checkLong {
+  stroke: var(--color-bg-brand-primary);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation-name: drawCheck;
+  animation-duration: 0.38s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+  animation-delay: 0.28s;
+}
+
+/* 왼쪽 하단 → 오른쪽 상단으로 그려지는 체크 */
+@keyframes drawCheck {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 원형 배경 위 체크가 부드럽게 등장하는 긍정 피드백 */
+@keyframes checkPop {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
