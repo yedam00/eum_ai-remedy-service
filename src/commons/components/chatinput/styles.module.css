@@ -1,0 +1,190 @@
+/* ========================================
+ * ChatInput — Figma: ChatInput · 2030:1233
+ * Variants: uitype=
+ *   multi-upload | vertical-select | option-trio |
+ *   medicine-search | file-upload | pain-scale | checkbox-list
+ * ======================================== */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 361px;
+  font-family: var(--typography-ko-font-family);
+}
+
+/* multi-upload 피그마 폭 338 */
+.rootMultiUpload {
+  width: 338px;
+}
+
+/* ---------- Shared ---------- */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.gap24 {
+  gap: 24px;
+}
+
+.gap16 {
+  gap: 16px;
+}
+
+.fullButton {
+  width: 100%;
+}
+
+/* ---------- multi-upload ---------- */
+
+.mediaGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 11px;
+}
+
+/* ---------- vertical-select ---------- */
+
+.verticalButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 16px;
+}
+
+/* ---------- option-trio ---------- */
+
+.optionRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 10px;
+}
+
+.optionButton {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* 피그마: 예=brand, 아니오/모르겠음=secondary (inactive 스타일이되 클릭 가능) */
+.optionRow .optionButtonMuted {
+  border-color: var(--color-border-secondary);
+  color: var(--color-text-secondary);
+}
+
+/* 피그마 file-upload "아니요" — 테두리 없이 primary 텍스트 */
+.root .fileDismissButton {
+  border-color: transparent;
+  color: var(--color-text-primary);
+}
+
+/* ---------- medicine-search ---------- */
+
+.dropdownSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.dropdownSlot > * {
+  width: 100%;
+}
+
+/* ---------- file-upload ---------- */
+
+.fileDropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  padding: 0;
+  gap: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-border-primary);
+  border-radius: 10px;
+  background-color: var(--color-bg-secondary);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+}
+
+.fileDropzone:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.filePlus {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--typography-ko-font-family);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--color-text-disabled);
+  user-select: none;
+}
+
+.fileLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--typography-ko-body01-sm-font-size);
+  font-weight: var(--typography-ko-body01-sm-font-weight);
+  line-height: var(--typography-ko-body01-sm-line-height);
+  letter-spacing: var(--typography-ko-body01-sm-letter-spacing);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- pain-scale ---------- */
+
+.painScale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 8px;
+}
+
+.painRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+}
+
+/* ---------- checkbox-list ---------- */
+
+.checklistBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 16px;
+}
