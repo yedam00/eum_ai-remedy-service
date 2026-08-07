@@ -8,7 +8,11 @@ import {
 import { Button } from "../button";
 import { MediaUpload } from "../media-upload";
 import { MessageInput } from "../message-input";
-import { Dropdown, type DropdownItemData } from "../dropdown";
+import {
+  Dropdown,
+  type DropdownExpanded,
+  type DropdownItemData,
+} from "../dropdown";
 import { ImageCard, type ImageCardLevel } from "../image-card";
 import { Checklist, type ChecklistItem } from "../checklist";
 import { Circle, CloseLG, Triangle } from "../icons";
@@ -49,8 +53,12 @@ export type ChatInputProps = {
   options?: string[];
   /** vertical-select / option-trio: 옵션 클릭 */
   onOptionClick?: (index: number, label: string) => void;
-  /** medicine-search: Dropdown expanded */
-  dropdownExpanded?: "False" | "True";
+  /** medicine-search: Dropdown expanded (`False` | `True`) */
+  dropdownExpanded?: DropdownExpanded;
+  /** medicine-search: Dropdown 헤더 제목 (피그마 기본: 당뇨약) */
+  dropdownTitle?: string;
+  /** medicine-search: Dropdown 우측 선택 상태 텍스트 */
+  dropdownPointText?: string;
   /** medicine-search: Dropdown 항목 */
   dropdownItems?: DropdownItemData[];
   /** medicine-search: Dropdown 헤더 토글 */
@@ -97,6 +105,10 @@ const DEFAULT_VERTICAL_OPTIONS = ["분", "시", "며칠에 걸침", "수주에 �
 const DEFAULT_OPTION_TRIO = ["예", "아니오", "모르겠음"] as const;
 
 const DEFAULT_MESSAGE_PLACEHOLDER = "두통, 어지러움";
+
+/** Figma ChatInput · medicine-search Dropdown 인스턴스 기본값 */
+const DEFAULT_DROPDOWN_TITLE = "당뇨약";
+const DEFAULT_DROPDOWN_POINT_TEXT = "+3개 선택됨";
 
 /** medicine-search Dropdown 기본 항목 — Checkbox state: selected | default */
 const DEFAULT_MEDICINE_ITEMS: DropdownItemData[] = [
@@ -335,76 +347,56 @@ function OptionTrioView({
 
 /** Figma uitype=medicine-search · 2030:1193 */
 function MedicineSearchView({
-  dropdownExpanded: dropdownExpandedProp,
-  dropdownItems: dropdownItemsProp,
+  dropdownExpanded = "False",
+  dropdownTitle = DEFAULT_DROPDOWN_TITLE,
+  dropdownPointText = DEFAULT_DROPDOWN_POINT_TEXT,
+  dropdownItems,
   onDropdownToggle,
   onDropdownItemToggle,
   onDropdownAddClick,
   onActionClick,
 }: {
-  dropdownExpanded?: "False" | "True";
+  dropdownExpanded?: DropdownExpanded;
+  dropdownTitle?: string;
+  dropdownPointText?: string;
   dropdownItems?: DropdownItemData[];
   onDropdownToggle?: () => void;
   onDropdownItemToggle?: (id: string) => void;
   onDropdownAddClick?: () => void;
   onActionClick?: () => void;
 }) {
-  /*
-   * chevronSlot 클릭 → medicine-search(expanded) 토글.
-   * onDropdownToggle이 있으면 controlled, 없으면 내부 상태로 개폐.
+  /**
+   * ChatInput 내부에서 Dropdown expanded를 소유하고,
+   * 외부 prop 변경과 화살표 토글을 상호 연동한다.
+   * (부모가 onDropdownToggle만 넘기고 상태를 갱신하지 않아도 토글이 동작)
    */
-  const isExpandedControlled = onDropdownToggle !== undefined;
-  const [uncontrolledExpanded, setUncontrolledExpanded] = useState<
-    "False" | "True"
-  >(() => dropdownExpandedProp ?? "False");
+  const [expanded, setExpanded] =
+    useState<DropdownExpanded>(dropdownExpanded);
+  const [items, setItems] = useState<DropdownItemData[]>(
+    () => dropdownItems ?? DEFAULT_MEDICINE_ITEMS
+  );
 
   useEffect(() => {
-    if (!isExpandedControlled && dropdownExpandedProp !== undefined) {
-      setUncontrolledExpanded(dropdownExpandedProp);
-    }
-  }, [dropdownExpandedProp, isExpandedControlled]);
-
-  const expanded = isExpandedControlled
-    ? (dropdownExpandedProp ?? "False")
-    : uncontrolledExpanded;
-
-  /*
-   * Dropdown checkboxSlot → <Checkbox state="default" | "selected" />.
-   * Checkbox 원본은 수정하지 않고 Dropdown 연결만 사용.
-   * onDropdownItemToggle이 있으면 controlled, 없으면 내부 상태로 선택 토글.
-   */
-  const isItemsControlled = onDropdownItemToggle !== undefined;
-  const [uncontrolledItems, setUncontrolledItems] = useState<
-    DropdownItemData[]
-  >(() => dropdownItemsProp ?? DEFAULT_MEDICINE_ITEMS);
+    setExpanded(dropdownExpanded);
+  }, [dropdownExpanded]);
 
   useEffect(() => {
-    if (!isItemsControlled && dropdownItemsProp !== undefined) {
-      setUncontrolledItems(dropdownItemsProp);
+    if (dropdownItems !== undefined) {
+      setItems(dropdownItems);
     }
-  }, [dropdownItemsProp, isItemsControlled]);
-
-  const items = isItemsControlled
-    ? (dropdownItemsProp ?? DEFAULT_MEDICINE_ITEMS)
-    : uncontrolledItems;
+  }, [dropdownItems]);
 
   const handleToggleExpanded = () => {
-    if (!isExpandedControlled) {
-      setUncontrolledExpanded((prev) =>
-        prev === "True" ? "False" : "True"
-      );
-    }
+    setExpanded((prev) => (prev === "True" ? "False" : "True"));
     onDropdownToggle?.();
   };
 
   const handleItemToggle = (id: string) => {
-    if (!isItemsControlled) {
-      setUncontrolledItems((prev) =>
-        prev.map((item) =>
-          item.id === id ? { ...item, selected: !item.selected } : item
-        )
-      );
-    }
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, selected: !item.selected } : item
+      )
+    );
     onDropdownItemToggle?.(id);
   };
 
@@ -413,6 +405,8 @@ function MedicineSearchView({
       <div className={styles.dropdownSlot}>
         <Dropdown
           expanded={expanded}
+          title={dropdownTitle}
+          pointText={dropdownPointText}
           items={items}
           onToggleExpanded={handleToggleExpanded}
           onItemToggle={handleItemToggle}
@@ -597,6 +591,8 @@ export function ChatInput({
   options,
   onOptionClick,
   dropdownExpanded,
+  dropdownTitle,
+  dropdownPointText,
   dropdownItems,
   onDropdownToggle,
   onDropdownItemToggle,
@@ -662,6 +658,8 @@ export function ChatInput({
       {uitype === "medicine-search" ? (
         <MedicineSearchView
           dropdownExpanded={dropdownExpanded}
+          dropdownTitle={dropdownTitle}
+          dropdownPointText={dropdownPointText}
           dropdownItems={dropdownItems}
           onDropdownToggle={onDropdownToggle}
           onDropdownItemToggle={onDropdownItemToggle}
