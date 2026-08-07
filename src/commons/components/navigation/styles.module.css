@@ -84,10 +84,10 @@
   height: 24px;
 }
 
-/* Home path — Figma 20×17, keep native aspect (no 1:1 squash) */
+/* Home path — Figma Subtract 20×16.989, keep native aspect (no 1:1 squash) */
 .iconSlot > svg.iconHome {
   width: 20px;
-  height: auto;
+  height: 16.99px;
 }
 
 .label {
