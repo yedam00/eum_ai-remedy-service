@@ -30,7 +30,7 @@ export type SummaryItemProps = {
   answerLabel?: string | string[];
   /**
    * media variant일 때 노출할 이미지 URL 목록 (최대 6개).
-   * 미전달 시 빈 슬롯 6개 표시.
+   * 전달된 URL만 노출하며, 빈 슬롯은 렌더링하지 않음.
    */
   imageUrls?: string[];
   /**
@@ -195,18 +195,17 @@ function MediaBody({
   label: string;
   imageUrls?: string[];
 }) {
-  const urls = imageUrls ?? [];
-  const slots = Array.from({ length: MEDIA_SLOT_COUNT }, (_, index) =>
-    urls[index]
-  );
+  const urls = (imageUrls ?? [])
+    .filter((url) => typeof url === "string" && url.length > 0)
+    .slice(0, MEDIA_SLOT_COUNT);
 
   return (
     <>
       <p className={styles.label}>{label}</p>
-      <div className={styles.mediaGrid}>
-        {slots.map((url, index) => (
-          <div key={index} className={styles.mediaSlot}>
-            {url ? (
+      {urls.length > 0 ? (
+        <div className={styles.mediaGrid}>
+          {urls.map((url, index) => (
+            <div key={`${url}-${index}`} className={styles.mediaSlot}>
               <Image
                 className={styles.mediaImage}
                 src={url}
@@ -214,10 +213,10 @@ function MediaBody({
                 width={96}
                 height={96}
               />
-            ) : null}
-          </div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
     </>
   );
 }
