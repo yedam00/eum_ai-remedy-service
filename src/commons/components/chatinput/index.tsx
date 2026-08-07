@@ -89,7 +89,10 @@ export type ChatInputProps = {
   onVoiceClick?: () => void;
   /** 하단/주요 액션 버튼 클릭 (다음 / 아니요 등) */
   onActionClick?: () => void;
-  /** 액션 버튼 비활성 (checkbox-list 기본 inactive) */
+  /**
+   * checkbox-list 호환용. '다음' 버튼 상태는 체크 선택 수에 따라
+   * 자동 전환되므로 무시된다.
+   */
   actionInactive?: boolean;
   className?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children">;
@@ -538,7 +541,6 @@ function CheckboxListView({
   checklistItems,
   onChecklistChange,
   onActionClick,
-  actionInactive = true,
   messagePlaceholder,
   messageValue,
   onMessageChange,
@@ -548,20 +550,32 @@ function CheckboxListView({
   checklistItems?: ChecklistItem[];
   onChecklistChange?: (selectedIds: string[]) => void;
   onActionClick?: () => void;
-  actionInactive?: boolean;
   messagePlaceholder?: string;
   messageValue?: string;
   onMessageChange?: (value: string) => void;
   onMessageSubmit?: (value: string) => void;
   onVoiceClick?: () => void;
 }) {
+  /**
+   * 체크 선택 수에 따라 '다음' 버튼 Default / Inactive 실시간 전환.
+   * - 1개 이상 선택 → default(활성)
+   * - 0개 선택 → inactive(비활성)
+   */
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const isActionInactive = selectedIds.length === 0;
+
+  const handleChecklistChange = (ids: string[]) => {
+    setSelectedIds(ids);
+    onChecklistChange?.(ids);
+  };
+
   return (
     <div className={cx(styles.section, styles.gap24)}>
       <div className={styles.checklistBlock}>
-        <Checklist items={checklistItems} onChange={onChecklistChange} />
+        <Checklist items={checklistItems} onChange={handleChecklistChange} />
         <Button
           variant="default"
-          state={actionInactive ? "inactive" : "default"}
+          state={isActionInactive ? "inactive" : "default"}
           size="md"
           label="다음"
           className={styles.fullButton}
@@ -608,10 +622,12 @@ export function ChatInput({
   onMessageSubmit,
   onVoiceClick,
   onActionClick,
-  actionInactive,
+  actionInactive: _actionInactive,
   className,
   ...rest
 }: ChatInputProps) {
+  void _actionInactive;
+
   return (
     <div
       className={cx(
@@ -692,7 +708,6 @@ export function ChatInput({
           checklistItems={checklistItems}
           onChecklistChange={onChecklistChange}
           onActionClick={onActionClick}
-          actionInactive={actionInactive}
           messagePlaceholder={messagePlaceholder}
           messageValue={messageValue}
           onMessageChange={onMessageChange}
