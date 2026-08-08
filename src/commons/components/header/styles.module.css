@@ -1,0 +1,81 @@
+/* ========================================
+ * Header — Figma: Header · 4087:749
+ * 480×62 · bg primary
+ * state=home: Logo(48×32)
+ * state=chat: Arrow(24) + title (Body01/md) · border-bottom tertiary
+ * ======================================== */
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  height: 62px;
+  padding: 0 16px;
+  background-color: var(--color-bg-primary);
+}
+
+.stateHome {
+  border-bottom: none;
+}
+
+.stateChat {
+  border-bottom: 1px solid var(--color-border-tertiary);
+}
+
+.leading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.logo {
+  display: block;
+  flex-shrink: 0;
+  width: 48px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.backButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  color: var(--color-icon-primary);
+  cursor: pointer;
+}
+
+.backButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.title {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 0;
+  font-family: var(--typography-ko-font-family);
+  font-size: var(--typography-ko-body01-md-font-size);
+  font-weight: var(--typography-ko-body01-md-font-weight);
+  line-height: var(--typography-ko-body01-md-line-height);
+  letter-spacing: var(--typography-ko-body01-md-letter-spacing);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
