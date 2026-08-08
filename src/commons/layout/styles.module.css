@@ -5,6 +5,7 @@
  * content 393×166
  * gap 393×380
  * button 393×66
+ * gap 393×48
  * navigation 393×90
  * ======================================== */
 
@@ -23,6 +24,7 @@
   width: 393px;
   height: 62px;
   flex-shrink: 0;
+  background-color: #d9d9d9;
 }
 
 .gap40 {
@@ -32,6 +34,7 @@
   width: 393px;
   height: 40px;
   flex-shrink: 0;
+  background-color: #f5f5f5;
 }
 
 .content {
@@ -41,6 +44,7 @@
   width: 393px;
   height: 166px;
   flex-shrink: 0;
+  background-color: #d9d9d9;
 }
 
 .gap380 {
@@ -50,6 +54,7 @@
   width: 393px;
   height: 380px;
   flex-shrink: 0;
+  background-color: #f5f5f5;
 }
 
 .button {
@@ -59,6 +64,17 @@
   width: 393px;
   height: 66px;
   flex-shrink: 0;
+  background-color: #d9d9d9;
+}
+
+.gap48 {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 48px;
+  flex-shrink: 0;
+  background-color: #f5f5f5;
 }
 
 .navigation {
@@ -68,4 +84,5 @@
   width: 393px;
   height: 90px;
   flex-shrink: 0;
+  background-color: #d9d9d9;
 }

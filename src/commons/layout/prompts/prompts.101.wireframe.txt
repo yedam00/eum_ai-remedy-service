@@ -25,4 +25,5 @@
                 - content: 393 * 166
                 - {gap}: 393 * 380
                 - button: 393 * 66
+                - {gap}: 393 * 48
                 - navigation: 393 * 90

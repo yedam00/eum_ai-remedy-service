@@ -13,6 +13,7 @@ export default function Layout({ children }: LayoutProps) {
       <main className={styles.content}>{children}</main>
       <div className={styles.gap380} />
       <div className={styles.button} />
+      <div className={styles.gap48} />
       <nav className={styles.navigation} />
     </div>
   );
