@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import ChatStateProvider from "./commons/providers/chat-state/chat-state.provider";
-import ModalProvider from "./commons/providers/modal/modal.provider";
-import ReactQueryProvider from "./commons/providers/react-query/react-query.provider";
+import Layout from "../commons/layout";
+import ChatStateProvider from "../commons/providers/chat-state/chat-state.provider";
+import ModalProvider from "../commons/providers/modal/modal.provider";
+import ReactQueryProvider from "../commons/providers/react-query/react-query.provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,9 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
           <ChatStateProvider>
-            <ModalProvider>{children}</ModalProvider>
+            <ModalProvider>
+              <Layout>{children}</Layout>
+            </ModalProvider>
           </ChatStateProvider>
         </ReactQueryProvider>
       </body>
