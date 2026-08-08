@@ -1,9 +1,6 @@
 /* ========================================
- * Layout Wireframe
- * header 393×62
- * gap 393×40
- * children 393×auto
- * navigation 393×90
+ * Layout UI — Figma Header 2058:8210 · navigation 317:3795
+ * header 393×62 · gap 393×40 · children flex-fill · navigation 393×90
  * ======================================== */
 
 .layout {
@@ -12,6 +9,9 @@
   align-items: stretch;
   box-sizing: border-box;
   width: 393px;
+  height: 100dvh;
+  max-height: 100dvh;
+  background-color: var(--color-bg-primary);
 }
 
 .header {
@@ -21,7 +21,6 @@
   width: 393px;
   height: 62px;
   flex-shrink: 0;
-  background-color: #d9d9d9;
 }
 
 .gap40 {
@@ -31,7 +30,6 @@
   width: 393px;
   height: 40px;
   flex-shrink: 0;
-  background-color: #f5f5f5;
 }
 
 .children {
@@ -39,16 +37,24 @@
   flex-direction: column;
   box-sizing: border-box;
   width: 393px;
-  height: auto;
-  background-color: #d9d9d9;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--color-bg-primary);
 }
 
+/* Figma navigation 317:3795 — 393×90 · bg secondary · border tertiary · inset 16 */
 .navigation {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
   box-sizing: border-box;
   width: 393px;
   height: 90px;
   flex-shrink: 0;
-  background-color: #d9d9d9;
+  padding: 0 16px;
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-tertiary);
 }
