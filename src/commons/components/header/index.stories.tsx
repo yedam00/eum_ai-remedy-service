@@ -17,19 +17,25 @@ const meta = {
     ),
   ],
   argTypes: {
+    state: {
+      control: "inline-radio",
+      options: ["home", "chat"],
+      description: "Figma Header state variant (home | chat)",
+    },
     title: {
       control: "text",
-      description: "헤더 좌측 타이틀 텍스트 (Figma Label · 기본값: 홈)",
+      description: 'state="chat"일 때 타이틀 텍스트 (Figma Label · 기본값: 홈)',
     },
-    onBackClick: {
+    onBack: {
       control: false,
       description: "뒤로가기(Arrow) 클릭 핸들러",
     },
     className: { control: false },
   },
   args: {
+    state: "home",
     title: "홈",
-    onBackClick: fn(),
+    onBack: fn(),
   },
 } satisfies Meta<typeof Header>;
 
@@ -37,18 +43,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /* ========================================
- * Playground
+ * State
  * ======================================== */
 
-export const Default: Story = {};
+export const StateHome: Story = {
+  name: "State / home",
+  args: {
+    state: "home",
+  },
+};
+
+export const StateChat: Story = {
+  name: "State / chat",
+  args: {
+    state: "chat",
+    title: "홈",
+    onBack: fn(),
+  },
+};
 
 /* ========================================
- * Title
+ * Title (chat)
  * ======================================== */
 
 export const TitleHome: Story = {
   name: "Title / 홈",
   args: {
+    state: "chat",
     title: "홈",
   },
 };
@@ -56,6 +77,7 @@ export const TitleHome: Story = {
 export const TitleChat: Story = {
   name: "Title / 대화",
   args: {
+    state: "chat",
     title: "대화",
   },
 };
@@ -63,6 +85,7 @@ export const TitleChat: Story = {
 export const TitleSettings: Story = {
   name: "Title / 설정",
   args: {
+    state: "chat",
     title: "설정",
   },
 };
@@ -70,6 +93,7 @@ export const TitleSettings: Story = {
 export const TitleLong: Story = {
   name: "Title / Long Text",
   args: {
+    state: "chat",
     title: "매우 긴 헤더 타이틀 텍스트 말줄임 확인",
   },
 };
@@ -81,13 +105,14 @@ export const TitleLong: Story = {
 export const WithBackClick: Story = {
   name: "Interaction / Back Click",
   args: {
+    state: "chat",
     title: "홈",
-    onBackClick: fn(),
+    onBack: fn(),
   },
 };
 
 /* ========================================
- * Matrix — Title variants
+ * Matrix — State variants
  * ======================================== */
 
 export const AllVariants: Story = {
@@ -96,7 +121,7 @@ export const AllVariants: Story = {
     controls: { disable: true },
   },
   render: () => {
-    const titles = ["홈", "대화", "설정", "복약 기록"] as const;
+    const chatTitles = ["홈", "대화", "설정", "복약 기록"] as const;
 
     return (
       <div
@@ -107,7 +132,28 @@ export const AllVariants: Story = {
           width: "100%",
         }}
       >
-        {titles.map((title) => (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 8,
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--typography-ko-font-family)",
+              fontSize: 14,
+              color: "var(--color-text-secondary)",
+              paddingInline: 16,
+            }}
+          >
+            state=&quot;home&quot;
+          </div>
+          <Header state="home" />
+        </div>
+
+        {chatTitles.map((title) => (
           <div
             key={title}
             style={{
@@ -125,9 +171,9 @@ export const AllVariants: Story = {
                 paddingInline: 16,
               }}
             >
-              title=&quot;{title}&quot;
+              state=&quot;chat&quot; · title=&quot;{title}&quot;
             </div>
-            <Header title={title} onBackClick={fn()} />
+            <Header state="chat" title={title} onBack={fn()} />
           </div>
         ))}
       </div>
