@@ -1,0 +1,80 @@
+/* ========================================
+ * Home Wireframe
+ * header 393×62 · gap 393×40 · content 393×166
+ * gap 393×380 · button 393×66 · gap 393×48 · navigation 393×90
+ * ======================================== */
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 393px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 62px;
+  flex-shrink: 0;
+  background-color: #d9d9d9;
+}
+
+.gap40 {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 393px;
+  height: 166px;
+  flex-shrink: 0;
+  background-color: #d9d9d9;
+}
+
+.gap380 {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 380px;
+  flex-shrink: 0;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 66px;
+  flex-shrink: 0;
+  background-color: #d9d9d9;
+}
+
+.gap48 {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  width: 393px;
+  height: 90px;
+  flex-shrink: 0;
+  background-color: #d9d9d9;
+}
