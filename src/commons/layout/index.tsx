@@ -10,10 +10,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className={styles.layout}>
       <header className={styles.header} />
       <div className={styles.gap40} />
-      <main className={styles.content}>{children}</main>
-      <div className={styles.gap380} />
-      <div className={styles.button} />
-      <div className={styles.gap48} />
+      <main className={styles.children}>{children}</main>
       <nav className={styles.navigation} />
     </div>
   );
