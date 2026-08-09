@@ -39,16 +39,16 @@ export default function ChatEntry() {
           aria-label="누르고 말하기"
         >
           <span className={styles.voiceCircle} aria-hidden>
-            <Voice size="lg" />
+            <Voice size="lg" className={styles.voiceIcon} />
           </span>
           <span className={styles.voiceLabel}>누르고 말하기</span>
         </button>
       </div>
       <div className={styles.gap195} />
       <div className={styles.chatInputArea}>
+        {/* state 미지정: 포커스→focused, 텍스트 입력→active 로 자동 전환 */}
         <MessageInput
           disabled={false}
-          state="default"
           size="lg"
           placeholder="어지럽고 두통이..."
         />

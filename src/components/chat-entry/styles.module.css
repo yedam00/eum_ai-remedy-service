@@ -93,6 +93,14 @@
   border-radius: 9999px;
   background-color: var(--color-bg-brand-primary);
   color: var(--color-icon-primary);
+  /* Figma Frame 135 173:2882 — Drop shadow blur 16 · #158187 32% */
+  box-shadow: 0 0 16px
+    color-mix(in srgb, var(--color-bg-brand-primary) 32%, transparent);
+}
+
+/* Figma Voice 2063:8217 — iconSvg currentColor → --color-icon-primary */
+.voiceCircle .voiceIcon {
+  color: var(--color-icon-primary);
 }
 
 .voiceLabel {
@@ -146,7 +154,8 @@
   height: 58px;
 }
 
-/* Button 원본 미수정 — chat-entry 측에서 background만 오버라이드 */
+/* Button 원본 미수정 — chat-entry 측에서 background·label 색만 오버라이드 */
 .chatInputArea .symptomButton {
   background-color: var(--color-bg-brand-secondary);
+  color: var(--color-text-secondary);
 }
