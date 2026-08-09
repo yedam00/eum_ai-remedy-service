@@ -1,0 +1,76 @@
+/* ========================================
+ * Summary Wireframe
+ * header 62px · content flex:1 scroll · floating button 361×56 · bottom 32px
+ * ======================================== */
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 393px;
+  height: 100dvh;
+  position: relative;
+  background-color: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 393px;
+  height: 62px;
+  flex-shrink: 0;
+  background-color: #d0d0d0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 393px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  gap: 16px;
+  padding: 16px;
+  /* 플로팅 버튼(56) + bottom(32) + 여유 간격 — 마지막 내용이 가려지지 않도록 */
+  padding-bottom: 120px;
+  background-color: #f5f5f5;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 160px;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+}
+
+.sectionTall {
+  min-height: 220px;
+}
+
+.floatingButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 361px;
+  height: 56px;
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #bdbdbd;
+}
