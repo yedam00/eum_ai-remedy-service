@@ -24,6 +24,11 @@ export type HeaderProps = {
    * Figma Label 속성 매핑 · 기본값: "홈"
    */
   title?: string;
+  /**
+   * `state="chat"`일 때 뒤로가기 아이콘 노출 여부
+   * @default true
+   */
+  showicon?: boolean;
   /** 뒤로가기(Arrow) 클릭 핸들러 (`state="chat"`) */
   onBack?: () => void;
   className?: string;
@@ -51,6 +56,7 @@ const cx = (...parts: Array<string | undefined | false>) =>
 export function Header({
   state = "home",
   title = "홈",
+  showicon = true,
   onBack,
   className,
   ...rest
@@ -68,14 +74,16 @@ export function Header({
     >
       {isChat ? (
         <div className={styles.leading}>
-          <button
-            type="button"
-            className={styles.backButton}
-            onClick={onBack}
-            aria-label="뒤로 가기"
-          >
-            <Arrow />
-          </button>
+          {showicon ? (
+            <button
+              type="button"
+              className={styles.backButton}
+              onClick={onBack}
+              aria-label="뒤로 가기"
+            >
+              <Arrow />
+            </button>
+          ) : null}
           <span className={styles.title}>{title}</span>
         </div>
       ) : (
