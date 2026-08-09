@@ -12,6 +12,7 @@
   justify-content: flex-start;
   box-sizing: border-box;
   width: 361px;
+  padding-bottom: 32px;
   font-family: var(--typography-ko-font-family);
 }
 
