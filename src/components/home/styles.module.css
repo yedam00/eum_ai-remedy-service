@@ -1,7 +1,9 @@
 /* ========================================
- * Home Wireframe
- * header 393×62 · gap 393×40 · content 393×166
- * gap 393×380 · button 393×66 · gap 393×48 · navigation 393×90
+ * Home UI
+ * content 393×166 · gap 393×380 · button 393×66
+ * gap 393×48 · navigation 393×90
+ * Figma content 2045:7819 · button 2048:8021
+ * (header · gap40 · navigation은 Layout에서 제공)
  * ======================================== */
 
 .home {
@@ -12,33 +14,17 @@
   width: 393px;
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  width: 393px;
-  height: 62px;
-  flex-shrink: 0;
-  background-color: #d9d9d9;
-}
-
-.gap40 {
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  width: 393px;
-  height: 40px;
-  flex-shrink: 0;
-}
-
 .content {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   box-sizing: border-box;
   width: 393px;
   height: 166px;
   flex-shrink: 0;
-  background-color: #d9d9d9;
+  padding: 0 16px;
+  gap: 24px;
 }
 
 .gap380 {
@@ -53,11 +39,23 @@
 .button {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   width: 393px;
   height: 66px;
   flex-shrink: 0;
-  background-color: #d9d9d9;
+  padding: 0 16px;
+}
+
+.startButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 66px;
 }
 
 .gap48 {
@@ -76,5 +74,4 @@
   width: 393px;
   height: 90px;
   flex-shrink: 0;
-  background-color: #d9d9d9;
 }
