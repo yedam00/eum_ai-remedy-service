@@ -1,6 +1,10 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import SpeechBubble from "@/commons/components/speech-bubble";
 import MessageInput from "@/commons/components/message-input";
 import Button from "@/commons/components/button";
+import Header from "@/commons/components/header";
 import { Voice } from "@/commons/components/icons";
 import styles from "./styles.module.css";
 
@@ -11,9 +15,13 @@ import styles from "./styles.module.css";
  * ======================================== */
 
 export default function ChatEntry() {
+  const router = useRouter();
+
   return (
     <div className={styles.chatEntry}>
-      <div className={styles.header} />
+      <div className={styles.header}>
+        <Header state="chat" title="홈" onBack={() => router.back()} />
+      </div>
       <div className={styles.gap40} />
       <div className={styles.content}>
         <SpeechBubble
@@ -27,7 +35,7 @@ export default function ChatEntry() {
       <div className={styles.voiceButton}>
         <button
           type="button"
-          className={styles.voiceButtonInner}
+          className={styles.voicePress}
           aria-label="누르고 말하기"
         >
           <span className={styles.voiceCircle} aria-hidden>
@@ -41,8 +49,8 @@ export default function ChatEntry() {
         <MessageInput
           disabled={false}
           state="default"
-          size="sm"
-          placeholder="두통, 어지러움"
+          size="lg"
+          placeholder="어지럽고 두통이..."
         />
         <Button
           className={styles.symptomButton}
