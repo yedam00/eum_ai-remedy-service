@@ -1,6 +1,7 @@
 /* ========================================
- * Chat Wireframe
+ * Chat UI
  * header 62px · content flex:1 · chat-input height:auto
+ * Figma content 457:6248 — padding 16 · gap 24
  * ======================================== */
 
 .chat {
@@ -9,30 +10,37 @@
   align-items: stretch;
   box-sizing: border-box;
   width: 393px;
-  height: 100dvh;
-  max-height: 100dvh;
+  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  background-color: var(--color-bg-primary);
 }
 
+/* Layout에서 Header를 제공 — 와이어프레임 슬롯 DOM만 유지 */
 .header {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
   width: 393px;
-  height: 62px;
+  height: 0;
   flex-shrink: 0;
-  background-color: #d9d9d9;
+  overflow: hidden;
 }
 
 .content {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   box-sizing: border-box;
   width: 393px;
   flex: 1 1 auto;
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #d9d9d9;
+  padding: 0 16px;
+  gap: 24px;
+  background-color: var(--color-bg-primary);
 }
 
 .chatInput {
