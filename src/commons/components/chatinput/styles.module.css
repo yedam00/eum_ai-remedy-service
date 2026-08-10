@@ -82,10 +82,24 @@
   min-width: 0;
 }
 
+/*
+ * option-trio 아이콘 색상:
+ * Button.iconSlot 기본값(color-icon-on-primary)은 outlined 배경과 대비되지 않음.
+ * Default(선택/활성) → brand / Inactive(muted) → secondary
+ * 특이도: .optionRow .optionButton svg 로 Button .iconSlot svg 를 덮어씀
+ */
+.optionRow .optionButton svg {
+  color: var(--color-icon-brand);
+}
+
 /* 피그마: 예=brand, 아니오/모르겠음=secondary (inactive 스타일이되 클릭 가능) */
 .optionRow .optionButtonMuted {
   border-color: var(--color-border-secondary);
   color: var(--color-text-secondary);
+}
+
+.optionRow .optionButtonMuted svg {
+  color: var(--color-icon-secondary);
 }
 
 /* 피그마 file-upload "아니요" — 테두리 없이 primary 텍스트 */

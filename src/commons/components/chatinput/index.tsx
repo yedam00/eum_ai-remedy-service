@@ -312,6 +312,11 @@ function OptionTrioView({
 }) {
   const labels = options ?? [...DEFAULT_OPTION_TRIO];
 
+  /**
+   * 피그마: 첫 옵션(예) = Default(선택/활성), 나머지 = Inactive 비주얼(클릭 가능).
+   * 아이콘 색은 styles.optionButton / optionButtonMuted 에서
+   * color-icon-brand | color-icon-secondary 로 분기한다.
+   */
   const icons = [
     <Circle key="circle" />,
     <CloseLG key="close" />,
@@ -321,21 +326,24 @@ function OptionTrioView({
   return (
     <div className={cx(styles.section, styles.gap24)}>
       <div className={styles.optionRow}>
-        {labels.slice(0, 3).map((label, index) => (
-          <Button
-            key={`trio-${index}`}
-            variant="outlined"
-            state="default"
-            size="lg"
-            label={label}
-            leftIcon={icons[index]}
-            className={cx(
-              styles.optionButton,
-              index > 0 && styles.optionButtonMuted
-            )}
-            onClick={() => onOptionClick?.(index, label)}
-          />
-        ))}
+        {labels.slice(0, 3).map((label, index) => {
+          const isInactiveVisual = index > 0;
+          return (
+            <Button
+              key={`trio-${index}`}
+              variant="outlined"
+              state="default"
+              size="lg"
+              label={label}
+              leftIcon={icons[index]}
+              className={cx(
+                styles.optionButton,
+                isInactiveVisual && styles.optionButtonMuted
+              )}
+              onClick={() => onOptionClick?.(index, label)}
+            />
+          );
+        })}
       </div>
       <ChatMessageInput
         placeholder={messagePlaceholder}
