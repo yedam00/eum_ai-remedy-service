@@ -1,0 +1,18 @@
+/* ========================================
+ * VoiceModal — Figma VoiceInputSheet
+ * default 419:5683 · listening 2087:5431 · success 419:5703
+ * (backdrop 없음 — modal.provider와 함께 사용)
+ * ======================================== */
+
+.voiceModal {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-secondary);
+  font-family: var(--typography-ko-font-family);
+}
