@@ -10,8 +10,9 @@
   align-items: stretch;
   box-sizing: border-box;
   width: 393px;
-  height: 100dvh;
-  position: relative;
+  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   background-color: var(--color-bg-primary);
 }
 
@@ -40,26 +41,7 @@
   overflow-y: auto;
   gap: 16px;
   padding: 16px;
-  /* 플로팅 버튼(56) + bottom(32) + 여유 간격 — 마지막 내용이 가려지지 않도록 */
-  padding-bottom: 120px;
   background-color: var(--color-bg-primary);
-}
-
-.pageTitle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  margin: 0;
-  width: 100%;
-  flex-shrink: 0;
-  font-family: var(--typography-ko-font-family);
-  font-size: var(--typography-ko-body01-lg-font-size);
-  font-weight: var(--typography-ko-body01-lg-font-weight);
-  line-height: var(--typography-ko-body01-lg-line-height);
-  letter-spacing: var(--typography-ko-body01-lg-letter-spacing);
-  color: var(--color-text-primary);
 }
 
 .section {
@@ -73,20 +55,15 @@
   gap: 8px;
 }
 
-.sectionTall {
-  gap: 8px;
-}
-
 .sectionTitle {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
-  margin: 0;
   width: 100%;
+  margin: 0;
   padding: 0 16px;
-  flex-shrink: 0;
   font-family: var(--typography-ko-font-family);
   font-size: var(--typography-ko-body01-lg-font-size);
   font-weight: var(--typography-ko-body01-lg-font-weight);
@@ -95,7 +72,7 @@
   color: var(--color-text-brand);
 }
 
-.itemList {
+.sectionBody {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -105,22 +82,17 @@
   gap: 0;
 }
 
-.summaryItem {
-  width: 100%;
-}
-
 .floatingButton {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 361px;
-  height: 56px;
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 393px;
+  height: auto;
+  flex-shrink: 0;
+  padding: 0 16px 32px;
+  background-color: var(--color-bg-primary);
 }
 
 .exitButton {
@@ -129,7 +101,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 100%;
+  width: 361px;
   height: 56px;
   min-height: 56px;
 }
