@@ -2,6 +2,7 @@
  * VoiceModal — Figma VoiceInputSheet
  * default 419:5683 · listening 2087:5431 · success 419:5703
  * (backdrop 없음 — modal.provider와 함께 사용)
+ * 화면 최상단(top: 0)부터 붙는 컨텐츠 뷰
  * ======================================== */
 
 .voiceModal {
