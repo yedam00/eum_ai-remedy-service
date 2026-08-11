@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import SummaryItem from "@/commons/components/summary-item";
 import Button from "@/commons/components/button";
 import Header from "@/commons/components/header";
 import { LockOpen } from "@/commons/components/icons";
+import { useLinkRouting } from "./hooks/index.link.routing.hook";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -23,15 +23,16 @@ const MEDIA_IMAGE_URLS = [
 ];
 
 export default function Summary() {
-  const router = useRouter();
+  const { handleBackButtonClick, handleExitButtonClick } = useLinkRouting();
 
   return (
-    <div className={styles.summary}>
+    <div className={styles.summary} data-testid="summary-container">
       <div className={styles.header}>
         <Header
           state="chat"
           title="문진 요약 차트 - 의료진용"
-          onBack={() => router.back()}
+          onBack={handleBackButtonClick}
+          backButtonTestId="summary-back-button"
         />
       </div>
 
@@ -113,6 +114,8 @@ export default function Summary() {
           size="md"
           label="의료진 모드 종료"
           leftIcon={<LockOpen />}
+          onClick={handleExitButtonClick}
+          data-testid="summary-exit-button"
         />
       </div>
     </div>
