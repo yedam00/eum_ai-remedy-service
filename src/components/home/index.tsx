@@ -1,7 +1,10 @@
+"use client";
+
 import SpeechBubble from "@/commons/components/speech-bubble";
 import Button from "@/commons/components/button";
 import { EditPencile } from "@/commons/components/icons";
 import styles from "./styles.module.css";
+import { useLinkRouting } from "./hooks/index.link.routing.hook";
 
 /* ========================================
  * Home UI
@@ -11,8 +14,10 @@ import styles from "./styles.module.css";
  * ======================================== */
 
 export default function Home() {
+  const { handleStartButtonClick } = useLinkRouting();
+
   return (
-    <div className={styles.home}>
+    <div className={styles.home} data-testid="home-container">
       <div className={styles.content}>
         <SpeechBubble
           variant="ai"
@@ -36,6 +41,8 @@ export default function Home() {
           size="lg"
           label="문진 시작하기"
           leftIcon={<EditPencile />}
+          onClick={handleStartButtonClick}
+          data-testid="home-start-button"
         />
       </div>
       <div className={styles.gap48} />
