@@ -7,6 +7,7 @@ import Header from "@/commons/components/header";
 import { Voice } from "@/commons/components/icons";
 import styles from "./styles.module.css";
 import { useLinkRouting } from "./hooks/index.link.routing.hook";
+import { useLinkModal } from "./hooks/index.link.modal.hook";
 
 /* ========================================
  * ChatEntry UI
@@ -16,6 +17,7 @@ import { useLinkRouting } from "./hooks/index.link.routing.hook";
 
 export default function ChatEntry() {
   const { handleBackToHome } = useLinkRouting();
+  const { handleVoicePress } = useLinkModal();
 
   return (
     <div className={styles.chatEntry} data-testid="chat-entry-container">
@@ -37,6 +39,8 @@ export default function ChatEntry() {
           type="button"
           className={styles.voicePress}
           aria-label="누르고 말하기"
+          onClick={handleVoicePress}
+          data-testid="voice-press-button"
         >
           <span className={styles.voiceCircle} aria-hidden>
             <Voice size="lg" className={styles.voiceIcon} />
