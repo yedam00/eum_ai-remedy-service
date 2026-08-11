@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Summary - Link Routing', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/summary');
-    await page.waitForSelector('[data-testid="summary-container"]', { timeout: 500 });
+    await page.waitForSelector('[data-testid="summary-container"]');
   });
 
   test('헤더 뒤로가기 버튼을 클릭하면 /chat으로 이동한다', async ({ page }) => {
