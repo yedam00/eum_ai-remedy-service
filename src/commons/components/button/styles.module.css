@@ -1,0 +1,105 @@
+/* ========================================
+ * Button — Figma: Buttons · 3:2929
+ * ======================================== */
+
+.button {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  border-style: solid;
+  border-width: 0;
+  border-radius: 12px;
+  font-family: var(--typography-ko-font-family);
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- Size (+ typography set) ---------- */
+
+.sizeSm {
+  min-height: 50px;
+  padding: 12px;
+  font-size: var(--typography-ko-body02-md-font-size);
+  font-weight: var(--typography-ko-body02-md-font-weight);
+  line-height: var(--typography-ko-body02-md-line-height);
+  letter-spacing: var(--typography-ko-body02-md-letter-spacing);
+}
+
+.sizeMd {
+  min-height: 58px;
+  padding: 16px;
+  font-size: var(--typography-ko-body01-md-font-size);
+  font-weight: var(--typography-ko-body01-md-font-weight);
+  line-height: var(--typography-ko-body01-md-line-height);
+  letter-spacing: var(--typography-ko-body01-md-letter-spacing);
+}
+
+.sizeLg {
+  min-height: 66px;
+  padding: 20px;
+  font-size: var(--typography-ko-body01-lg-font-size);
+  font-weight: var(--typography-ko-body01-lg-font-weight);
+  line-height: var(--typography-ko-body01-lg-line-height);
+  letter-spacing: var(--typography-ko-body01-lg-letter-spacing);
+}
+
+/* ---------- Variant × State ---------- */
+
+.variantDefault {
+  background-color: var(--color-bg-brand-primary);
+  border-color: transparent;
+  color: var(--color-text-on-primary);
+}
+
+.variantOutlined {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: var(--color-border-brand-primary);
+  color: var(--color-text-brand);
+}
+
+.stateInactive.variantDefault {
+  background-color: var(--color-bg-disabled);
+  border-color: transparent;
+  color: var(--color-text-disabled);
+}
+
+.stateInactive.variantOutlined {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: var(--color-border-secondary);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Slots ---------- */
+
+.label {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconSlot {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-icon-on-primary);
+}
+
+.iconSlot > *,
+.iconSlot svg {
+  color: var(--color-icon-on-primary);
+}

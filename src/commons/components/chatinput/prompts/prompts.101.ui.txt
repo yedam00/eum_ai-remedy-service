@@ -1,0 +1,69 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc
+            - @02-wireframe.mdc
+            - @03-ui.mdc
+
+==============================================
+
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: m0bm33a9)
+조건-피그마) 참고할 공통컴포넌트 노드ID: 2030:1233
+
+조건-파일경로) 구현될 TSX 파일경로: src/commons/components/chatinput/index.tsx
+조건-파일경로) 구현될 CSS 파일경로: src/commons/components/chatinput/styles.module.css
+
+==============================================
+
+기존요구사항-참고만) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
+
+기존요구사항-참고만) 다음 조건을 모두 만족하는 완전한 variant 시스템을 구현할 것.
+            - uitype: 'multi-upload' | 'vertical-select' | 'option-trio' | 'medicine-search'| 'file-upload'| 'pain-scale'| 'checkbox-list'
+
+기존요구사항-참고만) 컴포넌트에 사용될 공통컴포넌트는들은 다음의 규칙을 지켜 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+	        - uitype: multi-upload에는 아래 위치를 참조해 <Button />, <MediaUpload />컴포넌트를 활용할 것.
+	        - uitype: vertical-select에는 아래 위치를 참조해 <Button />, <MessageInput />컴포넌트를 활용할 것.
+	        - uitype: option-trio에는 아래 위치를 참조해 <Button />, <MessageInput />컴포넌트를 활용할 것.
+	        - uitype: medicine-search에는 아래 위치를 참조해 <Button />, <Dropdown />컴포넌트를 활용할 것.
+	        - uitype: file-upload에는 아래 위치를 참조해 <Button /> 컴포넌트를 활용할 것.
+            - uitype: pain-scale에는 아래 위치를 참조해 <ImageCard />, <MessageInput /> 컴포넌트를 활용할 것.
+            - uitype: checkbox-list에는 아래 위치를 참조해 <Checklist />, <MessageInput />, <Button /> 컴포넌트를 활용할 것.
+            
+            공통 컴포넌트 위치
+            Button: src/commons/components/button/index.tsx
+            MediaUpload: src/commons/components/media-upload/index.tsx
+            MessageInput: src/commons/components/message-input/index.tsx
+            Dropdown: src/commons/components/dropdown/index.tsx
+            ImageCard: src/commons/components/image-card/index.tsx
+            Checklist: src/commons/components/checklist/index.tsx            
+
+기존요구사항-참고만) `pain-scale` uitype 동작 및 데이터 연결:
+            - 피그마의 레이아웃 형태대로 ImageCard 5개가 정확히 배치되고 하단에 MessageInput이 함께 노출되도록 구현할 것.
+            - 통증 척도 데이터(1~5단계 이미지 경로 `/images/level1.png` ~ `/images/level5.png`, 점수 텍스트, 설명)는 변경되지 않는 고정 정적 데이터로 컴포넌트 내부에 구성할 것.
+
+기존요구사항-참고만) 1. 수정된 Dropdown 공통 컴포넌트 불러오기 및 연결:
+             - ChatInput의 `medicine-search` 유형에서 사용하는 드롭다운 영역을 수정 완료된 공통 컴포넌트 <Dropdown /> (src/commons/components/dropdown/index.tsx)으로 교체하여 연결할 것.
+
+기존요구사항-참고만) 2. medicine-search 및 medicine-search (expanded) 데이터/상태 전달:
+             - ChatInput의 `uitype`이 `medicine-search`일 때, 내부 <Dropdown />에 펼침/접힘 상태(expanded) 프로퍼티 및 필요한 속성을 전달할 것.
+             - `medicine-search` 스토리에서는 접힌 상태(expanded: false)의 Dropdown이 노출되고, `medicine-search (expanded)` 스토리에서는 펼쳐진 상태(expanded: true)의 Dropdown이 노출되도록 설정할 것.
+             - 사용자 화살표 클릭 시 ChatInput 내에서도 Dropdown의 펼침/접힘 토글 동작이 상호 연동되도록 연결할 것.
+
+기존요구사항-참고만) checkbox-list컴포넌트에서 체크박스 선택 여부에 따라 '다음' 버튼 Default / Inactive 동적 상태 변경:
+             - 체크박스가 1개 이상 선택된 경우: 하단 '다음' 버튼을 즉시 활성화(Default) 상태로 전환할 것.
+             - 모든 체크박스가 해제되어 선택 항목이 0개인 경우: 하단 '다음' 버튼을 비활성화(Inactive) 상태로 전환할 것.
+             - 사용자 선택 변화에 따라 버튼 상태가 실시간으로 상호 전환되도록 구현할 것.
+
+기존요구사항-참고만) 모든 ChatInput varient의 하단에 padding 32px을 추가해줘.
+            - 참고할 노드 ID: 2030:1233
+
+==============================================
+
+핵심요구사항)ChatInput 컴포넌트 내부 버튼의 아이콘 색상을 수정해 주세요.
+          1. 현재 option-trio 컴포넌트의 `iconSvg`에 `color-icon-on-primary` 색상이 적용되어 배경과 대비되지 않아 아이콘이 보이지 않습니다.
+          2. 버튼의 상태(State)에 따라 `iconSvg` 색상 토큰을 다음과 같이 분기하여 반영할 것.
+            - Default 상태 (선택/활성화된 버튼): `color-icon-brand`
+            - Inactive 상태: `color-icon-secondary`

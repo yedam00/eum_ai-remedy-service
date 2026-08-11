@@ -1,0 +1,45 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc
+
+==============================================
+
+조건-파일경로) 구현될 TS 파일경로: src/commons/constants/enum.ts
+
+==============================================
+
+핵심요구사항) 문진 챗봇 하단 입력/선택 UI 제어를 위한 enum 데이터를 사용 가능하도록 셋팅할 것.
+            - CHECKBOX_LIST (체크박스 다중선택 목록 + 하단 자연어/음성 입력)
+                1) Enum/Key 명: CHECKBOX_LIST
+                2) Value: "CHECKBOX_LIST"
+                3) Description: "체크박스 형태의 동반 증상 다중 선택 및 자연어/음성 입력 UI"
+            
+            - VERTICAL_SELECT (세로형 대형 버튼 목록 + 하단 자연어/음성 입력)
+                1) Enum/Key 명: VERTICAL_SELECT
+                2) Value: "VERTICAL_SELECT"
+                3) Description: "발병 기간 및 경과 선택을 위한 세로형 대형 버튼 UI"
+		
+            - OPTION_TRIO (3지선다 버튼 목록 + 하단 자연어/음성 입력)
+                1) Enum/Key 명: OPTION_TRIO
+                2) Value: "OPTION_TRIO"
+                3) Description: "예 / 아니오 / 모르겠음 선택 버튼 UI"
+
+            - PAIN_SCALE (통증 단계 선택 이모지 카드 + 하단 자연어/음성 입력)
+                1) Enum/Key 명: PAIN_SCALE
+                2) Value: "PAIN_SCALE"
+                3) Description: "이모지 및 1~10 점수 기반 통증 척도 선택 UI"
+
+            - MEDICINE_SEARCH (약물 검색 및 추가 카드 UI)
+                1) Enum/Key 명: MEDICINE_SEARCH
+                2) Value: "MEDICINE_SEARCH"
+                3) Description: "복용 중인 약물 검색 및 추가/목록 관리 UI"
+
+  	        - FILE_UPLOAD (사진 및 동영상 첨부 UI)
+                1) Enum/Key 명: FILE_UPLOAD
+                2) Value: "FILE_UPLOAD"
+                3) Description: "환부 사진 및 동영상 파일 업로드 UI"
+

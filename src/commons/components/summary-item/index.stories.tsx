@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { fn } from "storybook/test";
 import { SummaryItem, type SummaryItemVariant } from "./index";
 
 const VARIANTS: SummaryItemVariant[] = [
@@ -57,15 +56,10 @@ const meta = {
       control: "text",
       description: "opinion variant 제목",
     },
-    onEdit: {
-      control: false,
-      description: "default / list 편집(연필) 버튼 클릭",
-    },
     className: { control: false },
   },
   args: {
     variant: "default",
-    onEdit: fn(),
   },
 } satisfies Meta<typeof SummaryItem>;
 
@@ -160,30 +154,6 @@ export const CustomOpinion: Story = {
 };
 
 /* ========================================
- * Interaction
- * ======================================== */
-
-export const WithEdit: Story = {
-  name: "Interaction / Edit",
-  args: {
-    variant: "default",
-    label: "다친 적이 있나요?",
-    answerLabel: "머리가 어지러움",
-    onEdit: fn(),
-  },
-};
-
-export const WithEditList: Story = {
-  name: "Interaction / Edit List",
-  args: {
-    variant: "list",
-    label: "어떤 증상이 있나요?",
-    answerLabel: SAMPLE_LIST_ANSWERS,
-    onEdit: fn(),
-  },
-};
-
-/* ========================================
  * Matrix — Default | List | Media | Opinion
  * ======================================== */
 
@@ -228,7 +198,6 @@ export const AllVariants: Story = {
             imageUrls={
               variant === "media" ? SAMPLE_IMAGE_URLS.slice(0, 4) : undefined
             }
-            onEdit={variant === "default" || variant === "list" ? fn() : undefined}
           />
         </div>
       ))}

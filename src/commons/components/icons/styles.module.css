@@ -10,13 +10,15 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  color: var(--color-icon-primary);
+  /* 부모 슬롯/컨테이너 color를 따름 (미지정 시 상위 텍스트 색) */
+  color: inherit;
 }
 
 .iconSvg {
   display: block;
   width: 100%;
   height: 100%;
+  color: inherit;
 }
 
 /* Voice Size=lg — 32×32 (Figma) */

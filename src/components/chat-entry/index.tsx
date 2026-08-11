@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import SpeechBubble from "@/commons/components/speech-bubble";
 import MessageInput from "@/commons/components/message-input";
 import Button from "@/commons/components/button";
 import Header from "@/commons/components/header";
 import { Voice } from "@/commons/components/icons";
 import styles from "./styles.module.css";
+import { useLinkRouting } from "./hooks/index.link.routing.hook";
 
 /* ========================================
  * ChatEntry UI
@@ -15,12 +15,12 @@ import styles from "./styles.module.css";
  * ======================================== */
 
 export default function ChatEntry() {
-  const router = useRouter();
+  const { handleBackToHome } = useLinkRouting();
 
   return (
-    <div className={styles.chatEntry}>
+    <div className={styles.chatEntry} data-testid="chat-entry-container">
       <div className={styles.header}>
-        <Header state="chat" title="홈" onBack={() => router.back()} />
+        <Header state="chat" title="홈" onBack={handleBackToHome} />
       </div>
       <div className={styles.gap40} />
       <div className={styles.content}>

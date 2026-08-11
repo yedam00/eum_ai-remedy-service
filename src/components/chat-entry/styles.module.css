@@ -92,15 +92,15 @@
   height: 80px;
   border-radius: 9999px;
   background-color: var(--color-bg-brand-primary);
-  color: var(--color-icon-primary);
-  /* Figma Frame 135 173:2882 — Drop shadow blur 16 · #158187 32% */
-  box-shadow: 0 0 16px
-    color-mix(in srgb, var(--color-bg-brand-primary) 32%, transparent);
+  color: var(--color-icon-on-primary);
+  /* Figma Frame 135 173:2882 — Drop shadow blur 50 · #158187 40% */
+  box-shadow: 0 0 50px
+    color-mix(in srgb, var(--color-bg-brand-primary) 40%, transparent);
 }
 
-/* Figma Voice 2063:8217 — iconSvg currentColor → --color-icon-primary */
+/* Voice iconSvg(currentColor) — 청록 배경 위 흰색 */
 .voiceCircle .voiceIcon {
-  color: var(--color-icon-primary);
+  color: var(--color-icon-on-primary);
 }
 
 .voiceLabel {

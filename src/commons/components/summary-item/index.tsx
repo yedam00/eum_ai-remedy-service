@@ -1,9 +1,5 @@
-import {
-  type ButtonHTMLAttributes,
-  type HTMLAttributes,
-} from "react";
+import { type HTMLAttributes } from "react";
 import Image from "next/image";
-import { Edit } from "../icons";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -38,8 +34,6 @@ export type SummaryItemProps = {
    * 미전달 시 피그마 기본 문구("환자 추가 질문") 사용.
    */
   title?: string;
-  /** default / list 편집(연필) 버튼 클릭 */
-  onEdit?: () => void;
   className?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children" | "title">;
 
@@ -109,55 +103,16 @@ function resolveAnswer(answerLabel?: string | string[]): string {
  * Sub-parts
  * ======================================== */
 
-function EditButton({ onClick }: { onClick?: () => void }) {
-  const handleClick: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (
-    event
-  ) => {
-    event.stopPropagation();
-    onClick?.();
-  };
-
-  return (
-    <button
-      type="button"
-      className={styles.editButton}
-      onClick={handleClick}
-      aria-label="수정"
-    >
-      <span className={styles.editIcon} aria-hidden>
-        <Edit />
-      </span>
-    </button>
-  );
-}
-
-function QuestionHeader({
-  label,
-  onEdit,
-}: {
-  label: string;
-  onEdit?: () => void;
-}) {
-  return (
-    <div className={styles.header}>
-      <p className={styles.label}>{label}</p>
-      <EditButton onClick={onEdit} />
-    </div>
-  );
-}
-
 function DefaultBody({
   label,
   answerLabel,
-  onEdit,
 }: {
   label: string;
   answerLabel?: string | string[];
-  onEdit?: () => void;
 }) {
   return (
     <>
-      <QuestionHeader label={label} onEdit={onEdit} />
+      <p className={styles.label}>{label}</p>
       <p className={styles.answer}>{resolveAnswer(answerLabel)}</p>
     </>
   );
@@ -166,17 +121,15 @@ function DefaultBody({
 function ListBody({
   label,
   answerLabel,
-  onEdit,
 }: {
   label: string;
   answerLabel?: string | string[];
-  onEdit?: () => void;
 }) {
   const answers = toAnswerList(answerLabel);
 
   return (
     <>
-      <QuestionHeader label={label} onEdit={onEdit} />
+      <p className={styles.label}>{label}</p>
       <div className={styles.answerList}>
         {answers.map((answer, index) => (
           <p key={`${answer}-${index}`} className={styles.answer}>
@@ -253,7 +206,6 @@ export function SummaryItem({
   answerLabel,
   imageUrls,
   title,
-  onEdit,
   className,
   ...rest
 }: SummaryItemProps) {
@@ -273,7 +225,6 @@ export function SummaryItem({
         <DefaultBody
           label={resolvedLabel ?? DEFAULT_LABEL_BY_VARIANT.default}
           answerLabel={answerLabel}
-          onEdit={onEdit}
         />
       ) : null}
 
@@ -281,7 +232,6 @@ export function SummaryItem({
         <ListBody
           label={resolvedLabel ?? DEFAULT_LABEL_BY_VARIANT.list}
           answerLabel={answerLabel}
-          onEdit={onEdit}
         />
       ) : null}
 

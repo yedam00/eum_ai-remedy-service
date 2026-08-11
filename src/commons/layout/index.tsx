@@ -67,7 +67,12 @@ export default function Layout({ children }: LayoutProps) {
   };
 
   const handleBack = () => {
-    router.back();
+    // chat 페이지에서는 /home으로 직접 이동
+    if (pathname === getUrlPath(UrlKey.CHAT)) {
+      router.push(getUrlPath(UrlKey.HOME));
+    } else {
+      router.back();
+    }
   };
 
   return (
@@ -80,8 +85,15 @@ export default function Layout({ children }: LayoutProps) {
           onBack={handleBack}
         />
       ) : null}
-      {showHeader ? <div className={styles.gap40} /> : null}
-      <main className={styles.children}>{children}</main>
+      <main
+        className={
+          showHeader
+            ? `${styles.children} ${styles.gap40}`
+            : styles.children
+        }
+      >
+        {children}
+      </main>
       {showNavigation ? (
         <div className={styles.navigation}>
           <NavigationBar

@@ -1,0 +1,39 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc
+            - @02-wireframe.mdc
+            - @03-ui.mdc
+
+==============================================
+
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: r65b5lor)
+조건-피그마) 참고할 공통컴포넌트 노드ID: 3:3439
+조건-파일경로) 구현될 TSX 파일경로: src/commons/components/header/index.tsx
+조건-파일경로) 구현될 CSS 파일경로: src/commons/components/header/styles.module.css
+
+==============================================
+
+기존요구사항-참고만) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
+           - title (string, optional): 헤더 좌측에 표시될 타이틀 텍스트 (피그마 Label 속성 매핑, 기본값: "홈")
+
+==============================================
+
+기존요구사항-참고만) State Props 및 피그마 Variant 1:1 매핑:
+   - 피그마 Header 컴포넌트의 Current variant 속성인 `state`를 Props로 바인딩할 것.
+   - Props 정의:
+     * `state?: 'home' | 'chat'` (기본값: 'home')
+     * `title?: string` (`state="chat"`일 때 표출할 텍스트, 기본값: '홈')
+     * `onBack?: () => void` (뒤로가기 클릭 이벤트)
+
+기존요구사항-참고만) Props 인터페이스 확장:
+   - HeaderProps에 `showicon?: boolean` (기본값: true) prop을 추가할 것.
+   - `state="chat"` 상태일 때, 전달받은 boolean prop이 `true`이면 뒤로가기 아이콘을 노출하고, `false`이면 뒤로가기 아이콘을 숨길 것.
+
+   ==============================================
+
+핵심요구사항) iconSvg 영역 size 수정
+      - iconSvg 영역의 width와 height를 48px로 수정하돼, leading영역의 아이콘과 텍스트 사이의 gap 16px을 없앨 것.

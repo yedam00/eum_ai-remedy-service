@@ -31,6 +31,8 @@ export type HeaderProps = {
   showicon?: boolean;
   /** 뒤로가기(Arrow) 클릭 핸들러 (`state="chat"`) */
   onBack?: () => void;
+  /** 뒤로가기 버튼의 data-testid */
+  backButtonTestId?: string;
   className?: string;
 } & Omit<HTMLAttributes<HTMLElement>, "title" | "children">;
 
@@ -58,6 +60,7 @@ export function Header({
   title = "홈",
   showicon = true,
   onBack,
+  backButtonTestId,
   className,
   ...rest
 }: HeaderProps) {
@@ -80,6 +83,7 @@ export function Header({
               className={styles.backButton}
               onClick={onBack}
               aria-label="뒤로 가기"
+              data-testid={backButtonTestId}
             >
               <Arrow />
             </button>

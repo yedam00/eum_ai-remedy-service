@@ -90,12 +90,12 @@ export const urlMeta = {
     UrlKey.CHAT_ENTRY,
     "/chat-entry",
     "채팅 시작",
-    createLayout(createHeader(true, false, true), false)
+    createLayout(createHeader(false, false, false), false)
   ),
   [UrlKey.CHAT]: createMeta(
     UrlKey.CHAT,
     "/chat",
-    "채팅",
+    "홈",
     createLayout(createHeader(true, false, true), false)
   ),
   [UrlKey.SUMMARY]: createMeta(

@@ -1,0 +1,42 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc 
+
+==============================================
+
+조건-파일경로) 구현될 TSX 파일경로: src/commons/providers/chat-state/chat-state.provider.tsx
+
+==============================================
+
+핵심요구사항) 기존 프로젝트에 정의된 ChatInputUIType enum을 import하여 활용할 것.
+- 연결될 파일 경로: src/commons/constants/enum.ts
+
+핵심요구사항)
+1. 환자의 가변적인 문진 흐름, 데이터 수집, 및 되돌리기(Undo) 기능을 전역에서 관리하는 프로바이더를 구현할 것.
+
+2. State (전역 데이터 장부) 구성요소:
+   - messages: 대화 메시지 배열 (sender: 'AI' | 'USER', text: string, inputType?: ChatInputUIType, id: string)
+     * timestamp(시간 데이터)는 UI에 사용하지 않으므로 포함하지 않을 것.
+   - currentInputType: 하단 입력 영역에 렌더링할 ChatInputUIType (홈 화면이거나 AI 응답 대기 중일 때는 null로 지정)
+   - isThinking: AI 질문 생성 중일 때 로딩 UI를 띄우기 위한 boolean 값
+   - summaryData: 문진 완료 후 요약 차트 화면(/summary)에 출력할 환자 응답 수집 객체 (Record<string, any>)
+
+3. Action (데이터 처리 함수) 구성요소:
+   - addMessage(message): 새 메시지를 대화 내역(messages)에 추가하는 함수
+   - setNextQuestion(aiMessage, nextInputType): AI의 새 질문 텍스트를 대화에 추가하고, 하단 입력 UI 타입(currentInputType)을 변경하는 함수
+   - submitUserAnswer(answerText, payloadData?): 유저 답변을 messages 배열에 추가하고, summaryData 객체에도 해당 답변 데이터를 수집/누적하는 함수
+   - popLastAnswer(): 가장 최근 유저 답변 및 관련 AI 응답/질문 상태를 취소하는 되돌리기 함수
+     * 가장 최근의 유저 답변 메시지를 messages 배열에서 제거할 것.
+     * 해당 답변으로 인해 summaryData에 저장되었던 데이터 항목도 함께 제거(취소)할 것.
+     * 하단 입력 영역(currentInputType)을 해당 답변을 입력했던 당시의 ChatInputUIType으로 다시 복원할 것.
+
+4. UI 전달 헬퍼(Helper) 조건:
+   - messages 배열 내의 유저 메시지 중 '가장 마지막(최신) 유저 메시지'인지를 판단할 수 있는 식별 로직이나 헬퍼 기능을 제공하여, UI 컴포넌트에서 가장 최근 유저 말풍선 왼쪽에만 되돌리기 버튼이 노출될 수 있도록 지원할 것.
+
+5. 완성된 컴포넌트를 layout에서 import하여 연결시킬 것. (children을 감싸도록 만들 것)
+            - 연결될 경로: src/app/layout.tsx
+            - 연결될 순서: <ReactQueryProvider /> 바로 아래에 위치할 것.
