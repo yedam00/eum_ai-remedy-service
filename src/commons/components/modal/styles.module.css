@@ -2,17 +2,21 @@
  * Modal — Figma: 2105:5538
  * variant: info | danger
  * actions: dual
+ * 400×auto · pad 32/24/24/24 · border-radius 20 · gap 24
  * ======================================== */
 
 .modal {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   box-sizing: border-box;
   width: 100%;
   max-width: 400px;
   padding: 32px 24px 24px 24px;
   background-color: var(--color-bg-primary);
   border-radius: 20px;
+  font-family: var(--typography-ko-font-family);
   gap: 24px;
 }
 
@@ -23,6 +27,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
   text-align: center;
   font-size: var(--typography-ko-sub02-md-font-size);
   font-weight: var(--typography-ko-sub02-md-font-weight);
@@ -36,6 +41,9 @@
 .content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
   text-align: center;
   font-size: var(--typography-ko-body02-sm-font-size);
   font-weight: var(--typography-ko-body02-sm-font-weight);
@@ -52,6 +60,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
   gap: 8px;
 }
 

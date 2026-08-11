@@ -1,66 +1,65 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { type HTMLAttributes, type ReactNode } from "react";
 import { Button } from "@/commons/components/button";
 import styles from "./styles.module.css";
 
 /* ========================================
- * Modal UI Component
- * Figma: 2105:5538 (variant: info/danger, actions: dual)
+ * Types — Figma Modal variant API (2105:5538)
  * ======================================== */
 
-/** Modal variant: info | danger */
+/** Figma Variant=`info` | `danger` */
 export type ModalVariant = "info" | "danger";
 
-/** Modal actions: dual (2 buttons) */
+/** Figma Actions=`dual` (2 buttons) */
 export type ModalActions = "dual";
 
 export type ModalProps = {
   /**
-   * Modal variant
+   * Figma Modal `variant`
    * - info: 기본 정보 모달
    * - danger: 경고/삭제 확인 모달
+   * @default "info"
    */
   variant?: ModalVariant;
-  
   /**
    * Actions type: dual (2 buttons)
+   * @default "dual"
    */
   actions?: ModalActions;
-  
   /**
-   * Modal title
+   * Modal title (Figma Label)
+   * @default "제목"
    */
   title?: string;
-  
-  /**
-   * Modal content (body)
-   */
+  /** Modal content body text */
   content?: ReactNode;
-  
   /**
-   * Primary button label (오른쪽)
+   * Primary button label (오른쪽 버튼)
+   * @default "계속 작성"
    */
   primaryLabel?: string;
-  
   /**
-   * Secondary button label (왼쪽)
+   * Secondary button label (왼쪽 버튼)
+   * @default "나가기"
    */
   secondaryLabel?: string;
-  
-  /**
-   * Primary button click handler
-   */
+  /** Primary button click handler */
   onPrimary?: () => void;
-  
-  /**
-   * Secondary button click handler
-   */
+  /** Secondary button click handler */
   onSecondary?: () => void;
-};
+  className?: string;
+} & Omit<HTMLAttributes<HTMLDivElement>, "children" | "title">;
 
 /* ========================================
- * Component
+ * Helpers
+ * ======================================== */
+
+const cx = (...parts: Array<string | undefined | false>) =>
+  parts.filter(Boolean).join(" ");
+
+/* ========================================
+ * Component — Figma Modal · 2105:5538
  * ======================================== */
 
 export function Modal({
@@ -72,22 +71,19 @@ export function Modal({
   secondaryLabel = "나가기",
   onPrimary,
   onSecondary,
+  className,
+  ...rest
 }: ModalProps) {
   return (
-    <div className={styles.modal} data-variant={variant}>
-      {/* Title */}
-      <div className={styles.title}>
-        {title}
-      </div>
-      
-      {/* Content */}
-      {content && (
-        <div className={styles.content}>
-          {content}
-        </div>
-      )}
-      
-      {/* Actions - Dual */}
+    <div
+      className={cx(styles.modal, className)}
+      data-variant={variant}
+      {...rest}
+    >
+      <div className={styles.title}>{title}</div>
+
+      {content && <div className={styles.content}>{content}</div>}
+
       {actions === "dual" && (
         <div className={styles.actions}>
           <Button
