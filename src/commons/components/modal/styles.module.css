@@ -1,0 +1,72 @@
+/* ========================================
+ * Modal — Figma: 2105:5538
+ * variant: info | danger
+ * actions: dual
+ * ======================================== */
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 24px 24px 24px;
+  background-color: var(--color-bg-primary);
+  border-radius: 20px;
+  gap: 24px;
+}
+
+/* ---------- Title ---------- */
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: var(--typography-ko-sub02-md-font-size);
+  font-weight: var(--typography-ko-sub02-md-font-weight);
+  line-height: var(--typography-ko-sub02-md-line-height);
+  letter-spacing: var(--typography-ko-sub02-md-letter-spacing);
+  color: var(--color-text-primary);
+}
+
+/* ---------- Content ---------- */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: var(--typography-ko-body02-sm-font-size);
+  font-weight: var(--typography-ko-body02-sm-font-weight);
+  line-height: var(--typography-ko-body02-sm-line-height);
+  letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
+  color: var(--color-text-secondary);
+  gap: 8px;
+}
+
+/* ---------- Actions ---------- */
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.buttonSecondary {
+  flex: 1;
+  width: 100%;
+}
+
+.buttonPrimary {
+  flex: 1;
+  width: 100%;
+}
+
+/* ---------- Variant: danger ---------- */
+
+.modal[data-variant="danger"] .title {
+  color: var(--color-text-primary);
+}
