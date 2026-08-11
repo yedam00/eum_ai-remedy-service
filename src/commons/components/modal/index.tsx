@@ -88,7 +88,7 @@ export function Modal({
         <div className={styles.actions}>
           <Button
             variant="outlined"
-            size="md"
+            size="sm"
             onClick={onSecondary}
             className={styles.buttonSecondary}
           >
@@ -96,7 +96,7 @@ export function Modal({
           </Button>
           <Button
             variant="default"
-            size="md"
+            size="sm"
             onClick={onPrimary}
             className={styles.buttonPrimary}
           >

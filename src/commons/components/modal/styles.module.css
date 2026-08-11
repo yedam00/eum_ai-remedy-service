@@ -2,7 +2,7 @@
  * Modal — Figma: 2105:5538
  * variant: info | danger
  * actions: dual
- * 400×auto · pad 32/24/24/24 · border-radius 20 · gap 24
+ * 345×252 · pad 24 · border-radius 12 · gap 18
  * ======================================== */
 
 .modal {
@@ -12,12 +12,12 @@
   justify-content: flex-start;
   box-sizing: border-box;
   width: 100%;
-  max-width: 400px;
-  padding: 32px 24px 24px 24px;
+  max-width: 345px;
+  padding: 24px;
   background-color: var(--color-bg-primary);
-  border-radius: 20px;
+  border-radius: 12px;
   font-family: var(--typography-ko-font-family);
-  gap: 24px;
+  gap: 18px;
 }
 
 /* ---------- Title ---------- */
@@ -29,10 +29,10 @@
   justify-content: center;
   width: 100%;
   text-align: center;
-  font-size: var(--typography-ko-sub02-md-font-size);
-  font-weight: var(--typography-ko-sub02-md-font-weight);
-  line-height: var(--typography-ko-sub02-md-line-height);
-  letter-spacing: var(--typography-ko-sub02-md-letter-spacing);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: 0;
   color: var(--color-text-primary);
 }
 
@@ -45,10 +45,10 @@
   justify-content: flex-start;
   width: 100%;
   text-align: center;
-  font-size: var(--typography-ko-body02-sm-font-size);
-  font-weight: var(--typography-ko-body02-sm-font-weight);
-  line-height: var(--typography-ko-body02-sm-line-height);
-  letter-spacing: var(--typography-ko-body02-sm-letter-spacing);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0;
   color: var(--color-text-secondary);
   gap: 8px;
 }
