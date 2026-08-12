@@ -9,10 +9,10 @@
 
 ==============================================
 
-조건-파일경로) 참고할 TSX  파일경로: src/components/chat-entry/index.tsx
-조건-파일경로) 참고할 CSS  파일경로: src/components/chat-entry/styles.module.css
-조건-파일경로) 구현될 HOOK 파일경로: src/components/chat-entry/hooks/index.link.voice-modal.hook.tsx
-조건-파일경로) 구현될 TEST 파일경로: src/components/chat-entry/tests/index.link.voice-modal.hook.spec.ts
+조건-파일경로) 참고할 TSX  파일경로: src/components/voice-modal/index.tsx
+조건-파일경로) 참고할 CSS  파일경로: src/components/voice-modal/styles.module.css
+조건-파일경로) 구현될 HOOK 파일경로: src/components/voice-modal/hooks/index.link.exit-modal.hook.tsx
+조건-파일경로) 구현될 TEST 파일경로: src/components/voice-modal/tests/index.link.exit-modal.hook.spec.ts
 
 ==============================================
 
@@ -33,6 +33,6 @@
                 - 모달 프로바이더 경로: src/commons/providers/modal/modal.provider.tsx
                 - 이미 셋팅되어있는 modal.provider를 사용할 것.
                 - 이미 셋팅되어있는 modal.provider를 수정하지 말 것.
-            
-            2) 상세 구현 내용
-                - voicePress: 클릭시, 모달 컴포넌트를 기존의 페이지 위 상단에 overlay 하여 겹칠 것.
+           
+	    2) 상세 구현 내용
+                - closeButton 클릭 시, 모달이 닫히도록 구현할 것.
