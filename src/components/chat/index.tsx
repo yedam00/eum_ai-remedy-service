@@ -6,6 +6,7 @@ import ChatInput, {
 import SpeechBubble from "@/commons/components/speech-bubble";
 import Header from "@/commons/components/header";
 import { useLinkModal } from "./hooks/index.link.modal.hook";
+import { useExitModal } from "@/commons/components/modal/hooks/index.exit-modal.hook";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -25,6 +26,7 @@ export type ChatProps = {
 
 export default function Chat({ uitype = "option-trio" }: ChatProps) {
   const { handleHeaderClick } = useLinkModal();
+  const { handleExitClick } = useExitModal();
 
   return (
     <div className={styles.chat} data-testid="chat-container">
@@ -53,6 +55,13 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
       <div className={styles.chatInput}>
         <ChatInput uitype={uitype} />
       </div>
+      <button
+        data-testid="exit-button"
+        onClick={handleExitClick}
+        style={{ position: "absolute", bottom: "100px", right: "20px" }}
+      >
+        나가기
+      </button>
     </div>
   );
 }

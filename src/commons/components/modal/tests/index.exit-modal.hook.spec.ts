@@ -2,12 +2,12 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Exit Modal Hook", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/diaries");
-    await page.waitForSelector('[data-testid="diaries-container"]');
+    await page.goto("/chat");
+    await page.waitForSelector('[data-testid="chat-container"]');
   });
 
   test("나가기 버튼 클릭 시 모달이 노출된다", async ({ page }) => {
-    // Given: diaries 페이지가 로드되어 있음
+    // Given: chat 페이지가 로드되어 있음
     const exitButton = page.locator('[data-testid="exit-button"]');
     await expect(exitButton).toBeVisible();
 
@@ -38,7 +38,7 @@ test.describe("Exit Modal Hook", () => {
   });
 
   test("모달에 제목과 버튼이 표시된다", async ({ page }) => {
-    // Given: diaries 페이지가 로드되어 있음
+    // Given: chat 페이지가 로드되어 있음
     const exitButton = page.locator('[data-testid="exit-button"]');
 
     // When: 나가기 버튼을 클릭하여 모달 열기
@@ -89,8 +89,8 @@ test.describe("Exit Modal Hook", () => {
     const primaryButton = modal.locator("button:has-text('계속 작성')");
     await primaryButton.click();
 
-    // Then: 페이지가 /diaries에 유지됨
-    expect(page.url()).toContain("/diaries");
+    // Then: 페이지가 /chat에 유지됨
+    expect(page.url()).toContain("/chat");
   });
 
   test("모달의 '나가기' 버튼 클릭 시 홈 페이지(/home)로 이동한다", async ({
