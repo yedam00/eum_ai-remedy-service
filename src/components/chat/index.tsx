@@ -4,7 +4,8 @@ import ChatInput, {
   type ChatInputUiType,
 } from "@/commons/components/chatinput";
 import SpeechBubble from "@/commons/components/speech-bubble";
-import { useLinkRouting } from "./hooks/index.link.routing.hook";
+import Header from "@/commons/components/header";
+import { useLinkModal } from "./hooks/index.link.modal.hook";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -23,15 +24,13 @@ export type ChatProps = {
 };
 
 export default function Chat({ uitype = "option-trio" }: ChatProps) {
-  const { handleHeaderClick } = useLinkRouting();
+  const { handleHeaderClick } = useLinkModal();
 
   return (
     <div className={styles.chat} data-testid="chat-container">
-      <div
-        className={styles.header}
-        onClick={handleHeaderClick}
-        data-testid="chat-header"
-      />
+      <div className={styles.header}>
+        <Header state="chat" title="홈" onBack={handleHeaderClick} />
+      </div>
       <div className={styles.content}>
         <SpeechBubble
           variant="user"

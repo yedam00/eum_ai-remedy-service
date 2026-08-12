@@ -1,26 +1,26 @@
 /* Modal overlay — full viewport dimming layer
- * VoiceModal 등 시트형 컨텐츠가 화면 최상단(top: 0)부터 붙도록 flex-start */
+ * 모달을 중앙에 배치하기 위해 center 정렬 사용 */
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 16px;
 }
 
-/* Modal content — mobile layout: 100% width, no horizontal margins */
+/* Modal content — 중앙 배치된 다이얼로그 스타일 */
 .modal {
   position: relative;
   z-index: 1001;
   width: 100%;
-  max-width: 100%;
-  margin: 0;
-  margin-left: 0;
-  margin-right: 0;
+  max-width: 343px;
+  margin: 0 auto;
   box-sizing: border-box;
   background-color: var(--color-bg-primary, #ffffff);
   color: var(--color-text-primary, #2a2c34);
+  border-radius: 16px;
 }

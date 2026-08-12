@@ -7,7 +7,7 @@ import Header from "@/commons/components/header";
 import { Voice } from "@/commons/components/icons";
 import styles from "./styles.module.css";
 import { useLinkRouting } from "./hooks/index.link.routing.hook";
-import { useLinkModal } from "./hooks/index.link.modal.hook";
+import { useLinkModal } from "./hooks/index.link.voice-modal.hook";
 
 /* ========================================
  * ChatEntry UI

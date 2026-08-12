@@ -16,16 +16,15 @@
   background-color: var(--color-bg-primary);
 }
 
-/* Layout에서 Header를 제공 — 와이어프레임 슬롯 DOM만 유지 */
 .header {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   box-sizing: border-box;
   width: 393px;
-  height: 0;
+  height: 62px;
   flex-shrink: 0;
-  overflow: hidden;
-  cursor: pointer;
 }
 
 .content {

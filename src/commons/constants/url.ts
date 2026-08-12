@@ -96,7 +96,7 @@ export const urlMeta = {
     UrlKey.CHAT,
     "/chat",
     "홈",
-    createLayout(createHeader(true, false, true), false)
+    createLayout(createHeader(false, false, false), false)
   ),
   [UrlKey.SUMMARY]: createMeta(
     UrlKey.SUMMARY,

@@ -67,8 +67,8 @@ export const VariantInfo: Story = {
   name: "Variant / Info",
   args: {
     variant: "info",
-    title: "작성 중인 내용이 있습니다",
-    content: "페이지를 나가면 작성 중인 내용이 저장되지 않습니다. 계속 작성하시겠습니까?",
+    title: "문진을 종료하시겠습니까?",
+    content: "작성 중인 내용이 저장되지 않습니다. ",
   },
 };
 
@@ -76,8 +76,8 @@ export const VariantDanger: Story = {
   name: "Variant / Danger",
   args: {
     variant: "danger",
-    title: "정말 삭제하시겠습니까?",
-    content: "삭제된 내용은 복구할 수 없습니다. 정말 삭제하시겠습니까?",
+    title: "문진을 종료하시겠습니까?",
+    content: "선택한 내용들은 모두 초기화됩니다.",
     primaryLabel: "삭제",
     secondaryLabel: "취소",
   },
