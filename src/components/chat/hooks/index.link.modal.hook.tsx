@@ -1,10 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useModal } from "@/commons/providers/modal/modal.provider";
 import Modal from "@/commons/components/modal";
+import { getUrlPath, UrlKey } from "@/commons/constants/url";
 
 export const useLinkModal = () => {
   const { openModal, closeModal } = useModal();
+  const router = useRouter();
 
   const handleHeaderClick = () => {
     openModal(
@@ -17,7 +20,7 @@ export const useLinkModal = () => {
         onPrimary={closeModal}
         onSecondary={() => {
           closeModal();
-          // 추가 동작이 필요한 경우 여기에 구현
+          router.push(getUrlPath(UrlKey.HOME));
         }}
       />
     );
