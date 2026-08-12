@@ -22,7 +22,12 @@ export default function ChatEntry() {
   return (
     <div className={styles.chatEntry} data-testid="chat-entry-container">
       <div className={styles.header}>
-        <Header state="chat" title="홈" onBack={handleBackToHome} />
+        <Header
+          state="chat"
+          title="홈"
+          onBack={handleBackToHome}
+          backButtonTestId="chat-entry-back-button"
+        />
       </div>
       <div className={styles.gap40} />
       <div className={styles.content}>

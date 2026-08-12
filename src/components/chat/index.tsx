@@ -29,7 +29,12 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
   return (
     <div className={styles.chat} data-testid="chat-container">
       <div className={styles.header}>
-        <Header state="chat" title="홈" onBack={handleHeaderClick} />
+        <Header
+          state="chat"
+          title="홈"
+          onBack={handleHeaderClick}
+          backButtonTestId="chat-back-button"
+        />
       </div>
       <div className={styles.content}>
         <SpeechBubble

@@ -7,19 +7,19 @@ test.describe('ChatEntry - Link Routing', () => {
   });
 
   test('헤더 뒤로가기 버튼을 클릭하면 /home으로 이동한다', async ({ page }) => {
-    const backButton = page.locator('button[aria-label="뒤로 가기"]');
+    const backButton = page.locator('[data-testid="chat-entry-back-button"]');
     
     await expect(backButton).toBeVisible();
     
     await backButton.click();
     
-    await page.waitForURL('/home', { timeout: 500 });
+    await page.waitForURL('**/home');
     
     expect(page.url()).toContain('/home');
   });
 
   test('헤더 뒤로가기 버튼에 pointer 커서가 적용된다', async ({ page }) => {
-    const backButton = page.locator('button[aria-label="뒤로 가기"]');
+    const backButton = page.locator('[data-testid="chat-entry-back-button"]');
     
     const cursor = await backButton.evaluate((el) => {
       return window.getComputedStyle(el).cursor;

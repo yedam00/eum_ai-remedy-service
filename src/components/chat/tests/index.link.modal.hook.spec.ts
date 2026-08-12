@@ -8,7 +8,7 @@ test.describe("Chat Link Modal Hook", () => {
 
   test("header backButton 클릭 시 모달이 노출된다", async ({ page }) => {
     // Given: chat 페이지가 로드되어 있음
-    const backButton = page.locator('button:has-text("뒤로 가기")');
+    const backButton = page.locator('[data-testid="chat-back-button"]');
     await expect(backButton).toBeVisible();
 
     // When: 뒤로 가기 버튼을 클릭
@@ -23,15 +23,15 @@ test.describe("Chat Link Modal Hook", () => {
     page,
   }) => {
     // Given: 모달이 열려있음
-    const backButton = page.locator('button:has-text("뒤로 가기")');
+    const backButton = page.locator('[data-testid="chat-back-button"]');
     await backButton.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    // When: overlay를 클릭
+    // When: overlay를 클릭 (모달 밖 영역)
     const overlay = page.locator('[role="presentation"]');
-    await overlay.click();
+    await overlay.click({ position: { x: 10, y: 10 } });
 
     // Then: 모달이 닫힘
     await expect(modal).not.toBeVisible();
@@ -39,7 +39,7 @@ test.describe("Chat Link Modal Hook", () => {
 
   test("모달에 제목과 버튼이 표시된다", async ({ page }) => {
     // Given: chat 페이지가 로드되어 있음
-    const backButton = page.locator('button:has-text("뒤로 가기")');
+    const backButton = page.locator('[data-testid="chat-back-button"]');
 
     // When: 뒤로 가기 버튼을 클릭하여 모달 열기
     await backButton.click();
@@ -61,7 +61,7 @@ test.describe("Chat Link Modal Hook", () => {
 
   test("모달의 '계속 작성' 버튼 클릭 시 모달이 닫힌다", async ({ page }) => {
     // Given: 모달이 열려있음
-    const backButton = page.locator('button:has-text("뒤로 가기")');
+    const backButton = page.locator('[data-testid="chat-back-button"]');
     await backButton.click();
 
     const modal = page.locator('[role="dialog"]');
