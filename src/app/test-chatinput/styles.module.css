@@ -1,0 +1,43 @@
+/* ========================================
+ * TestChatInputPage — ChatInput (file-upload) 테스트 페이지
+ * ======================================== */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  flex: 1;
+}
+
+.title {
+  font-family: var(--typography-ko-font-family);
+  font-size: var(--typography-ko-heading01-md-font-size);
+  font-weight: var(--typography-ko-heading01-md-font-weight);
+  line-height: var(--typography-ko-heading01-md-line-height);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.chatInputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  width: 361px;
+  padding-bottom: 32px;
+  font-family: var(--typography-ko-font-family);
+}

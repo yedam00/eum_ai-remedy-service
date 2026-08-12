@@ -50,6 +50,7 @@ function EmptyPlaceholder({ onClick }: { onClick?: () => void }) {
       className={styles.placeholder}
       onClick={onClick}
       aria-label="미디어 업로드"
+      data-testid="file-add-more-placeholder"
     >
       <span className={styles.plus} aria-hidden>
         +
@@ -82,6 +83,7 @@ function UploadedMedia({
           className={styles.closeButton}
           onClick={handleRemove}
           aria-label="미디어 삭제"
+          data-testid="file-delete-button"
         >
           <span className={styles.closeIcon} aria-hidden>
             <CloseLG />
@@ -124,6 +126,7 @@ export function MediaUpload({
         className
       )}
       data-variant={variant}
+      data-testid={isUploaded ? "file-preview-item" : undefined}
       {...rest}
     >
       {isUploaded && imageUrl ? (

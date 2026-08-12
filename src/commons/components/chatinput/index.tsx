@@ -224,7 +224,10 @@ function MultiUploadView({
   const slots = normalizeMediaUrls(mediaUrls);
 
   return (
-    <div className={cx(styles.section, styles.gap24)}>
+    <div
+      className={cx(styles.section, styles.gap24)}
+      data-testid="multi-upload-filled-container"
+    >
       <div className={styles.mediaGrid}>
         {slots.map((url, index) => (
           <MediaUpload
@@ -451,6 +454,7 @@ function FileUploadView({
         className={styles.fileDropzone}
         onClick={onFileUploadClick}
         aria-label="사진, 동영상 추가하기"
+        data-testid="file-dropzone"
       >
         <span className={styles.filePlus} aria-hidden>
           +
