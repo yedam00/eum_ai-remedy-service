@@ -9,10 +9,10 @@
 
 ==============================================
 
-조건-파일경로) 참고할 TSX  파일경로: src/commons/components/chat/index.tsx
-조건-파일경로) 참고할 CSS  파일경로: src/commons/components/chat/styles.module.css
-조건-파일경로) 구현될 HOOK 파일경로: src/commons/components/chat/hooks/index.exit-modal.hook.tsx
-조건-파일경로) 구현될 TEST 파일경로: src/commons/components/chat/tests/index.exit-modal.hook.spec.ts
+조건-파일경로) 참고할 TSX  파일경로: src/commons/components/modal/index.tsx
+조건-파일경로) 참고할 CSS  파일경로: src/commons/components/modal/styles.module.css
+조건-파일경로) 구현될 HOOK 파일경로: src/commons/components/modal/hooks/index.exit-modal.hook.tsx
+조건-파일경로) 구현될 TEST 파일경로: src/commons/components/modal/tests/index.exit-modal.hook.spec.ts
 
 ==============================================
 

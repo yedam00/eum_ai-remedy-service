@@ -1,18 +1,18 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Modal Exit Modal Hook", () => {
+test.describe("Exit Modal Hook", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/test-exit-modal");
-    await page.waitForSelector('[data-testid="test-exit-modal-container"]');
+    await page.goto("/diaries");
+    await page.waitForSelector('[data-testid="diaries-container"]');
   });
 
-  test("트리거 버튼 클릭 시 모달이 노출된다", async ({ page }) => {
-    // Given: test-exit-modal 페이지가 로드되어 있음
-    const triggerButton = page.locator('[data-testid="trigger-exit-modal"]');
-    await expect(triggerButton).toBeVisible();
+  test("나가기 버튼 클릭 시 모달이 노출된다", async ({ page }) => {
+    // Given: diaries 페이지가 로드되어 있음
+    const exitButton = page.locator('[data-testid="exit-button"]');
+    await expect(exitButton).toBeVisible();
 
-    // When: 트리거 버튼을 클릭
-    await triggerButton.click();
+    // When: 나가기 버튼을 클릭
+    await exitButton.click();
 
     // Then: 모달이 노출됨
     const modal = page.locator('[role="dialog"]');
@@ -23,26 +23,26 @@ test.describe("Modal Exit Modal Hook", () => {
     page,
   }) => {
     // Given: 모달이 열려있음
-    const triggerButton = page.locator('[data-testid="trigger-exit-modal"]');
-    await triggerButton.click();
+    const exitButton = page.locator('[data-testid="exit-button"]');
+    await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    // When: overlay를 클릭 (모달 외부 영역을 클릭)
+    // When: overlay를 클릭 (모달 밖 영역)
     const overlay = page.locator('[role="presentation"]');
-    await overlay.click({ position: { x: 5, y: 5 } });
+    await overlay.click({ position: { x: 10, y: 10 } });
 
     // Then: 모달이 닫힘
     await expect(modal).not.toBeVisible();
   });
 
   test("모달에 제목과 버튼이 표시된다", async ({ page }) => {
-    // Given: test-exit-modal 페이지가 로드되어 있음
-    const triggerButton = page.locator('[data-testid="trigger-exit-modal"]');
+    // Given: diaries 페이지가 로드되어 있음
+    const exitButton = page.locator('[data-testid="exit-button"]');
 
-    // When: 트리거 버튼을 클릭하여 모달 열기
-    await triggerButton.click();
+    // When: 나가기 버튼을 클릭하여 모달 열기
+    await exitButton.click();
 
     // Then: 모달에 제목과 버튼들이 표시됨
     const modal = page.locator('[role="dialog"]');
@@ -59,32 +59,46 @@ test.describe("Modal Exit Modal Hook", () => {
     await expect(secondaryButton).toBeVisible();
   });
 
-  test("'계속 작성' 버튼 클릭 시 페이지가 이동하지 않고 모달만 닫힌다", async ({
-    page,
-  }) => {
+  test("모달의 '계속 작성' 버튼 클릭 시 모달이 닫힌다", async ({ page }) => {
     // Given: 모달이 열려있음
-    const triggerButton = page.locator('[data-testid="trigger-exit-modal"]');
-    await triggerButton.click();
+    const exitButton = page.locator('[data-testid="exit-button"]');
+    await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
-
-    // 현재 URL 저장
-    const currentUrl = page.url();
 
     // When: '계속 작성' 버튼 클릭
     const primaryButton = modal.locator("button:has-text('계속 작성')");
     await primaryButton.click();
 
-    // Then: 모달이 닫히고 URL은 변경되지 않음
+    // Then: 모달이 닫힘
     await expect(modal).not.toBeVisible();
-    expect(page.url()).toBe(currentUrl);
   });
 
-  test("'나가기' 버튼 클릭 시 /home 페이지로 이동한다", async ({ page }) => {
+  test("모달의 '계속 작성' 버튼 클릭 시 페이지가 이동하지 않는다", async ({
+    page,
+  }) => {
     // Given: 모달이 열려있음
-    const triggerButton = page.locator('[data-testid="trigger-exit-modal"]');
-    await triggerButton.click();
+    const exitButton = page.locator('[data-testid="exit-button"]');
+    await exitButton.click();
+
+    const modal = page.locator('[role="dialog"]');
+    await expect(modal).toBeVisible();
+
+    // When: '계속 작성' 버튼 클릭
+    const primaryButton = modal.locator("button:has-text('계속 작성')");
+    await primaryButton.click();
+
+    // Then: 페이지가 /diaries에 유지됨
+    expect(page.url()).toContain("/diaries");
+  });
+
+  test("모달의 '나가기' 버튼 클릭 시 홈 페이지(/home)로 이동한다", async ({
+    page,
+  }) => {
+    // Given: 모달이 열려있음
+    const exitButton = page.locator('[data-testid="exit-button"]');
+    await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
