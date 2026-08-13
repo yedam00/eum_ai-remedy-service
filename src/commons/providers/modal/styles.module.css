@@ -24,3 +24,25 @@
   color: var(--color-text-primary, #2a2c34);
   border-radius: 16px;
 }
+
+/* Top position overlay — 상단에 모달을 배치하기 위한 오버레이 */
+.overlayTop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Top position modal — 화면 상단에 딱 붙이고 100% 너비 */
+.modalTop {
+  position: relative;
+  z-index: 1001;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--color-bg-primary, #ffffff);
+  color: var(--color-text-primary, #2a2c34);
+}

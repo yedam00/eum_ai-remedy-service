@@ -22,7 +22,8 @@ export const useExitModal = () => {
           closeModal();
           router.push(getUrlPath(UrlKey.HOME));
         }}
-      />
+      />,
+      "center"
     );
   };
 

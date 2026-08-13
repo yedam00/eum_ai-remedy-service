@@ -14,9 +14,11 @@ import styles from "./styles.module.css";
  * Types
  * ======================================== */
 
+type ModalPosition = "center" | "top";
+
 type ModalContextValue = {
   isOpen: boolean;
-  openModal: (content: ReactNode) => void;
+  openModal: (content: ReactNode, position?: ModalPosition) => void;
   closeModal: () => void;
 };
 
@@ -45,9 +47,10 @@ export const useModal = (): ModalContextValue => {
 type ModalPortalProps = {
   children: ReactNode;
   onClose: () => void;
+  position: ModalPosition;
 };
 
-const ModalPortal = ({ children, onClose }: ModalPortalProps) => {
+const ModalPortal = ({ children, onClose, position }: ModalPortalProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -58,14 +61,14 @@ const ModalPortal = ({ children, onClose }: ModalPortalProps) => {
     return null;
   }
 
+  const overlayClass =
+    position === "top" ? styles.overlayTop : styles.overlay;
+  const modalClass = position === "top" ? styles.modalTop : styles.modal;
+
   return createPortal(
-    <div
-      className={styles.overlay}
-      onClick={onClose}
-      role="presentation"
-    >
+    <div className={overlayClass} onClick={onClose} role="presentation">
       <div
-        className={styles.modal}
+        className={modalClass}
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -83,13 +86,16 @@ const ModalPortal = ({ children, onClose }: ModalPortalProps) => {
 
 export default function ModalProvider({ children }: ModalProviderProps) {
   const [content, setContent] = useState<ReactNode>(null);
+  const [position, setPosition] = useState<ModalPosition>("center");
 
-  const openModal = (nextContent: ReactNode) => {
+  const openModal = (nextContent: ReactNode, nextPosition: ModalPosition = "center") => {
     setContent(nextContent);
+    setPosition(nextPosition);
   };
 
   const closeModal = () => {
     setContent(null);
+    setPosition("center");
   };
 
   const value: ModalContextValue = {
@@ -102,7 +108,9 @@ export default function ModalProvider({ children }: ModalProviderProps) {
     <ModalContext.Provider value={value}>
       {children}
       {content !== null && (
-        <ModalPortal onClose={closeModal}>{content}</ModalPortal>
+        <ModalPortal onClose={closeModal} position={position}>
+          {content}
+        </ModalPortal>
       )}
     </ModalContext.Provider>
   );
