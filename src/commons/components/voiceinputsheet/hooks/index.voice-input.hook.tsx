@@ -164,7 +164,7 @@ export const useVoiceInput = (): UseVoiceInputReturn => {
       const chatPath = getUrlPath(UrlKey.CHAT);
       const encodedText = encodeURIComponent(textToSend);
       router.push(`${chatPath}?text=${encodedText}`);
-    }, 500); // Success 상태를 잠깐 보여준 후 이동
+    }, 800); // 모달 닫힘 애니메이션과 동기화
   };
 
   /**

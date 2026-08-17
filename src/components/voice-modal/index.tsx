@@ -88,6 +88,19 @@ export default function VoiceModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Success 상태가 되면 체크 애니메이션 후 자동으로 모달 닫기
+  useEffect(() => {
+    if (state === "success") {
+      // 체크 애니메이션을 보여주기 위해 800ms 대기 후 모달 닫기
+      const timer = setTimeout(() => {
+        stop();
+        onClose?.();
+      }, 800);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [state, stop, onClose]);
+
   // state에 따라 descriptions 표시 여부 결정
   const shouldShowDescriptions =
     propDescriptions !== undefined
