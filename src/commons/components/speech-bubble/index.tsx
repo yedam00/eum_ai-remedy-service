@@ -134,13 +134,12 @@ export function SpeechBubble({
     >
       {isAi ? (
         <AiBubble label={label} hasImage={hasImage} imageUrl={imageUrl} />
+      ) : hasImage ? (
+        <UserImageGrid imageUrl={imageUrl} />
       ) : (
-        <>
-          <div className={styles.userBubbleWrap}>
-            <UserBubbleRow userLabel={userLabel} />
-          </div>
-          {hasImage ? <UserImageGrid imageUrl={imageUrl} /> : null}
-        </>
+        <div className={styles.userBubbleWrap}>
+          <UserBubbleRow userLabel={userLabel} />
+        </div>
       )}
     </div>
   );

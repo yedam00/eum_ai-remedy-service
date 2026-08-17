@@ -71,12 +71,12 @@
 /* ---------- User row (Figma 3:3290 / Frame 364) ---------- */
 
 .variantUser {
+  display: flex;
   align-items: stretch;
 }
 
 .variantUser.hasImage {
   width: 304px;
-  gap: 8px;
 }
 
 .userBubbleWrap {
