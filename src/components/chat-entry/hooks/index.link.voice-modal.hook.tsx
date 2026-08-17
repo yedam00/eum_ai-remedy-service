@@ -9,7 +9,7 @@ export const useLinkModal = () => {
   const handleVoicePress = () => {
     openModal(
       <div data-testid="voice-modal">
-        <VoiceModal state="default" onClose={closeModal} />
+        <VoiceModal onClose={closeModal} />
       </div>,
       "top"
     );
