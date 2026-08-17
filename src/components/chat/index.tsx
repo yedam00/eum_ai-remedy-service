@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import ChatInput, {
   type ChatInputUiType,
 } from "@/commons/components/chatinput";
@@ -27,6 +28,10 @@ export type ChatProps = {
 export default function Chat({ uitype = "option-trio" }: ChatProps) {
   const { handleHeaderClick } = useLinkModal();
   const { handleExitClick } = useExitModal();
+  const searchParams = useSearchParams();
+  
+  // 쿼리 파라미터에서 텍스트 가져오기 (음성 입력에서 전달된 텍스트)
+  const userText = searchParams.get("text") || "두통이 있어요";
 
   return (
     <div className={styles.chat} data-testid="chat-container">
@@ -43,7 +48,7 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
           variant="user"
           hasImage={false}
           label=""
-          userLabel="두통이 있어요"
+          userLabel={userText}
         />
         <SpeechBubble
           variant="ai"

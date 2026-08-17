@@ -10,8 +10,8 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: v3j2o7sm)
-조건-피그마) 참고할 공통컴포넌트 노드ID: 3:3424
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 4jp5m3w7)
+조건-피그마) 참고할 노드ID: 173:2899
 
 조건-파일경로) 구현될 TSX 파일경로: src/commons/components/vociceinputsheet/index.tsx
 조건-파일경로) 구현될 CSS 파일경로: src/commons/components/vociceinputsheet/styles.module.css
@@ -33,9 +33,12 @@
                 1) 모달에 사용될 <voiceindicator /> 공통컴포넌트 원본을 수정하지 말고, 아래의 props만 활용할 것.
                     - state: default, success, listeing를 확인하여 구현할 것.
                     - size: 피그마와 일치할 것.
-
-==============================================
  
-핵심요구사항) VoiceIndicator 컴포넌트 재사용 및 연결:
+기존요구사항-참고만) VoiceIndicator 컴포넌트 재사용 및 연결:
             - VoiceInputSheet 내부 중앙의 인디케이터 영역을 최신화된 공통 컴포넌트 <VoiceIndicator /> (src/commons/components/voiceindicator/index.tsx)로 연결할 것.
             - VoiceInputSheet의 `state`가 `success`일 때, 내부 <VoiceIndicator />에 `state="success"` 속성이 정확히 전달되도록 구현할 것.
+
+==============================================
+
+핵심요구사항) 모달 오버레이 상단 정렬 및 레이아웃 수정
+            - 현재 화면 중앙(center)에 맞춰져 있는 모달 위치를 화면 최상단(top: 0)에 맞추어 오버레이되도록 CSS 스타일을 교정할 것.

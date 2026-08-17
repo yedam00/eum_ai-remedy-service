@@ -1,10 +1,9 @@
 "use client";
 
-import {
-  VoiceInputSheet,
-  type VoiceInputSheetProps,
-} from "@/commons/components/voiceinputsheet";
+import { useEffect } from "react";
+import { VoiceInputSheet } from "@/commons/components/voiceinputsheet";
 import type { VoiceIndicatorState } from "@/commons/components/voiceindicator";
+import { useVoiceInput } from "@/commons/components/voiceinputsheet/hooks/index.voice-input.hook";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -48,38 +47,13 @@ export type VoiceModalProps = {
  * Constants — Figma copy / state presets
  * ======================================== */
 
-const DEFAULT_DESCRIPTION_ITEMS = [
-  "“배가 쑤시듯이 아파요”",
-  "“배가 쑤시듯이 아파요”",
-  "“배가 쑤시듯이 아파요”",
-] as const;
+const DEFAULT_TITLE = "어디가 불편하신가요?";
 
-/**
- * 피그마 인스턴스별 기본 props
- * - 419:5683 default — 가이드 문구 노출 · "어디가 불편하신가요?"
- * - 2087:5431 listening — 가이드 숨김 · "두통이..." · bars full
- * - 419:5703 success — 가이드 숨김 · "두통이 있어요"
- */
-const FIGMA_STATE_PRESETS: Record<
-  VoiceModalState,
-  Pick<VoiceInputSheetProps, "descriptions" | "title" | "audioLevel">
-> = {
-  default: {
-    descriptions: true,
-    title: "어디가 불편하신가요?",
-    audioLevel: 0,
-  },
-  listening: {
-    descriptions: false,
-    title: "두통이...",
-    audioLevel: 100,
-  },
-  success: {
-    descriptions: false,
-    title: "두통이 있어요",
-    audioLevel: 0,
-  },
-};
+const DEFAULT_DESCRIPTION_ITEMS = [
+  '"배가 쑤시듯이 아파요"',
+  '"배가 쑤시듯이 아파요"',
+  '"배가 쑤시듯이 아파요"',
+] as const;
 
 /* ========================================
  * Helpers
@@ -90,23 +64,42 @@ const cx = (...parts: Array<string | undefined | false>) =>
 
 /* ========================================
  * Component — VoiceModal
- * VoiceInputSheet 공통컴포넌트 조립 (원본 수정 없음)
+ * VoiceInputSheet 공통컴포넌트 조립 + useVoiceInput hook 연동
  * ======================================== */
 
 export default function VoiceModal({
-  state = "default",
-  descriptions,
-  title,
+  state: propState,
+  descriptions: propDescriptions,
+  title: propTitle,
   descriptionItems,
-  audioLevel,
+  audioLevel: propAudioLevel,
   onClose,
   className,
 }: VoiceModalProps) {
-  const preset = FIGMA_STATE_PRESETS[state];
+  const { state, transcript, audioLevel, start, stop } = useVoiceInput();
 
-  const resolvedDescriptions = descriptions ?? preset.descriptions ?? true;
-  const resolvedTitle = title ?? preset.title;
-  const resolvedAudioLevel = audioLevel ?? preset.audioLevel;
+  // 컴포넌트 마운트 시 자동으로 음성 인식 시작
+  useEffect(() => {
+    start();
+    
+    return () => {
+      stop();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // state에 따라 descriptions 표시 여부 결정
+  const shouldShowDescriptions =
+    propDescriptions !== undefined
+      ? propDescriptions
+      : state === "default";
+
+  // title 결정 (transcript가 있으면 그것을 사용, 없으면 propTitle 또는 기본값)
+  const resolvedTitle = transcript || propTitle || DEFAULT_TITLE;
+
+  // audioLevel 결정 (hook에서 받은 값 사용, 없으면 prop 값)
+  const resolvedAudioLevel = audioLevel ?? propAudioLevel ?? 0;
+
   const resolvedDescriptionItems =
     descriptionItems && descriptionItems.length > 0
       ? descriptionItems
@@ -115,12 +108,15 @@ export default function VoiceModal({
   return (
     <div className={cx(styles.voiceModal, className)}>
       <VoiceInputSheet
-        descriptions={resolvedDescriptions}
+        descriptions={shouldShowDescriptions}
         title={resolvedTitle}
         descriptionItems={resolvedDescriptionItems}
-        state={state}
+        state={propState ?? state}
         audioLevel={resolvedAudioLevel}
-        onClose={onClose}
+        onClose={() => {
+          stop();
+          onClose?.();
+        }}
       />
     </div>
   );
