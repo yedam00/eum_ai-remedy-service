@@ -31,37 +31,26 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
   const { handleExitClick } = useExitModal();
   const searchParams = useSearchParams();
   const contentRef = useRef<HTMLDivElement>(null);
-  const latestUserBubbleRef = useRef<HTMLDivElement>(null);
+  const userBubbleRef = useRef<HTMLDivElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
 
   // 쿼리 파라미터에서 텍스트 가져오기 (음성 입력에서 전달된 텍스트)
   const userText = searchParams.get("text") || "두통이 있어요";
+  const latestAiLabel = "어떤 증상을 느끼시나요?";
 
   useLayoutEffect(() => {
     const contentEl = contentRef.current;
     const spacerEl = spacerRef.current;
     if (!contentEl || !spacerEl) return;
     spacerEl.style.height = `${contentEl.clientHeight}px`;
-  }, [userText]);
+  }, [userText, latestAiLabel]);
 
   useEffect(() => {
-    const contentEl = contentRef.current;
-    const userBubbleEl = latestUserBubbleRef.current;
-    if (!contentEl || !userBubbleEl) return;
-
-    const frameId = window.requestAnimationFrame(() => {
-      const nextTop =
-        contentEl.scrollTop +
-        (userBubbleEl.getBoundingClientRect().top -
-          contentEl.getBoundingClientRect().top);
-      contentEl.scrollTo({
-        top: nextTop,
-        behavior: "smooth",
-      });
+    userBubbleRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
     });
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, [userText]);
+  }, [userText, latestAiLabel]);
 
   return (
     <div className={styles.chat} data-testid="chat-container">
@@ -73,19 +62,14 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
           backButtonTestId="chat-back-button"
         />
       </div>
-      <div
-        className={styles.content}
-        ref={contentRef}
-        data-testid="chat-content"
-      >
+      <div className={styles.content} ref={contentRef}>
         <SpeechBubble
           variant="ai"
           hasImage={false}
           label="어디가 불편하신가요?"
           userLabel=""
-          data-testid="chat-history-ai-bubble"
         />
-        <div ref={latestUserBubbleRef} data-testid="chat-latest-user-bubble">
+        <div ref={userBubbleRef}>
           <SpeechBubble
             variant="user"
             hasImage={false}
@@ -96,11 +80,10 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
         <SpeechBubble
           variant="ai"
           hasImage={false}
-          label="어떤 증상을 느끼시나요?"
+          label={latestAiLabel}
           userLabel=""
-          data-testid="chat-latest-ai-bubble"
         />
-        <div ref={spacerRef} data-testid="chat-scroll-spacer" aria-hidden />
+        <div ref={spacerRef} aria-hidden />
       </div>
       <div className={styles.chatInput}>
         <ChatInput uitype={uitype} />
