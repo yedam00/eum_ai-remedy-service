@@ -80,6 +80,7 @@ type UseVoiceInputReturn = {
  * ======================================== */
 
 const SILENCE_DURATION_MS = 2000; // 2초 무음 감지
+const SILENCE_THRESHOLD = 5; // audioLevel이 5 이하면 무음으로 간주
 const FALLBACK_TEXT = "배가 쑤시듯이 아파요"; // Fallback 텍스트
 const FALLBACK_DELAY_MS = 2000; // Fallback 텍스트 생성 딜레이
 const AUDIO_LEVEL_UPDATE_INTERVAL_MS = 100; // audioLevel 업데이트 주기
@@ -105,12 +106,16 @@ const isSpeechRecognitionSupported = (): boolean => {
 const calculateAudioLevel = (frequencyData: Uint8Array): number => {
   if (frequencyData.length === 0) return 0;
 
-  // 평균 주파수 값 계산
-  const sum = frequencyData.reduce((acc, val) => acc + val, 0);
-  const average = sum / frequencyData.length;
+  // 최대값 사용 (음성에 더 민감하게 반응)
+  let maxValue = 0;
+  for (let i = 0; i < frequencyData.length; i++) {
+    if (frequencyData[i] > maxValue) {
+      maxValue = frequencyData[i];
+    }
+  }
 
   // 0~255 → 0~100 변환
-  return Math.min(100, Math.round((average / 255) * 100));
+  return Math.min(100, Math.round((maxValue / 255) * 100));
 };
 
 /* ========================================
@@ -224,8 +229,8 @@ export const useVoiceInput = (): UseVoiceInputReturn => {
         setAudioLevel(level);
         lastAudioLevelRef.current = level;
 
-        // 무음 감지 (audioLevel이 0이고 transcript가 있을 때)
-        if (level === 0 && finalTranscriptRef.current) {
+        // 무음 감지 (audioLevel이 임계값 이하이고 transcript가 있을 때)
+        if (level <= SILENCE_THRESHOLD && finalTranscriptRef.current) {
           // 이전에 타이머가 없었다면 시작
           if (!silenceTimerRef.current) {
             startSilenceTimer();
