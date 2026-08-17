@@ -310,3 +310,61 @@ test.describe("VoiceInput Hook - 실패/폴백 시나리오", () => {
     await expect(userBubble).toContainText("배가 쑤시듯이 아파요");
   });
 });
+
+test.describe("Chat 자동 스크롤", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/chat?text=두통이+있어요");
+    await page.waitForSelector('[data-testid="chat-container"]');
+  });
+
+  test("새 AI 질문 시 직전 사용자 답변 상단으로 스크롤된다", async ({
+    page,
+  }) => {
+    const userBubble = page.locator('[data-testid="chat-latest-user-bubble"]');
+    await expect(userBubble).toBeVisible();
+
+    await expect
+      .poll(
+        async () => {
+          return page.evaluate(() => {
+            const content = document.querySelector(
+              '[data-testid="chat-content"]'
+            );
+            const user = document.querySelector(
+              '[data-testid="chat-latest-user-bubble"]'
+            );
+            const history = document.querySelector(
+              '[data-testid="chat-history-ai-bubble"]'
+            );
+            if (!content || !user || !history) return Number.POSITIVE_INFINITY;
+            const contentRect = content.getBoundingClientRect();
+            const userRect = user.getBoundingClientRect();
+            const historyRect = history.getBoundingClientRect();
+            const userAligned =
+              Math.abs(userRect.top - contentRect.top) <= 32;
+            const historyOutOfView = historyRect.bottom <= contentRect.top + 32;
+            return userAligned && historyOutOfView ? 0 : 1;
+          });
+        },
+        { timeout: 1500 }
+      )
+      .toBe(0);
+  });
+
+  test("이전 대화 내역이 유지되고 위로 스크롤하면 확인할 수 있다", async ({
+    page,
+  }) => {
+    const historyAi = page.locator('[data-testid="chat-history-ai-bubble"]');
+    await expect(historyAi).toBeAttached();
+    await expect(historyAi).toContainText("어디가 불편하신가요?");
+
+    await page.evaluate(() => {
+      const content = document.querySelector('[data-testid="chat-content"]');
+      const main = document.querySelector("main");
+      content?.scrollTo({ top: 0, behavior: "instant" });
+      main?.scrollTo({ top: 0, behavior: "instant" });
+    });
+
+    await expect(historyAi).toBeVisible();
+  });
+});
