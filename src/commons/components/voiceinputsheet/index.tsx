@@ -148,6 +148,26 @@ export function VoiceInputSheet({
       aria-label={title}
       {...rest}
     >
+      {/* 디버깅용 audioLevel 표시 */}
+      {process.env.NODE_ENV === 'development' && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            background: '#000',
+            color: '#fff',
+            padding: '8px 12px',
+            borderRadius: 4,
+            fontSize: 14,
+            fontWeight: 'bold',
+            zIndex: 1000,
+          }}
+        >
+          Level: {audioLevel ?? 0}
+        </div>
+      )}
+      
       <div className={styles.top}>
         <div className={styles.closeRow}>
           <CloseButton onClick={onClose} />

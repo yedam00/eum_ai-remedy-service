@@ -80,7 +80,7 @@ type UseVoiceInputReturn = {
  * ======================================== */
 
 const SILENCE_DURATION_MS = 2000; // 2초 무음 감지
-const SILENCE_THRESHOLD = 5; // audioLevel이 5 이하면 무음으로 간주
+const SILENCE_THRESHOLD = 10; // audioLevel이 10 이하면 무음으로 간주 (PC 배경 소음 고려)
 const FALLBACK_TEXT = "배가 쑤시듯이 아파요"; // Fallback 텍스트
 const FALLBACK_DELAY_MS = 2000; // Fallback 텍스트 생성 딜레이
 const AUDIO_LEVEL_UPDATE_INTERVAL_MS = 100; // audioLevel 업데이트 주기
