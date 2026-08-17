@@ -16,6 +16,7 @@ import {
 import { ImageCard, type ImageCardLevel } from "../image-card";
 import { Checklist, type ChecklistItem } from "../checklist";
 import { Circle, CloseLG, Triangle } from "../icons";
+import { useFuncTitleBinding } from "./hooks/index.func.title-binding.hook";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -55,9 +56,15 @@ export type ChatInputProps = {
   onOptionClick?: (index: number, label: string) => void;
   /** medicine-search: Dropdown expanded (`False` | `True`) */
   dropdownExpanded?: DropdownExpanded;
-  /** medicine-search: Dropdown 헤더 제목 (피그마 기본: 당뇨약) */
+  /**
+   * medicine-search: Dropdown 헤더 제목.
+   * 실제 표시는 선택된 항목 배열의 첫 요소로 동적 계산된다.
+   */
   dropdownTitle?: string;
-  /** medicine-search: Dropdown 우측 선택 상태 텍스트 */
+  /**
+   * medicine-search: Dropdown 우측 선택 상태 텍스트.
+   * 실제 표시는 선택 개수에 따라 `+N개 선택됨`으로 동적 계산된다.
+   */
   dropdownPointText?: string;
   /** medicine-search: Dropdown 항목 */
   dropdownItems?: DropdownItemData[];
@@ -108,10 +115,6 @@ const DEFAULT_VERTICAL_OPTIONS = ["분", "시", "며칠에 걸침", "수주에 �
 const DEFAULT_OPTION_TRIO = ["예", "아니오", "모르겠음"] as const;
 
 const DEFAULT_MESSAGE_PLACEHOLDER = "두통, 어지러움";
-
-/** Figma ChatInput · medicine-search Dropdown 인스턴스 기본값 */
-const DEFAULT_DROPDOWN_TITLE = "당뇨약";
-const DEFAULT_DROPDOWN_POINT_TEXT = "+3개 선택됨";
 
 /** medicine-search Dropdown 기본 항목 — Checkbox state: selected | default */
 const DEFAULT_MEDICINE_ITEMS: DropdownItemData[] = [
@@ -362,8 +365,6 @@ function OptionTrioView({
 /** Figma uitype=medicine-search · 2030:1193 */
 function MedicineSearchView({
   dropdownExpanded = "False",
-  dropdownTitle = DEFAULT_DROPDOWN_TITLE,
-  dropdownPointText = DEFAULT_DROPDOWN_POINT_TEXT,
   dropdownItems,
   onDropdownToggle,
   onDropdownItemToggle,
@@ -371,8 +372,6 @@ function MedicineSearchView({
   onActionClick,
 }: {
   dropdownExpanded?: DropdownExpanded;
-  dropdownTitle?: string;
-  dropdownPointText?: string;
   dropdownItems?: DropdownItemData[];
   onDropdownToggle?: () => void;
   onDropdownItemToggle?: (id: string) => void;
@@ -400,6 +399,8 @@ function MedicineSearchView({
     }
   }, [dropdownItems]);
 
+  const { dropdownTitle, dropdownPointText } = useFuncTitleBinding(items);
+
   const handleToggleExpanded = () => {
     setExpanded((prev) => (prev === "True" ? "False" : "True"));
     onDropdownToggle?.();
@@ -416,7 +417,10 @@ function MedicineSearchView({
 
   return (
     <div className={cx(styles.section, styles.gap24)}>
-      <div className={styles.dropdownSlot}>
+      <div
+        className={styles.dropdownSlot}
+        data-testid="medicine-search-dropdown"
+      >
         <Dropdown
           expanded={expanded}
           title={dropdownTitle}
@@ -617,8 +621,8 @@ export function ChatInput({
   options,
   onOptionClick,
   dropdownExpanded,
-  dropdownTitle,
-  dropdownPointText,
+  dropdownTitle: _dropdownTitle,
+  dropdownPointText: _dropdownPointText,
   dropdownItems,
   onDropdownToggle,
   onDropdownItemToggle,
@@ -639,6 +643,8 @@ export function ChatInput({
   ...rest
 }: ChatInputProps) {
   void _actionInactive;
+  void _dropdownTitle;
+  void _dropdownPointText;
 
   return (
     <div
@@ -686,8 +692,6 @@ export function ChatInput({
       {uitype === "medicine-search" ? (
         <MedicineSearchView
           dropdownExpanded={dropdownExpanded}
-          dropdownTitle={dropdownTitle}
-          dropdownPointText={dropdownPointText}
           dropdownItems={dropdownItems}
           onDropdownToggle={onDropdownToggle}
           onDropdownItemToggle={onDropdownItemToggle}

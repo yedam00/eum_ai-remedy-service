@@ -124,9 +124,13 @@ function DropdownHeader({
     <div className={styles.header}>
       <span className={styles.headerLeft}>
         <PillIcon />
-        <span className={styles.title}>{title}</span>
+        <span className={styles.title} data-testid="dropdown-title">
+          {title}
+        </span>
         {pointText ? (
-          <span className={styles.pointText}>{pointText}</span>
+          <span className={styles.pointText} data-testid="dropdown-point-text">
+            {pointText}
+          </span>
         ) : null}
       </span>
       {/* chevronSlot — expanded 양방향 토글 */}
@@ -228,9 +232,6 @@ export function Dropdown({
   className,
   ...rest
 }: DropdownProps) {
-  // API/Storybook 호환용 prop — 실제 표시는 selectedCount로 계산
-  void pointText;
-
   const isExpandedControlled = onToggleExpanded !== undefined;
   const isItemsControlled = onItemToggle !== undefined;
 
@@ -253,8 +254,14 @@ export function Dropdown({
 
   /** 선택 체크박스 수량 → pointText `+N개 선택됨` (0개면 숨김) */
   const selectedCount = resolvedItems.filter((item) => item.selected).length;
-  const resolvedPointText =
+  const autoPointText =
     selectedCount > 0 ? formatSelectedPointText(selectedCount) : null;
+  const resolvedPointText =
+    pointText === undefined
+      ? autoPointText
+      : pointText === ""
+        ? null
+        : pointText;
 
   /** chevronSlot 클릭 — expanded False ↔ True 양방향 토글 */
   const handleToggleExpanded = () => {
