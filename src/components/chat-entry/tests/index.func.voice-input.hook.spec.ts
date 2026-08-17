@@ -317,38 +317,49 @@ test.describe("Chat 자동 스크롤", () => {
     await page.waitForSelector('[data-testid="chat-container"]');
   });
 
-  test("새 AI 질문 시 직전 사용자 답변 상단으로 스크롤된다", async ({
+  test("가장 최근 사용자 말풍선에 last-user-bubble id가 있다", async ({
     page,
   }) => {
-    const userBubble = page.locator('[data-testid="chat-latest-user-bubble"]');
-    await expect(userBubble).toBeVisible();
+    const lastUserBubble = page.locator("#last-user-bubble");
+    await expect(lastUserBubble).toBeVisible();
+    await expect(lastUserBubble).toContainText("두통이 있어요");
+  });
 
+  test("AI 응답 렌더 후 userBubbleWrap이 콘텐츠 최상단에 온다", async ({
+    page,
+  }) => {
+    await expect(page.locator("#last-user-bubble")).toBeVisible();
+    await expect(page.locator('[data-testid="chat-latest-ai-bubble"]')).toBeVisible();
     await expect
       .poll(
-        async () => {
-          return page.evaluate(() => {
-            const content = document.querySelector(
-              '[data-testid="chat-content"]'
-            );
-            const user = document.querySelector(
-              '[data-testid="chat-latest-user-bubble"]'
-            );
-            const history = document.querySelector(
-              '[data-testid="chat-history-ai-bubble"]'
-            );
-            if (!content || !user || !history) return Number.POSITIVE_INFINITY;
-            const contentRect = content.getBoundingClientRect();
-            const userRect = user.getBoundingClientRect();
-            const historyRect = history.getBoundingClientRect();
-            const userAligned =
-              Math.abs(userRect.top - contentRect.top) <= 32;
-            const historyOutOfView = historyRect.bottom <= contentRect.top + 32;
-            return userAligned && historyOutOfView ? 0 : 1;
-          });
-        },
+        async () =>
+          page
+            .locator('[data-testid="chat-content"]')
+            .getAttribute("data-scroll-target"),
         { timeout: 1500 }
       )
-      .toBe(0);
+      .not.toBeNull();
+
+    const debug = await page.evaluate(() => {
+      const content = document.querySelector(
+        '[data-testid="chat-content"]'
+      ) as HTMLElement | null;
+      const wrap = document.querySelector(
+        "#last-user-bubble > div"
+      ) as HTMLElement | null;
+      if (!content || !wrap) return { error: "missing" };
+      return {
+        diff:
+          wrap.getBoundingClientRect().top - content.getBoundingClientRect().top,
+        scrollTop: content.scrollTop,
+        clientH: content.clientHeight,
+        scrollH: content.scrollHeight,
+        target: content.dataset.scrollTarget ?? null,
+        overflow: getComputedStyle(content).overflowY,
+      };
+    });
+
+    expect(debug.diff, JSON.stringify(debug)).toBeLessThan(8);
   });
 
   test("이전 대화 내역이 유지되고 위로 스크롤하면 확인할 수 있다", async ({
