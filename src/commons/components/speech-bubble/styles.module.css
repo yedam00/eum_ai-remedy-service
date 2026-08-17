@@ -72,11 +72,18 @@
 
 .variantUser {
   display: flex;
+  flex-direction: row;
   align-items: stretch;
+  justify-content: flex-end;
+  align-self: flex-end;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
 }
 
 .variantUser.hasImage {
   width: 304px;
+  max-width: 304px;
 }
 
 .userBubbleWrap {
@@ -84,7 +91,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .userRow {
@@ -115,7 +123,7 @@
   justify-content: flex-start;
   box-sizing: border-box;
   width: fit-content;
-  max-width: 100%;
+  max-width: 313px;
   min-height: 58px;
   padding: 16px;
   border-radius: 16px;

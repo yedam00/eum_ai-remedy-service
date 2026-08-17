@@ -19,8 +19,13 @@ export type SpeechBubbleProps = {
   label: string;
   /** 사용자 답변 텍스트 (Figma User-Label) */
   userLabel: string;
-  /** hasImage가 true일 때 노출할 이미지 경로 */
+  /**
+   * hasImage가 true일 때 노출할 단일 이미지 경로.
+   * `imageUrls`가 있으면 `imageUrls`를 우선 사용.
+   */
   imageUrl?: string;
+  /** hasImage가 true일 때 노출할 이미지 URL 배열 (슬롯별 독립 바인딩) */
+  imageUrls?: string[];
   className?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children">;
 
@@ -36,6 +41,25 @@ const USER_IMAGE_SLOT_COUNT = 6;
 
 const cx = (...parts: Array<string | undefined | false>) =>
   parts.filter(Boolean).join(" ");
+
+const resolveUserImageUrls = (
+  imageUrls?: string[],
+  imageUrl?: string
+): Array<string | undefined> => {
+  const fromList = imageUrls?.filter((url) => Boolean(url)) ?? [];
+  if (fromList.length > 0) {
+    return Array.from(
+      { length: USER_IMAGE_SLOT_COUNT },
+      (_, index) => fromList[index]
+    );
+  }
+  return Array.from({ length: USER_IMAGE_SLOT_COUNT }, (_, index) =>
+    index === 0 ? imageUrl : undefined
+  );
+};
+
+const isBlobOrDataUrl = (src: string) =>
+  src.startsWith("blob:") || src.startsWith("data:");
 
 /* ========================================
  * Sub-parts
@@ -63,6 +87,7 @@ function AiBubble({
               alt=""
               width={305}
               height={250}
+              unoptimized={isBlobOrDataUrl(imageUrl)}
             />
           ) : null}
         </div>
@@ -85,18 +110,35 @@ function UserBubbleRow({ userLabel }: { userLabel: string }) {
   );
 }
 
-function UserImageGrid({ imageUrl }: { imageUrl?: string }) {
+function UserImageGrid({
+  imageUrls,
+  imageUrl,
+}: {
+  imageUrls?: string[];
+  imageUrl?: string;
+}) {
+  const slots = resolveUserImageUrls(imageUrls, imageUrl);
+
   return (
-    <div className={styles.userImageGrid}>
-      {Array.from({ length: USER_IMAGE_SLOT_COUNT }, (_, index) => (
-        <div key={index} className={styles.userImageSlot}>
-          {imageUrl ? (
+    <div
+      className={styles.userImageGrid}
+      data-testid="user-image-grid"
+    >
+      {slots.map((url, index) => (
+        <div
+          key={index}
+          className={styles.userImageSlot}
+          data-testid="user-image-slot"
+          data-filled={url ? "true" : "false"}
+        >
+          {url ? (
             <Image
               className={styles.userImage}
-              src={imageUrl}
+              src={url}
               alt=""
               width={96}
               height={96}
+              unoptimized={isBlobOrDataUrl(url)}
             />
           ) : null}
         </div>
@@ -115,10 +157,13 @@ export function SpeechBubble({
   label,
   userLabel,
   imageUrl,
+  imageUrls,
   className,
   ...rest
 }: SpeechBubbleProps) {
   const isAi = variant === "ai";
+  const filledCount =
+    imageUrls?.filter(Boolean).length || (imageUrl ? 1 : 0);
 
   return (
     <div
@@ -130,12 +175,13 @@ export function SpeechBubble({
       )}
       data-variant={variant}
       data-has-image={hasImage ? "true" : "false"}
+      data-image-count={hasImage ? String(filledCount) : "0"}
       {...rest}
     >
       {isAi ? (
         <AiBubble label={label} hasImage={hasImage} imageUrl={imageUrl} />
       ) : hasImage ? (
-        <UserImageGrid imageUrl={imageUrl} />
+        <UserImageGrid imageUrls={imageUrls} imageUrl={imageUrl} />
       ) : (
         <div className={styles.userBubbleWrap}>
           <UserBubbleRow userLabel={userLabel} />

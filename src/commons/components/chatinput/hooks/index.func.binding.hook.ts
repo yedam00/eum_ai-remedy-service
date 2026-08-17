@@ -14,7 +14,8 @@ export type BindingMessage = {
   variant: "ai" | "user";
   text: string;
   hasImage: boolean;
-  imageUrl?: string;
+  /** 업로드된 이미지 URL 전체 배열 (누락 없이 원본 전달) */
+  imageUrls?: string[];
 };
 
 type PainScaleChoice = {
@@ -110,14 +111,17 @@ const createAiMessage = (uiType: ChatInputUIType): BindingMessage => ({
 
 const createUserMessage = (
   text: string,
-  imageUrl?: string
-): BindingMessage => ({
-  id: createMessageId(),
-  variant: "user",
-  text,
-  hasImage: Boolean(imageUrl),
-  imageUrl,
-});
+  imageUrls?: string[]
+): BindingMessage => {
+  const resolvedUrls = imageUrls?.filter(Boolean) ?? [];
+  return {
+    id: createMessageId(),
+    variant: "user",
+    text,
+    hasImage: resolvedUrls.length > 0,
+    imageUrls: resolvedUrls.length > 0 ? resolvedUrls : undefined,
+  };
+};
 
 const joinLabels = (labels: string[]): string => labels.join(", ");
 
@@ -184,11 +188,11 @@ export function useFuncBinding() {
     }, NEXT_VARIANT_DELAY_MS);
   };
 
-  const submitUserAnswer = (text: string, imageUrl?: string) => {
+  const submitUserAnswer = (text: string, imageUrls?: string[]) => {
     if (isAdvancingRef.current) return;
     isAdvancingRef.current = true;
 
-    setMessages((prev) => [...prev, createUserMessage(text, imageUrl)]);
+    setMessages((prev) => [...prev, createUserMessage(text, imageUrls)]);
     advanceToNextVariant();
   };
 
@@ -263,7 +267,7 @@ export function useFuncBinding() {
     if (currentUiType === ChatInputUIType.FILE_UPLOAD) {
       const uploaded = mediaUrls.filter((url): url is string => Boolean(url));
       if (uploaded.length > 0) {
-        submitUserAnswer("", uploaded[0]);
+        submitUserAnswer("", uploaded);
         return;
       }
       submitUserAnswer("아니요");

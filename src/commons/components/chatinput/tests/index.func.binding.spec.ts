@@ -192,14 +192,22 @@ test.describe("ChatInput Func Binding", () => {
     await submitPainScale(page);
     await submitCheckboxList(page);
 
+    const imagePath2 = path.join(
+      __dirname,
+      "../../../../../public/images/level2.png"
+    );
+
     const fileChooserPromise = page.waitForEvent("filechooser");
     await page.locator('[data-testid="file-dropzone"]').click();
     const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles([IMAGE_PATH]);
+    await fileChooser.setFiles([IMAGE_PATH, imagePath2]);
 
     await expect(
       page.locator('[data-testid="multi-upload-filled-container"]')
     ).toBeVisible();
+    await expect(page.locator('[data-testid="file-preview-item"]')).toHaveCount(
+      2
+    );
 
     await page.getByRole("button", { name: "다음", exact: true }).click();
 
@@ -207,6 +215,36 @@ test.describe("ChatInput Func Binding", () => {
       `[data-testid="${USER_BUBBLE_TEST_ID}"][data-variant="user"][data-has-image="true"]`
     );
     await expect(bubble).toBeVisible();
-    await expect(bubble.locator("img").first()).toBeVisible();
+    await expect(bubble).toHaveAttribute("data-image-count", "2");
+
+    const filledSlots = bubble.locator(
+      '[data-testid="user-image-slot"][data-filled="true"]'
+    );
+    await expect(filledSlots).toHaveCount(2);
+    await expect(filledSlots.nth(0).locator("img")).toBeVisible();
+    await expect(filledSlots.nth(1).locator("img")).toBeVisible();
+
+    const src0 = await filledSlots.nth(0).locator("img").getAttribute("src");
+    const src1 = await filledSlots.nth(1).locator("img").getAttribute("src");
+    expect(src0).toBeTruthy();
+    expect(src1).toBeTruthy();
+    expect(src0).not.toBe(src1);
+  });
+
+  test("user SpeechBubble은 대화 영역 우측에 정렬된다", async ({ page }) => {
+    await page.getByRole("button", { name: "예", exact: true }).click();
+
+    const area = page.locator('[data-testid="conversation-area"]');
+    const bubble = lastUserBubble(page);
+    await expect(bubble).toBeVisible();
+
+    const areaBox = await area.boundingBox();
+    const bubbleBox = await bubble.boundingBox();
+    expect(areaBox).toBeTruthy();
+    expect(bubbleBox).toBeTruthy();
+
+    const areaRight = areaBox!.x + areaBox!.width;
+    const bubbleRight = bubbleBox!.x + bubbleBox!.width;
+    expect(Math.abs(areaRight - bubbleRight)).toBeLessThan(8);
   });
 });

@@ -87,7 +87,8 @@ export default function TestChatInput2Page() {
               key={message.id}
               variant="user"
               hasImage={message.hasImage}
-              imageUrl={message.imageUrl}
+              imageUrls={message.imageUrls}
+              imageUrl={message.imageUrls?.[0]}
               label=""
               userLabel={message.text}
               data-testid="user-speech-bubble"
