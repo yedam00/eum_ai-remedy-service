@@ -45,6 +45,12 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
       </div>
       <div className={styles.content}>
         <SpeechBubble
+          variant="ai"
+          hasImage={false}
+          label="어디가 불편하신가요?"
+          userLabel=""
+        />
+        <SpeechBubble
           variant="user"
           hasImage={false}
           label=""
