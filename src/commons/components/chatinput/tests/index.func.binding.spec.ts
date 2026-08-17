@@ -221,6 +221,9 @@ test.describe("ChatInput Func Binding", () => {
       '[data-testid="user-image-slot"][data-filled="true"]'
     );
     await expect(filledSlots).toHaveCount(2);
+    await expect(bubble.locator('[data-testid="user-image-slot"]')).toHaveCount(
+      2
+    );
     await expect(filledSlots.nth(0).locator("img")).toBeVisible();
     await expect(filledSlots.nth(1).locator("img")).toBeVisible();
 

@@ -154,6 +154,10 @@
   gap: 8px;
 }
 
+.userImageGridEnd {
+  justify-content: flex-end;
+}
+
 .userImageSlot {
   display: flex;
   flex-direction: row;

@@ -45,17 +45,13 @@ const cx = (...parts: Array<string | undefined | false>) =>
 const resolveUserImageUrls = (
   imageUrls?: string[],
   imageUrl?: string
-): Array<string | undefined> => {
-  const fromList = imageUrls?.filter((url) => Boolean(url)) ?? [];
-  if (fromList.length > 0) {
-    return Array.from(
-      { length: USER_IMAGE_SLOT_COUNT },
-      (_, index) => fromList[index]
-    );
-  }
-  return Array.from({ length: USER_IMAGE_SLOT_COUNT }, (_, index) =>
-    index === 0 ? imageUrl : undefined
+): string[] => {
+  const fromList = (imageUrls?.filter((url): url is string => Boolean(url)) ?? []).slice(
+    0,
+    USER_IMAGE_SLOT_COUNT
   );
+  if (fromList.length > 0) return fromList;
+  return imageUrl ? [imageUrl] : [];
 };
 
 const isBlobOrDataUrl = (src: string) =>
@@ -117,30 +113,32 @@ function UserImageGrid({
   imageUrls?: string[];
   imageUrl?: string;
 }) {
-  const slots = resolveUserImageUrls(imageUrls, imageUrl);
+  const urls = resolveUserImageUrls(imageUrls, imageUrl);
 
   return (
     <div
-      className={styles.userImageGrid}
+      className={cx(
+        styles.userImageGrid,
+        urls.length <= 3 && styles.userImageGridEnd
+      )}
       data-testid="user-image-grid"
+      data-image-count={String(urls.length)}
     >
-      {slots.map((url, index) => (
+      {urls.map((url, index) => (
         <div
           key={index}
           className={styles.userImageSlot}
           data-testid="user-image-slot"
-          data-filled={url ? "true" : "false"}
+          data-filled="true"
         >
-          {url ? (
-            <Image
-              className={styles.userImage}
-              src={url}
-              alt=""
-              width={96}
-              height={96}
-              unoptimized={isBlobOrDataUrl(url)}
-            />
-          ) : null}
+          <Image
+            className={styles.userImage}
+            src={url}
+            alt=""
+            width={96}
+            height={96}
+            unoptimized={isBlobOrDataUrl(url)}
+          />
         </div>
       ))}
     </div>
