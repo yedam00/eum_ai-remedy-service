@@ -10,8 +10,8 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: m0bm33a9)
-조건-피그마) 참고할 공통컴포넌트 노드ID: 2030:1233
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 1kngl4s9)
+조건-피그마) 참고할 공통컴포넌트 노드ID: 207:3217
 
 조건-파일경로) 구현될 TSX 파일경로: src/commons/components/chatinput/index.tsx
 조건-파일경로) 구현될 CSS 파일경로: src/commons/components/chatinput/styles.module.css
@@ -60,10 +60,18 @@
 기존요구사항-참고만) 모든 ChatInput varient의 하단에 padding 32px을 추가해줘.
             - 참고할 노드 ID: 2030:1233
 
-==============================================
-
-핵심요구사항)ChatInput 컴포넌트 내부 버튼의 아이콘 색상을 수정해 주세요.
+기존요구사항-참고만) ChatInput 컴포넌트 내부 버튼의 아이콘 색상을 수정해 주세요.
           1. 현재 option-trio 컴포넌트의 `iconSvg`에 `color-icon-on-primary` 색상이 적용되어 배경과 대비되지 않아 아이콘이 보이지 않습니다.
           2. 버튼의 상태(State)에 따라 `iconSvg` 색상 토큰을 다음과 같이 분기하여 반영할 것.
             - Default 상태 (선택/활성화된 버튼): `color-icon-brand`
             - Inactive 상태: `color-icon-secondary`
+
+==============================================
+
+핵심요구사항) medicine-search 동적 타이틀 바인딩 수정
+  1) 체크 해제/선택 시 대표 타이틀 및 뱃지 실시간 계산
+    - 상단 타이틀 텍스트를 고정값/첫 번째 옵션명이 아닌, '현재 체크된 항목 배열(selectedItems)'의 첫 번째 요소(selectedItems[0])로 동적 대입할 것.
+    - 선택된 항목이 0개일 경우 기본 안내문("복용 중인 약이 없음")을 노출할 것.
+    - 선택된 항목이 2개 이상일 경우, `+${selectedItems.length - 1}개 선택됨` 형태의 뱃지가 정확히 계산되어 노출되도록 구현할 것.
+  2) 당뇨약 해제 시 '고지혈증약 +1개 선택됨' 정상 전환 동작 검증
+    - 항목 선택 변경 시 타이틀 상태가 리렌더링되어 UI에 즉시 반영되는지 확인할 것.

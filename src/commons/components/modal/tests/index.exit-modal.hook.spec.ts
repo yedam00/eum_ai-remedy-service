@@ -6,12 +6,12 @@ test.describe("Exit Modal Hook", () => {
     await page.waitForSelector('[data-testid="chat-container"]');
   });
 
-  test("나가기 버튼 클릭 시 모달이 노출된다", async ({ page }) => {
+  test("header 뒤로가기 버튼 클릭 시 모달이 노출된다", async ({ page }) => {
     // Given: chat 페이지가 로드되어 있음
-    const exitButton = page.locator('[data-testid="exit-button"]');
+    const exitButton = page.locator('[data-testid="chat-back-button"]');
     await expect(exitButton).toBeVisible();
 
-    // When: 나가기 버튼을 클릭
+    // When: 뒤로가기 버튼을 클릭
     await exitButton.click();
 
     // Then: 모달이 노출됨
@@ -23,7 +23,7 @@ test.describe("Exit Modal Hook", () => {
     page,
   }) => {
     // Given: 모달이 열려있음
-    const exitButton = page.locator('[data-testid="exit-button"]');
+    const exitButton = page.locator('[data-testid="chat-back-button"]');
     await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -39,7 +39,7 @@ test.describe("Exit Modal Hook", () => {
 
   test("모달에 제목과 버튼이 표시된다", async ({ page }) => {
     // Given: chat 페이지가 로드되어 있음
-    const exitButton = page.locator('[data-testid="exit-button"]');
+    const exitButton = page.locator('[data-testid="chat-back-button"]');
 
     // When: 나가기 버튼을 클릭하여 모달 열기
     await exitButton.click();
@@ -61,7 +61,7 @@ test.describe("Exit Modal Hook", () => {
 
   test("모달의 '계속 작성' 버튼 클릭 시 모달이 닫힌다", async ({ page }) => {
     // Given: 모달이 열려있음
-    const exitButton = page.locator('[data-testid="exit-button"]');
+    const exitButton = page.locator('[data-testid="chat-back-button"]');
     await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -79,7 +79,7 @@ test.describe("Exit Modal Hook", () => {
     page,
   }) => {
     // Given: 모달이 열려있음
-    const exitButton = page.locator('[data-testid="exit-button"]');
+    const exitButton = page.locator('[data-testid="chat-back-button"]');
     await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -97,7 +97,7 @@ test.describe("Exit Modal Hook", () => {
     page,
   }) => {
     // Given: 모달이 열려있음
-    const exitButton = page.locator('[data-testid="exit-button"]');
+    const exitButton = page.locator('[data-testid="chat-back-button"]');
     await exitButton.click();
 
     const modal = page.locator('[role="dialog"]');

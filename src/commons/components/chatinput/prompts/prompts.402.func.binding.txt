@@ -1,0 +1,53 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc
+            - @04-func.mdc
+
+==============================================
+
+조건-파일경로) 참고할 컴포넌트 TSX: src/commons/components/chatinput/index.tsx
+조건-파일경로) 구현될 테스트 페이지 파일경로: src/app/test-chatinput2/page.tsx
+조건-파일경로) 구현될 HOOK 파일경로: src/commons/components/chatinput/hooks/index.func.binding.hook.ts
+조건-파일경로) 구현될 TEST 파일경로: src/commons/components/chatinput/tests/index.func.binding.spec.ts
+
+==============================================
+
+기존요구사항-참고만) 다음의 기능을 playwright 테스트를 활용하여 TDD기반으로 구현할 것.
+            1) 테스트 제외 라이브러리
+                - jest
+                - @testing-library/react
+
+            2) 테스트 조건
+                - timeout은 설정하지 않거나, 500ms 미만으로 설정할 것.
+                - /test-chatinput2 페이지가 완전히 로드된 후 테스트할 것.
+                    - 페이지 로드 식별 요구사항: 고정식별자 data-testid 대기 방법
+                    - 페이지 로드 식별 금지사항: networkidle 대기 방법
+
+            3) 테스트 방법
+                - 각 variant별로 chatinput이 렌더링되었을 때, messageinput 요소의 placeholder 속성 값이 각 variant에 해당하는 가이드 텍스트와 일치하는지 검증할 것.
+		- <chatInput />의 각 variant에서 답변 버튼을 클릭하거나 이미지를 선택하여 전송했을 때, 상단 대화 영역에 사용자 메시지<SpeechBubble /> variant: user 형태로 바인딩되어 정상적으로 화면에 노출되는지 검증할 것.
+		- 이미지를 선택하여 보낸 경우, 화면에 렌더링된 <speechBubble /> 컴포넌트가 variant: user, hasImage: true 상태로 동작하고 이미지 요소가 독립적으로 바인딩되는지 검증할 것.
+
+기존요구사항-참고만) test-chatinput2 테스트 페이지 구현
+	    1. Variant 순차 전환 및 Speech-Bubble 바인딩 (시퀀스 모드)
+		- option-trio ➔ vertical-select ➔ medicine-search ➔ pain-scale ➔ checkbox-list ➔ file-upload 순서로 이어지는 Mock 질문 데이터 스태킹 상태를 생성할 것.
+		- 하단 chatinput에서 답변 버튼 클릭(제출) 또는 이미지 선택후 다음 버튼 클릭 시:
+		   1) 선택된 텍스트가 상단 대화 영역의 <speechBubble> variant:user 형태로 즉시 추가될 것.
+		   2) 이미지를 첨부하여 제출한 경우, <speechBubble /> 컴포넌트의 props로 variant: 사용자(user), hasImage: true를 전달하여 이미지가 전용 UI로 노출되도록 구현할 것.
+      		   3) 0.5초 타이머 후 다음 variant 질문으로 자동으로 전환될 것.
+      		   4) 전환 시 messageinput의 placeholder 역시 해당 variant의 가이드 텍스트로 자동 반영될 것.
+
+	    2. chatInput 컴포넌트의 varient별 placeholder 동적 바인딩
+		- option-trio, vertical-select, medicine-search, pain-scale, checkbox-list 등 모든 variant의 상태에 따라, 해당 variant의 선택지 중 대표 텍스트(예: 첫 번째 버튼의 label)가 하단 messageinput의 placeholder 속성에 동적으로 바인딩되도록 구현할 것.
+		- variant가 변경될 때마다 messageinput의 placeholder 역시 해당 질문/선택지에 맞게 자동으로 업데이트되어야 함.
+
+        ==============================================
+
+핵심요구사항) 아래 내용을 구현해줘.
+        1. 현재 userBubble의 max-width:100%로 되어있는데 313px로 수정하기.
+        2. index.func.binding.hook.ts 제출 로직에서 업로드된 이미지 파일들의 전체 URL 배열(mediaUrls)을 messages state의 imageUrls 속성으로 원본 그대로 누락 없이 전달할 것.
+        3. variant가 'user'인 speechBubble 및 이미지 그리드 영역(hasImage=true)이 화면 우측에 붙도록 스타일을 확실하게 적용할 것.

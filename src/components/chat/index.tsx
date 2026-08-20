@@ -2,13 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+import { useLinkModal } from "./hooks/index.link.modal.hook";
 import ChatInput, {
   type ChatInputUiType,
 } from "@/commons/components/chatinput";
 import SpeechBubble from "@/commons/components/speech-bubble";
 import Header from "@/commons/components/header";
-import { useLinkModal } from "./hooks/index.link.modal.hook";
-import { useExitModal } from "@/commons/components/modal/hooks/index.exit-modal.hook";
 import styles from "./styles.module.css";
 
 /* ========================================
@@ -30,13 +29,10 @@ const LAST_USER_BUBBLE_ID = "last-user-bubble";
 
 export default function Chat({ uitype = "option-trio" }: ChatProps) {
   const { handleHeaderClick } = useLinkModal();
-  const { handleExitClick } = useExitModal();
   const searchParams = useSearchParams();
   const contentRef = useRef<HTMLDivElement>(null);
   const lastUserRef = useRef<HTMLDivElement>(null);
   const latestAiRef = useRef<HTMLDivElement>(null);
-
-  // 쿼리 파라미터에서 텍스트 가져오기 (음성 입력에서 전달된 텍스트)
   const userText = searchParams.get("text") || "두통이 있어요";
 
   useEffect(() => {
@@ -48,8 +44,12 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
     let rafId = 0;
     let observer: ResizeObserver | null = null;
 
-    const getWrap = () =>
-      lastUserEl.querySelector("#last-user-bubble > div") as HTMLElement | null;
+    const getWrap = () => {
+      const wrap = lastUserEl.querySelector(
+        `[data-testid="${LAST_USER_BUBBLE_ID}"] > div`
+      );
+      return wrap instanceof HTMLElement ? wrap : null;
+    };
 
     const scrollUserWrapToTop = () => {
       const wrapEl = getWrap();
@@ -60,8 +60,6 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
         (wrapEl.getBoundingClientRect().top -
           contentEl.getBoundingClientRect().top);
 
-      contentEl.dataset.scrollTarget = String(nextTop);
-      contentEl.scrollTop = nextTop;
       contentEl.scrollTo({
         top: nextTop,
         behavior: "smooth",
@@ -119,6 +117,7 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
         <div ref={lastUserRef}>
           <SpeechBubble
             id={LAST_USER_BUBBLE_ID}
+            data-testid={LAST_USER_BUBBLE_ID}
             variant="user"
             hasImage={false}
             label=""
@@ -137,13 +136,6 @@ export default function Chat({ uitype = "option-trio" }: ChatProps) {
       <div className={styles.chatInput}>
         <ChatInput uitype={uitype} />
       </div>
-      <button
-        data-testid="exit-button"
-        onClick={handleExitClick}
-        style={{ position: "absolute", bottom: "100px", right: "20px" }}
-      >
-        나가기
-      </button>
     </div>
   );
 }

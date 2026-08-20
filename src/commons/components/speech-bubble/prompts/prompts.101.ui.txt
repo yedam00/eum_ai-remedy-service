@@ -10,19 +10,23 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 4k7a172z)
-조건-피그마) 참고할 공통컴포넌트 노드ID: 3:3287
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: ysvl5pw3)
+조건-피그마) 참고할 공통컴포넌트 노드ID: 4116:788
 
 조건-파일경로) 구현될 TSX 파일경로: src/commons/components/speech-bubble/index.tsx
 조건-파일경로) 구현될 CSS 파일경로: src/commons/components/speech-bubble/styles.module.css
 
 ==============================================
 
-핵심요구사항) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
+기존요구사항-참고만) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
 
-핵심요구사항) 다음 조건을 모두 만족하는 완전한 variant 시스템을 구현할 것.
+기존요구사항-참고만) 다음 조건을 모두 만족하는 완전한 variant 시스템을 구현할 것.
             - variant: ‘ai’ | ‘user’
             - has-image: boolean (피그마 'Has Image' 프로퍼티와 매핑, true일 경우 이미지 프레임 영역 포함)
             - label (string, 필수): AI 질문 텍스트 (피그마 Label 매핑, 필수 전달)
             - userLabel (string, 필수): 사용자 답변 텍스트 (피그마 User-Label 매핑, 필수 전달)
             - imageUrl (string, optional): hasImage가 true일 때 노출할 이미지 경로
+
+==============================================
+
+핵심요구사항) Varient: hasImage=true일 때, userBubbleWrap을 없애고 userImageGrid만 남게해줘.

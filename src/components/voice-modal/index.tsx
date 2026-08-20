@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { VoiceInputSheet } from "@/commons/components/voiceinputsheet";
-import type { VoiceIndicatorState } from "@/commons/components/voiceindicator";
 import { useVoiceInput } from "@/commons/components/voiceinputsheet/hooks/index.voice-input.hook";
+import { VoiceInputSheet } from "@/commons/components/voiceinputsheet";
 import styles from "./styles.module.css";
+import type { VoiceIndicatorState } from "@/commons/components/voiceindicator";
 
 /* ========================================
  * Types — Figma VoiceInputSheet instances
@@ -48,6 +48,7 @@ export type VoiceModalProps = {
  * ======================================== */
 
 const DEFAULT_TITLE = "어디가 불편하신가요?";
+const SUCCESS_CLOSE_DELAY_MS = 800;
 
 const DEFAULT_DESCRIPTION_ITEMS = [
   '"배가 쑤시듯이 아파요"',
@@ -78,39 +79,31 @@ export default function VoiceModal({
 }: VoiceModalProps) {
   const { state, transcript, audioLevel, start, stop } = useVoiceInput();
 
-  // 컴포넌트 마운트 시 자동으로 음성 인식 시작
   useEffect(() => {
     start();
-    
     return () => {
       stop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Success 상태가 되면 체크 애니메이션 후 자동으로 모달 닫기
   useEffect(() => {
-    if (state === "success") {
-      // 체크 애니메이션을 보여주기 위해 800ms 대기 후 모달 닫기
-      const timer = setTimeout(() => {
-        stop();
-        onClose?.();
-      }, 800);
-      
-      return () => clearTimeout(timer);
-    }
+    if (state !== "success") return;
+
+    const timer = setTimeout(() => {
+      stop();
+      onClose?.();
+    }, SUCCESS_CLOSE_DELAY_MS);
+
+    return () => clearTimeout(timer);
   }, [state, stop, onClose]);
 
-  // state에 따라 descriptions 표시 여부 결정
   const shouldShowDescriptions =
     propDescriptions !== undefined
       ? propDescriptions
       : state === "default";
 
-  // title 결정 (transcript가 있으면 그것을 사용, 없으면 propTitle 또는 기본값)
   const resolvedTitle = transcript || propTitle || DEFAULT_TITLE;
-
-  // audioLevel 결정 (hook에서 받은 값 사용, 없으면 prop 값)
   const resolvedAudioLevel = audioLevel ?? propAudioLevel ?? 0;
 
   const resolvedDescriptionItems =

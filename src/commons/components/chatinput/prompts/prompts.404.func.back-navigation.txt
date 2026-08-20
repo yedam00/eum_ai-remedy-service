@@ -1,0 +1,51 @@
+아래의 조건을 모두 적용하여, 아래의 요구사항을 모두 구현할 것.
+구현 결과를 체크리스트로 반환할 것.
+
+==============================================
+
+조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+            - @01-common.mdc
+            - @04-func.mdc
+
+==============================================
+
+조건-파일경로) 참고할 TSX 파일경로: src/commons/components/chatinput/index.tsx
+조건-파일경로) 참고할 CSS 파일경로: src/commons/components/chatinput/styles.module.css
+조건-파일경로) 구현될 HOOK 파일경로: src/commons/components/chatinput/hooks/index.func.back-navigation.hook.ts
+조건-파일경로) 구현될 TEST 파일경로: src/commons/components/chatinput/tests/index.func.back-navigation.spec.ts
+조건-파일경로) 구현될 TEST 페이지: src/app/test-chatinput2/page.tsx
+
+==============================================
+
+기존요구사항-참고만) 다음의 기능을 playwright 테스트를 활용하여 TDD기반으로 구현할 것.
+            1) 테스트 제외 라이브러리
+                - jest
+                - @testing-library/react
+
+            2) 테스트 조건
+                - timeout은 설정하지 않거나, 500ms 미만으로 설정할 것.
+                    - 페이지 로드 식별 요구사항: 고정식별자 data-testid 대기 방법
+                    - 페이지 로드 식별 금지사항: networkidle 대기 방법
+
+	    3) 테스트 방법
+	        - 말풍선 옆 뒤로가기(userIconSlot) 클릭 시 사용자 말풍선이 1개면 /chat-entry 전환 로직이 실행되고, 2개 이상이면 Pop 처리 후 이전 ChatInput UI 상태 및 선택 값이 정상 복원되는지 검증할 것.
+
+기존요구사항-참고만) 1. 세션 State 기반 뒤로가기(Pop) 및 상태 복원 Hook 구현
+1-1) 메모리 히스토리 스택 관리 (index.func.back-navigation.hook.ts)
+- 로컬 스토리지 연동 없이 메모리 상의 세션 State 배열(historyStack)을 활용하여 이전 단계 히스토리를 관리할 것.
+- 질문/답변 진행 시 현재 질문 단계의 uiType, selectedItems, placeholder 등의 스냅샷을 historyStack에 Push할 것.
+1-2) 말풍선(speechBubble)옆 뒤로가기(userIconSlot) 클릭 시 이전 상태 복원
+- 뒤로가기 버튼(userIconSlot) 클릭 시 historyStack 배열의 맨 마지막 항목을 Pop(제거) 처리할 것.
+- 사용자 말풍선 개수가 2개 이상인 경우(히스토리 스택에 이전 상태가 남아있는 경우):
+      - historyStack 배열의 맨 마지막 항목을 Pop(제거) 처리할 것.
+      - Pop 처리 직후, 이전 단계 스냅샷의 uiType과 선택 항목 상태를 하단 ChatInput에 정확히 복원할 것.
+1-3) 사용자 말풍선이 1개일 때의 라우팅 처리
+- 화면에 사용자 말풍선(<SpeechBubble />, variant: user)이 딱 1개만 존재하는 최초 대화 상태에서 말풍선 옆 뒤로가기 버튼을 클릭할 경우:
+- historyStack을 Pop하지 않고, 바로 /chat-entry 화면으로 페이지 전환되도록 예외 처리할 것.
+
+==============================================
+
+핵심요구사항) 아래 내용을 차례대로 구현해줘.
+- 단순히 맨 마지막 1개만 pop()하던 로직 대신, 클릭한 말풍선 시점 이후에 쌓인 메시지 및 히스토리를 모두 제거할 것.
+- 잘라낸 히스토리 스택 기준, 클릭한 해당 사용자 답변 '당시' 단계의 ChatInput uiType, selectedItems(선택 상태), placeholder 값으로 하단 ChatInput을 완전히 재설정할 것.
+- 결과적으로 몇 단계 이전의 뒤로가기 버튼을 누르더라도 무조건 맨 마지막 질문 단계가 아닌, '클릭한 말풍선이 위치했던 당시 질문 단계'의 ChatInput 형태와 선택했던 항목들이 화면에 노출되도록 구현할 것.
