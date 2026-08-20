@@ -47,6 +47,25 @@ const chatInputSectionStyle: CSSProperties = {
   paddingBottom: 32,
 };
 
+const userBubbleWrapStyle: CSSProperties = {
+  position: "relative",
+  alignSelf: "flex-end",
+  width: "fit-content",
+};
+
+const userIconSlotStyle: CSSProperties = {
+  position: "absolute",
+  left: 0,
+  top: "50%",
+  transform: "translateY(-50%)",
+  width: 48,
+  height: 48,
+  padding: 0,
+  border: "none",
+  background: "transparent",
+  cursor: "pointer",
+};
+
 export default function TestChatInput2Page() {
   const {
     messages,
@@ -84,17 +103,26 @@ export default function TestChatInput2Page() {
               data-testid="ai-speech-bubble"
             />
           ) : (
-            <SpeechBubble
-              key={message.id}
-              variant="user"
-              hasImage={message.hasImage}
-              imageUrls={message.imageUrls}
-              imageUrl={message.imageUrls?.[0]}
-              label=""
-              userLabel={message.text}
-              onUserIconClick={handleBackClick}
-              data-testid="user-speech-bubble"
-            />
+            <div key={message.id} style={userBubbleWrapStyle}>
+              <SpeechBubble
+                variant="user"
+                hasImage={message.hasImage}
+                imageUrls={message.imageUrls}
+                imageUrl={message.imageUrls?.[0]}
+                label=""
+                userLabel={message.text}
+                data-testid="user-speech-bubble"
+              />
+              {!message.hasImage ? (
+                <button
+                  type="button"
+                  aria-label="뒤로가기"
+                  data-testid="user-icon-slot"
+                  onClick={handleBackClick}
+                  style={userIconSlotStyle}
+                />
+              ) : null}
+            </div>
           )
         )}
       </div>

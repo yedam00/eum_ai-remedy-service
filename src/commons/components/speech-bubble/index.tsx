@@ -26,8 +26,6 @@ export type SpeechBubbleProps = {
   imageUrl?: string;
   /** hasImage가 true일 때 노출할 이미지 URL 배열 (슬롯별 독립 바인딩) */
   imageUrls?: string[];
-  /** 사용자 말풍선 옆 뒤로가기(userIconSlot) 클릭 */
-  onUserIconClick?: () => void;
   className?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, "children">;
 
@@ -95,36 +93,12 @@ function AiBubble({
   );
 }
 
-function UserBubbleRow({
-  userLabel,
-  onUserIconClick,
-}: {
-  userLabel: string;
-  onUserIconClick?: () => void;
-}) {
+function UserBubbleRow({ userLabel }: { userLabel: string }) {
   return (
     <div className={styles.userRow}>
-      {onUserIconClick ? (
-        <button
-          type="button"
-          className={styles.userIconSlot}
-          aria-label="뒤로가기"
-          data-testid="user-icon-slot"
-          onClick={onUserIconClick}
-          style={{
-            border: "none",
-            background: "transparent",
-            padding: 0,
-            cursor: "pointer",
-          }}
-        >
-          <ArrowUndoUpRight />
-        </button>
-      ) : (
-        <span className={styles.userIconSlot} aria-hidden>
-          <ArrowUndoUpRight />
-        </span>
-      )}
+      <span className={styles.userIconSlot} aria-hidden>
+        <ArrowUndoUpRight />
+      </span>
       <div className={styles.userBubble}>
         <p className={styles.userLabel}>{userLabel}</p>
       </div>
@@ -182,7 +156,6 @@ export function SpeechBubble({
   userLabel,
   imageUrl,
   imageUrls,
-  onUserIconClick,
   className,
   ...rest
 }: SpeechBubbleProps) {
@@ -209,10 +182,7 @@ export function SpeechBubble({
         <UserImageGrid imageUrls={imageUrls} imageUrl={imageUrl} />
       ) : (
         <div className={styles.userBubbleWrap}>
-          <UserBubbleRow
-            userLabel={userLabel}
-            onUserIconClick={onUserIconClick}
-          />
+          <UserBubbleRow userLabel={userLabel} />
         </div>
       )}
     </div>
