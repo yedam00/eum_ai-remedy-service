@@ -149,9 +149,6 @@ const cloneMessages = (
     imageUrls: message.imageUrls ? [...message.imageUrls] : undefined,
   }));
 
-const countUserBubbles = (items: BackNavigationMessage[]): number =>
-  items.filter((message) => message.variant === "user").length;
-
 /* ========================================
  * Hook — 세션 State 기반 뒤로가기(Pop) 및 상태 복원
  * ======================================== */
@@ -170,6 +167,9 @@ export function useFuncBackNavigation() {
   );
   const [mediaUrls, setMediaUrls] = useState<Array<string | undefined>>([]);
   const [historyStack, setHistoryStack] = useState<HistorySnapshot[]>([]);
+  const [messagePlaceholder, setMessagePlaceholder] = useState(
+    GUIDE_TEXT[VARIANT_SEQUENCE[0]]
+  );
 
   const stepIndexRef = useRef(0);
   const timerRef = useRef<number | null>(null);
@@ -190,7 +190,6 @@ export function useFuncBackNavigation() {
     currentUiType === ChatInputUIType.FILE_UPLOAD && hasFiles
       ? "multi-upload"
       : UI_TYPE_MAP[currentUiType];
-  const messagePlaceholder = GUIDE_TEXT[currentUiType];
   const options =
     currentUiType === ChatInputUIType.OPTION_TRIO
       ? OPTION_TRIO_OPTIONS
@@ -237,6 +236,16 @@ export function useFuncBackNavigation() {
     setHistoryStack((prev) => [...prev, createSnapshot(selectedItems)]);
   };
 
+  const resolveRestoredPlaceholder = (snapshot: HistorySnapshot): string => {
+    if (snapshot.uiType === ChatInputUIType.FILE_UPLOAD) {
+      return snapshot.placeholder;
+    }
+    if (snapshot.selectedItems.length > 0) {
+      return snapshot.selectedItems[0];
+    }
+    return snapshot.placeholder;
+  };
+
   const restoreSnapshot = (snapshot: HistorySnapshot) => {
     clearAdvanceTimer();
     isAdvancingRef.current = false;
@@ -246,6 +255,7 @@ export function useFuncBackNavigation() {
     setDropdownItems(cloneDropdownItems(snapshot.dropdownItems));
     setSelectedChecklistIds([...snapshot.selectedChecklistIds]);
     setMediaUrls([...snapshot.mediaUrls]);
+    setMessagePlaceholder(resolveRestoredPlaceholder(snapshot));
   };
 
   const advanceToNextVariant = () => {
@@ -260,6 +270,7 @@ export function useFuncBackNavigation() {
       setStepIndex(nextIndex);
       setSelectedChecklistIds([]);
       setMediaUrls([]);
+      setMessagePlaceholder(GUIDE_TEXT[VARIANT_SEQUENCE[nextIndex]]);
       setMessages((prev) => [
         ...prev,
         createAiMessage(VARIANT_SEQUENCE[nextIndex]),
@@ -279,20 +290,30 @@ export function useFuncBackNavigation() {
     advanceToNextVariant();
   };
 
-  const handleBackClick = () => {
-    const userBubbleCount = countUserBubbles(messages);
-    if (userBubbleCount <= 1) {
+  const handleBackClick = (messageId: string) => {
+    const userMessages = messages.filter(
+      (message) => message.variant === "user"
+    );
+    const clickedIndex = userMessages.findIndex(
+      (message) => message.id === messageId
+    );
+
+    if (clickedIndex < 0) {
+      return;
+    }
+
+    if (userMessages.length <= 1) {
       router.push(getUrlPath(UrlKey.CHAT_ENTRY));
       return;
     }
 
-    const snapshot = historyStack[historyStack.length - 1];
+    const snapshot = historyStack[clickedIndex];
     if (!snapshot) {
       router.push(getUrlPath(UrlKey.CHAT_ENTRY));
       return;
     }
 
-    setHistoryStack((prev) => prev.slice(0, -1));
+    setHistoryStack((prev) => prev.slice(0, clickedIndex));
     restoreSnapshot(snapshot);
   };
 

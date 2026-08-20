@@ -1,8 +1,8 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { ChatInput } from "@/commons/components/chatinput";
 import { useFuncBackNavigation } from "@/commons/components/chatinput/hooks/index.func.back-navigation.hook";
+import { ChatInput } from "@/commons/components/chatinput";
 import { SpeechBubble } from "@/commons/components/speech-bubble";
 
 /* ========================================
@@ -118,7 +118,7 @@ export default function TestChatInput2Page() {
                   type="button"
                   aria-label="뒤로가기"
                   data-testid="user-icon-slot"
-                  onClick={handleBackClick}
+                  onClick={() => handleBackClick(message.id)}
                   style={userIconSlotStyle}
                 />
               ) : null}
