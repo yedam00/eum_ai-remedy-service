@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { ChatInput } from "@/commons/components/chatinput";
-import { useFuncBinding } from "@/commons/components/chatinput/hooks/index.func.binding.hook";
+import { useFuncBackNavigation } from "@/commons/components/chatinput/hooks/index.func.back-navigation.hook";
 import { SpeechBubble } from "@/commons/components/speech-bubble";
 
 /* ========================================
@@ -67,7 +67,8 @@ export default function TestChatInput2Page() {
     handleMediaRemove,
     handleFileChange,
     handleMessageSubmit,
-  } = useFuncBinding();
+    handleBackClick,
+  } = useFuncBackNavigation();
 
   return (
     <div data-testid="test-chatinput2-page" style={pageStyle}>
@@ -91,6 +92,7 @@ export default function TestChatInput2Page() {
               imageUrl={message.imageUrls?.[0]}
               label=""
               userLabel={message.text}
+              onUserIconClick={handleBackClick}
               data-testid="user-speech-bubble"
             />
           )
