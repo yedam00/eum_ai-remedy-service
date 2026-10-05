@@ -1,0 +1,16 @@
+---
+description: main 보관, master 실행, develop 개발, feature 분기 후 master 병합과 작업 후 자동 커밋·푸시
+alwaysApply: true
+---
+
+# Git 브랜치와 자동 커밋
+
+- `main`은 origin에 보관하는 기준 데이터다. 일상 개발 브랜치로 쓰지 않는다.
+- 실행에 쓰는 작업 배치는 `master`다.
+- 개발 진행은 `develop`에서 한다.
+- 새 기능은 `develop`에서 `feature_{기능이름}` 브랜치를 만들어 작업한다. 영문 기능 이름을 소문자와 하이픈으로 쓴다. 예: `feature_voice-scroll`
+- 기능 추가가 끝나면 `feature_{기능이름}`을 `master`에 병합하고 `origin/master`에 푸시한다. 병합 뒤 `develop`을 `master`에 맞춰 푸시한다.
+- 코드 수정이나 기능 작업이 끝나면 그 브랜치에 커밋하고 origin에 푸시한다. 사용자에게 커밋 여부를 다시 묻지 않는다.
+- 커밋 메시지는 Conventional Commits를 한국어로 작성한다. 예: `feat: 음성 입력 후 채팅으로 이동한다`
+- `main`과 `master`에는 force push하지 않는다.
+- `test-results/`와 실행 권한만 바뀐 파일은 커밋하지 않는다.
